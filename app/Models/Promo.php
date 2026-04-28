@@ -44,4 +44,8 @@ class Promo extends Model
     {
         return $promo->expired_at && \Carbon\Carbon::parse($promo->expired_at)->isPast();
     }
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

@@ -34,8 +34,8 @@ class Destinasi extends Model
         });
     }
 
-    // public function jadwals(): HasMany
-    // {
-    //     return $this->hasMany(Jadwal::class);
-    // }
+    public function jadwals(): HasMany
+    {
+        return $this->hasMany(Jadwal::class);
+    }
 }
