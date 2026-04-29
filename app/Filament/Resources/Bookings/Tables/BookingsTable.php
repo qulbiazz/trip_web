@@ -30,6 +30,9 @@ class BookingsTable
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('nama_pelanggan')
                     ->searchable(),
+                TextColumn::make('email_pelanggan')
+                    ->label('Email')
+                    ->searchable(),
                 TextColumn::make('jumlah_peserta')
                     ->numeric()
                     ->sortable(),
