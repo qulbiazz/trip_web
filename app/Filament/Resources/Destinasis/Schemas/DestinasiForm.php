@@ -28,6 +28,7 @@ class DestinasiForm
                     ->numeric(),
                 FileUpload::make('gambar')
                     ->image()
+                    ->disk('public')
                     ->directory('destinasi')
                     ->visibility('public'),
                 TextInput::make('kategori')
