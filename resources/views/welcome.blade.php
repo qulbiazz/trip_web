@@ -86,7 +86,7 @@
                     ✨ TEMUKAN KEINDAHAN DUNIA
                 </span>
                 <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg">
-                    Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai di Sini
+                    Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
                 </h1>
                 <p class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light">
                     Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi eksotis bersama kami.
