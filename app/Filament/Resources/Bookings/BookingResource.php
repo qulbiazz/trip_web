@@ -18,6 +18,8 @@ class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
 
+    protected static ?string $navigationLabel = 'Booking';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-ticket';
     protected static ?int $navigationSort = 1;
 
