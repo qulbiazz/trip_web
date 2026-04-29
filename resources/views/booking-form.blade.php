@@ -1,3 +1,4 @@
+<?php /** @var \App\Models\Jadwal $jadwal */ ?>
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
@@ -103,7 +104,7 @@
                     
                     <div class="flex items-center mb-6">
                         @if($jadwal->destinasi->gambar)
-                            <div class="w-16 h-16 rounded-lg bg-cover bg-center mr-4" style="background-image: url('{{ asset('storage/' . $jadwal->destinasi->gambar) }}')"></div>
+                            <div class="w-16 h-16 rounded-lg bg-cover bg-center mr-4" style="background-image: url('<?php echo asset('storage/' . $jadwal->destinasi->gambar); ?>')"></div>
                         @endif
                         <div>
                             <p class="font-bold">{{ $jadwal->destinasi->nama }}</p>
