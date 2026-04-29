@@ -138,7 +138,7 @@
                     
                     <h4 class="font-semibold mb-3">Butuh Bantuan?</h4>
                     <p class="text-sm text-gray-600 mb-6">Hubungi travel consultant kami untuk informasi lebih lanjut.</p>
-                    <a href="#" class="w-full block text-center bg-brand-green hover:bg-green-600 text-white font-semibold py-3 rounded-xl transition-colors shadow-md">
+                    <a href="#" class="w-full block text-center bg-brand-green text-white hover:bg-brand-green  font-semibold py-3 rounded-xl transition-colors shadow-md">
                         Hubungi WhatsApp
                     </a>
                 </div>

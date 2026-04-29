@@ -23,6 +23,8 @@
         .text-brand-yellow { color: #FFCE3F; }
         .bg-brand-yellow { background-color: #FFCE3F; }
         
+        .hover\:text-white:hover { color: #ffffff !important; }
+        
         /* Gradients & Utilities */
         .bg-gradient-hero {
             background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
@@ -155,7 +157,7 @@
                                 <p class="text-xs text-gray-500 mb-1">Mulai dari</p>
                                 <p class="text-lg font-bold text-gray-900">Rp {{ number_format($destinasi->harga_dasar, 0, ',', '.') }}</p>
                             </div>
-                            <a href="{{ route('destinasi.show', $destinasi->id) }}" class="bg-brand-blue/10 text-brand-blue hover:bg-brand-blue hover:text-white px-5 py-2 rounded-lg font-medium transition-colors text-center inline-block">
+                            <a href="{{ route('destinasi.show', $destinasi->id) }}" class="bg-brand-blue/10 text-brand-blue border border-brand-blue hover:bg-brand-blue hover:text-white px-5 py-2 rounded-lg font-medium transition-colors text-center inline-block">
                                 Detail
                             </a>
                         </div>
