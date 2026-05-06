@@ -18,6 +18,8 @@ class DestinasiResource extends Resource
     protected static ?string $model = Destinasi::class;
 
     protected static ?string $navigationLabel = 'Destinasi';
+    protected static ?string $modelLabel = 'Destinasi';
+    protected static ?string $pluralModelLabel = 'Destinasi';
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-map-pin';
     protected static ?int $navigationSort = 1;

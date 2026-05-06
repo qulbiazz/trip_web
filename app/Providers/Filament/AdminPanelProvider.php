@@ -27,6 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandName('Lokachara Admin')
             ->login()
             ->colors([
                 'primary' => Color::hex('#1B6DFF'),
@@ -37,8 +38,8 @@ class AdminPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                // AccountWidget::class,
+                // FilamentInfoWidget::class,
                 \App\Filament\Widgets\StatsOverview::class,
             ])
             ->middleware([

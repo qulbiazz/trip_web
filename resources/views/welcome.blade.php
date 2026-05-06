@@ -43,16 +43,9 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="relative w-10 h-10 mr-2 flex items-center justify-center">
-                        <!-- Abstract Lokachara Logo Mark -->
-                        <div class="absolute inset-0 bg-brand-yellow rounded-full opacity-20"></div>
-                        <svg class="w-8 h-8 text-brand-green" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                        </svg>
+                    <div class="relative w-12 h-12 mr-2 flex items-center justify-center">        
+                        <img src="{{ asset('images/logo.png') }}" alt="Lokachara" class="h-10">
                     </div>
-                    <span class="font-bold text-2xl tracking-tight">
-                        <span class="text-brand-blue">Loka</span><span class="text-brand-green">chara</span>
-                    </span>
                 </div>
                 
                 <!-- Desktop Menu -->
@@ -227,12 +220,9 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center mb-6">
-                        <svg class="w-8 h-8 text-brand-green mr-2" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                        </svg>
-                        <span class="font-bold text-2xl tracking-tight text-white">
-                            Lokachara
-                        </span>
+                        <div class="relative w-12 h-12 mr-2 flex items-center justify-center">        
+                        <img src="{{ asset('images/logo.png') }}" alt="Lokachara" class="h-10">
+                    </div>
                     </div>
                     <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
                         Kami percaya setiap perjalanan memiliki cerita. Lokachara hadir untuk memastikan ceritamu tak terlupakan, dengan layanan travel tepercaya, aman, dan memuaskan.
