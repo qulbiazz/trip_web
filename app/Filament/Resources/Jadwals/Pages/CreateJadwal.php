@@ -15,4 +15,14 @@ class CreateJadwal extends CreateRecord
 
         return $data;
     }
+
+    public function canCreateAnother(): bool
+    {
+        return false;
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
