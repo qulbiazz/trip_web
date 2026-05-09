@@ -185,8 +185,51 @@
             <div class="actions">
                 <a href="{{ route('bookings.invoice.download', $booking) }}" class="btn">Unduh</a>
                 <a href="javascript:window.print()" class="btn primary">Cetak</a>
+                <button id="sendEmailBtn" onclick="sendInvoiceEmail()" class="btn" style="background-color: #f59e0b; color: white; border-color: #f59e0b; cursor: pointer;">Kirim ke Email</button>
             </div>
         </div>
     </div>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // TODO: Ganti 'YOUR_PUBLIC_KEY' dengan Public Key dari akun EmailJS Anda
+            emailjs.init({
+                publicKey: "tgHFKu2zVmBHp6h6t",
+            });
+        })();
+
+        function sendInvoiceEmail() {
+            const btn = document.getElementById('sendEmailBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "Mengirim...";
+            btn.disabled = true;
+
+            // Template params sesuai dengan data invoice
+            const templateParams = {
+                to_email: "{{ $booking->email_pelanggan }}",
+                to_name: "{{ $booking->nama_pelanggan }}",
+                invoice_no: "{{ $booking->nomor_invoice ?? ('BOOKING-' . $booking->id) }}",
+                booking_code: "{{ $booking->kode_booking }}",
+                destination: "{{ $booking->jadwal?->destinasi?->nama ?? '-' }}",
+                departure_date: "{{ optional($booking->jadwal?->tanggal_berangkat)->format('d M Y') ?? '-' }}",
+                total_amount: "Rp{{ number_format((float) $booking->total_bayar, 0, ',', '.') }}"
+            };
+
+            emailjs.send('service_dtc7o08', 'template_jckdjnv', templateParams)
+                .then(function() {
+                    alert('Invoice berhasil dikirim ke email!');
+                    btn.innerText = "Terkirim ✓";
+                    btn.style.backgroundColor = "#10b981"; // green
+                    btn.style.borderColor = "#10b981";
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Gagal mengirim email. Pastikan Anda sudah mengatur Public Key, Service ID, dan Template ID yang benar di source code.');
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                });
+        }
+    </script>
 </body>
 </html>

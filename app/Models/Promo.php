@@ -42,7 +42,7 @@ class Promo extends Model
 
     protected static function isExpired(Promo $promo): bool
     {
-        return $promo->expired_at && \Carbon\Carbon::parse($promo->expired_at)->isPast();
+        return $promo->expired_at && \Carbon\Carbon::parse($promo->expired_at)->endOfDay()->isPast();
     }
     public function bookings(): HasMany
     {

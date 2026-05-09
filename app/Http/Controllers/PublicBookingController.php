@@ -22,7 +22,7 @@ class PublicBookingController extends Controller
 
         $promos = Promo::where('is_aktif', true)
             ->where(function($q) {
-                $q->whereNull('expired_at')->orWhere('expired_at', '>=', now());
+                $q->whereNull('expired_at')->orWhereDate('expired_at', '>=', now());
             })->get();
 
         return view('booking-form', compact('jadwal', 'promos'));
@@ -46,7 +46,7 @@ class PublicBookingController extends Controller
             
             if (!empty($validated['promo_id'])) {
                 $promo = Promo::find($validated['promo_id']);
-                if ($promo && $promo->is_aktif && ($promo->expired_at == null || Carbon::parse($promo->expired_at)->isFuture())) {
+                if ($promo && $promo->is_aktif && ($promo->expired_at == null || !Carbon::parse($promo->expired_at)->endOfDay()->isPast())) {
                     if ($promo->tipe_diskon === 'persentase') {
                         $diskon = $total_bayar * ($promo->nilai_diskon / 100);
                         $total_bayar -= $diskon;
@@ -75,6 +75,9 @@ class PublicBookingController extends Controller
             return redirect()->route('bookings.invoice.show', $booking->id)
                 ->with('success', 'Pemesanan berhasil dibuat! Silakan simpan invoice Anda.');
                 
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            DB::rollBack();
+            return back()->withInput()->withErrors($e->errors());
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withInput()->withErrors(['error' => 'Gagal membuat pesanan: ' . $e->getMessage()]);

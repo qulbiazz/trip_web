@@ -1,24 +1,42 @@
-<?php /** @var \App\Models\Jadwal $jadwal */ ?>
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pemesanan - {{ $jadwal->destinasi->nama }}</title>
-    
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
-    
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        .text-brand-blue { color: #1A6DFF; }
-        .bg-brand-blue { background-color: #1A6DFF; }
-        .hover\:bg-brand-blue-dark:hover { background-color: #1558CC; }
-        .text-brand-green { color: #03C988; }
-        .bg-brand-green { background-color: #03C988; }
-        .text-brand-yellow { color: #FFCE3F; }
+        .text-brand-blue {
+            color: #1A6DFF;
+        }
+
+        .bg-brand-blue {
+            background-color: #1A6DFF;
+        }
+
+        .hover\:bg-brand-blue-dark:hover {
+            background-color: #1558CC;
+        }
+
+        .text-brand-green {
+            color: #03C988;
+        }
+
+        .bg-brand-green {
+            background-color: #03C988;
+        }
+
+        .text-brand-yellow {
+            color: #FFCE3F;
+        }
     </style>
 </head>
+
 <body class="font-sans antialiased text-gray-800 bg-gray-50">
 
     <!-- Navbar Minimalis -->
@@ -26,7 +44,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
             <a href="{{ url('/') }}" class="flex items-center">
                 <svg class="w-8 h-8 text-brand-green mr-2" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                 </svg>
                 <span class="font-bold text-xl tracking-tight text-gray-900">Lokachara</span>
             </a>
@@ -36,15 +54,15 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <h1 class="text-3xl font-bold text-gray-900 mb-8">Selesaikan Pemesanan Anda</h1>
-        
+
         @if ($errors->any())
-            <div class="bg-red-50 text-red-600 p-4 rounded-xl mb-8 border border-red-100">
-                <ul class="list-disc pl-5">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+        <div class="bg-red-50 text-red-600 p-4 rounded-xl mb-8 border border-red-100">
+            <ul class="list-disc pl-5">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
         @endif
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -52,9 +70,9 @@
             <div class="lg:col-span-2">
                 <form action="{{ route('booking.store', $jadwal->id) }}" method="POST" id="bookingForm" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                     @csrf
-                    
+
                     <h2 class="text-xl font-bold mb-6 border-b pb-4">Data Pemesan</h2>
-                    
+
                     <div class="mb-5">
                         <label for="nama_pelanggan" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
                         <input type="text" name="nama_pelanggan" id="nama_pelanggan" value="{{ old('nama_pelanggan') }}" required class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brand-blue focus:border-brand-blue">
@@ -77,12 +95,12 @@
                             <select name="promo_id" id="promo_id" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brand-blue focus:border-brand-blue" onchange="calculateTotal()">
                                 <option value="">Tidak pakai promo</option>
                                 @foreach($promos as $promo)
-                                    <option value="{{ $promo->id }}" 
-                                        data-tipe="{{ $promo->tipe_diskon }}" 
-                                        data-nilai="{{ $promo->nilai_diskon }}"
-                                        {{ old('promo_id') == $promo->id ? 'selected' : '' }}>
-                                        {{ $promo->kode }} ({{ $promo->nama }})
-                                    </option>
+                                <option value="{{ $promo->id }}"
+                                    data-tipe="{{ $promo->tipe_diskon }}"
+                                    data-nilai="{{ $promo->nilai_diskon }}"
+                                    {{ old('promo_id') == $promo->id ? 'selected' : '' }}>
+                                    {{ $promo->kode }} ({{ $promo->nama }})
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -101,10 +119,10 @@
             <div class="lg:col-span-1">
                 <div class="bg-gray-900 rounded-2xl p-6 text-white sticky top-10">
                     <h3 class="text-lg font-bold mb-4 border-b border-gray-700 pb-3">Ringkasan Pesanan</h3>
-                    
+
                     <div class="flex items-center mb-6">
                         @if($jadwal->destinasi->gambar)
-                            <div class="w-16 h-16 rounded-lg bg-cover bg-center mr-4" style="background-image: url('<?php echo asset('storage/' . $jadwal->destinasi->gambar); ?>')"></div>
+                        <div class="w-16 h-16 rounded-lg bg-cover bg-center mr-4" style="background-image: url('<?php /** @var \App\Models\Jadwal $jadwal */ echo asset('storage/' . $jadwal->destinasi->gambar); ?>')"></div>
                         @endif
                         <div>
                             <p class="font-bold">{{ $jadwal->destinasi->nama }}</p>
@@ -145,14 +163,18 @@
 
     <script>
         function formatRupiah(angka) {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(angka);
         }
 
         function calculateTotal() {
             const hargaDasar = parseInt(document.getElementById('displayHargaDasar').getAttribute('data-harga'));
             const qty = parseInt(document.getElementById('jumlah_peserta').value) || 1;
             const promoSelect = document.getElementById('promo_id');
-            
+
             let subtotal = hargaDasar * qty;
             let diskon = 0;
 
@@ -180,4 +202,5 @@
         document.addEventListener('DOMContentLoaded', calculateTotal);
     </script>
 </body>
+
 </html>
