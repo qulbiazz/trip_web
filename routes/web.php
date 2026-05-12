@@ -13,3 +13,4 @@ Route::post('/booking/{jadwal}', [PublicBookingController::class, 'store'])->nam
 
 Route::get('/bookings/{booking}/invoice', [BookingInvoiceController::class, 'show'])->name('bookings.invoice.show');
 Route::get('/bookings/{booking}/invoice/download', [BookingInvoiceController::class, 'download'])->name('bookings.invoice.download');
+Route::post('/bookings/{booking}/simulate-payment', [BookingInvoiceController::class, 'simulatePayment'])->name('bookings.simulate-payment');

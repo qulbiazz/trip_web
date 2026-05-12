@@ -89,12 +89,15 @@
                     @if($destinasi->jadwals->count() > 0)
                         <div class="space-y-4">
                             @foreach($destinasi->jadwals as $jadwal)
-                                <div class="flex flex-col sm:flex-row justify-between items-center p-5 rounded-xl border {{ $jadwal->status == 'tersedia' ? 'border-green-100 bg-green-50/30' : 'border-gray-100 bg-gray-50' }}">
+                                @php
+                                    $isPast = \Carbon\Carbon::parse($jadwal->tanggal_berangkat)->endOfDay()->isPast();
+                                @endphp
+                                <div class="flex flex-col sm:flex-row justify-between items-center p-5 rounded-xl border {{ ($jadwal->status == 'tersedia' && !$isPast) ? 'border-green-100 bg-green-50/30' : 'border-gray-100 bg-gray-50' }}">
                                     <div class="mb-4 sm:mb-0">
                                         <p class="font-bold text-lg text-gray-900">
                                             {{ \Carbon\Carbon::parse($jadwal->tanggal_berangkat)->translatedFormat('d F Y') }}
                                             -
-                                            {{ \Carbon\Carbon::parse($jadwal->tanggal_kembali)->translatedFormat('d F Y') }}
+                                            {{ \Carbon\Carbon::parse($jadwal->tanggal_pulang)->translatedFormat('d F Y') }}
                                         </p>
                                         <p class="text-sm text-gray-500 mt-1">
                                             Sisa Kursi: 
@@ -106,7 +109,11 @@
                                         </p>
                                     </div>
                                     <div>
-                                        @if($jadwal->status == 'tersedia')
+                                        @if($isPast)
+                                            <span class="inline-block bg-gray-200 text-gray-500 px-6 py-2.5 rounded-full font-medium cursor-not-allowed">
+                                                Sudah Lewat
+                                            </span>
+                                        @elseif($jadwal->status == 'tersedia')
                                             <a href="{{ route('booking.create', $jadwal->id) }}" class="inline-block bg-brand-blue hover:bg-brand-blue-dark text-white px-6 py-2.5 rounded-full font-medium transition-colors shadow-md">
                                                 Pilih Jadwal
                                             </a>

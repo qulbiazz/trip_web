@@ -85,6 +85,10 @@
             background: #e0f2fe;
             color: #075985;
         }
+        .status.dibayar { background: #ecfdf5; color: #047857; border: 1px solid #10b981; }
+        .status.dikonfirmasi { background: #eff6ff; color: #1d4ed8; border: 1px solid #3b82f6; }
+        .status.pending { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+        .status.dibatalkan { background: #fef2f2; color: #b91c1c; border: 1px solid #ef4444; }
         .summary {
             margin-top: 8px;
             border: 1px solid var(--border);
@@ -146,6 +150,17 @@
             </div>
         </div>
         <div class="content">
+            @if(session('success'))
+                <div style="background-color: #ecfdf5; border-left: 4px solid #10b981; color: #047857; padding: 12px 16px; margin-bottom: 20px; border-radius: 4px;">
+                    <strong>Berhasil!</strong> {{ session('success') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div style="background-color: #fef2f2; border-left: 4px solid #ef4444; color: #b91c1c; padding: 12px 16px; margin-bottom: 20px; border-radius: 4px;">
+                    <strong>Gagal!</strong> {{ session('error') }}
+                </div>
+            @endif
+
             <div class="grid">
                 <div class="card">
                     <h3>Informasi Booking</h3>
@@ -153,7 +168,7 @@
                     <div class="row"><span class="key">Tanggal Transaksi</span><span class="val">{{ optional($booking->created_at)->format('d M Y H:i') }}</span></div>
                     <div class="row">
                         <span class="key">Status</span>
-                        <span class="val"><span class="status">{{ $booking->status }}</span></span>
+                        <span class="val"><span class="status {{ strtolower($booking->status) }}">{{ $booking->status }}</span></span>
                     </div>
                 </div>
 
@@ -183,9 +198,20 @@
             </div>
 
             <div class="actions">
-                <a href="{{ route('bookings.invoice.download', $booking) }}" class="btn">Unduh</a>
-                <a href="javascript:window.print()" class="btn primary">Cetak</a>
-                <button id="sendEmailBtn" onclick="sendInvoiceEmail()" class="btn" style="background-color: #f59e0b; color: white; border-color: #f59e0b; cursor: pointer;">Kirim ke Email</button>
+                @if(strtolower($booking->status) === 'pending')
+                <form action="{{ route('bookings.simulate-payment', $booking) }}" method="POST" style="margin: 0; display: inline-block;">
+                    @csrf
+                    <button type="submit" class="btn" style="background-color: #10b981; color: white; border-color: #10b981; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                        <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Simulasi Bayar
+                    </button>
+                </form>
+                @endif
+                @if(request()->has('admin'))
+                    <a href="{{ route('bookings.invoice.download', $booking) }}" class="btn">Unduh</a>
+                    <a href="javascript:window.print()" class="btn primary">Cetak</a>
+                    <button id="sendEmailBtn" onclick="sendInvoiceEmail()" class="btn" style="background-color: #f59e0b; color: white; border-color: #f59e0b; cursor: pointer;">Kirim Ulang Email</button>
+                @endif
             </div>
         </div>
     </div>
@@ -201,10 +227,7 @@
         })();
 
         function sendInvoiceEmail() {
-            const btn = document.getElementById('sendEmailBtn');
-            const originalText = btn.innerText;
-            btn.innerText = "Mengirim...";
-            btn.disabled = true;
+            console.log("Mengirim email otomatis...");
 
             // Template params sesuai dengan data invoice
             const templateParams = {
@@ -219,17 +242,22 @@
 
             emailjs.send('service_dtc7o08', 'template_jckdjnv', templateParams)
                 .then(function() {
-                    alert('Invoice berhasil dikirim ke email!');
-                    btn.innerText = "Terkirim ✓";
-                    btn.style.backgroundColor = "#10b981"; // green
-                    btn.style.borderColor = "#10b981";
+                    console.log('Email berhasil dikirim!');
+                    // Anda bisa mengganti alert ini dengan SweetAlert atau notifikasi lain jika mau
                 }, function(error) {
                     console.log('FAILED...', error);
-                    alert('Gagal mengirim email. Pastikan Anda sudah mengatur Public Key, Service ID, dan Template ID yang benar di source code.');
-                    btn.innerText = originalText;
-                    btn.disabled = false;
                 });
         }
     </script>
+    
+    @if(session('auto_send_email'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            setTimeout(function() {
+                sendInvoiceEmail();
+            }, 500);
+        });
+    </script>
+    @endif
 </body>
 </html>

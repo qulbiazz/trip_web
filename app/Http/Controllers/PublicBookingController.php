@@ -20,6 +20,11 @@ class PublicBookingController extends Controller
                 ->with('error', 'Maaf, jadwal ini sudah penuh atau tidak tersedia.');
         }
 
+        if (Carbon::parse($jadwal->tanggal_berangkat)->endOfDay()->isPast()) {
+            return redirect()->route('destinasi.show', $jadwal->destinasi_id)
+                ->with('error', 'Maaf, waktu pemesanan untuk jadwal ini sudah ditutup karena tanggal keberangkatan sudah lewat.');
+        }
+
         $promos = Promo::where('is_aktif', true)
             ->where(function($q) {
                 $q->whereNull('expired_at')->orWhereDate('expired_at', '>=', now());
@@ -31,6 +36,11 @@ class PublicBookingController extends Controller
     public function store(Request $request, $jadwal_id)
     {
         $jadwal = Jadwal::with('destinasi')->findOrFail($jadwal_id);
+
+        if (Carbon::parse($jadwal->tanggal_berangkat)->endOfDay()->isPast()) {
+            return redirect()->route('destinasi.show', $jadwal->destinasi_id)
+                ->with('error', 'Maaf, waktu pemesanan untuk jadwal ini sudah ditutup karena tanggal keberangkatan sudah lewat.');
+        }
 
         $validated = $request->validate([
             'nama_pelanggan' => 'required|string|max:255',

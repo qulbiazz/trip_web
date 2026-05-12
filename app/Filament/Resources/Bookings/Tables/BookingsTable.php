@@ -60,7 +60,7 @@ class BookingsTable
                 Action::make('lihatInvoice')
                     ->label('Invoice')
                     ->icon('heroicon-o-document-text')
-                    ->url(fn ($record): string => route('bookings.invoice.show', $record), shouldOpenInNewTab: true),
+                    ->url(fn ($record): string => route('bookings.invoice.show', $record) . '?admin=1', shouldOpenInNewTab: true),
                 Action::make('unduhInvoice')
                     ->label('Unduh Invoice')
                     ->icon('heroicon-o-arrow-down-tray')

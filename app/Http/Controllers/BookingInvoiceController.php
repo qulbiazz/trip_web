@@ -31,4 +31,17 @@ class BookingInvoiceController extends Controller
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ]);
     }
+
+    public function simulatePayment(Booking $booking)
+    {
+        if ($booking->status !== 'pending') {
+            return back()->with('error', 'Booking ini sudah diproses atau tidak bisa dibayar.');
+        }
+
+        $booking->update([
+            'status' => 'dibayar'
+        ]);
+
+        return back()->with('success', 'Pembayaran berhasil disimulasikan!')->with('auto_send_email', true);
+    }
 }
