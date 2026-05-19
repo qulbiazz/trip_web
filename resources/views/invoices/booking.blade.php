@@ -163,8 +163,8 @@
 
             <div class="grid">
                 <div class="card">
-                    <h3>Informasi Booking</h3>
-                    <div class="row"><span class="key">Kode Booking</span><span class="val">{{ $booking->kode_booking }}</span></div>
+                    <h3>Informasi Pemesanan</h3>
+                    <div class="row"><span class="key">Kode Pemesanan</span><span class="val">{{ $booking->kode_booking }}</span></div>
                     <div class="row"><span class="key">Tanggal Transaksi</span><span class="val">{{ optional($booking->created_at)->format('d M Y H:i') }}</span></div>
                     <div class="row">
                         <span class="key">Status</span>

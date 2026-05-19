@@ -17,6 +17,7 @@ class JadwalForm
         return $schema
             ->components([
                 Select::make('destinasi_id')
+                    ->label('Destinasi')
                     ->relationship('destinasi', 'nama', fn ($query) => $query->where('is_aktif', true))
                     ->live()
                     ->afterStateUpdated(function ($state, Set $set): void {
@@ -34,16 +35,21 @@ class JadwalForm
                     })
                     ->required(),
                 DatePicker::make('tanggal_berangkat')
+                    ->label('Tanggal Berangkat')
                     ->required(),
                 DatePicker::make('tanggal_pulang')
+                    ->label('Tanggal Pulang')
                     ->required(),
                 TextInput::make('kuota')
+                    ->label('Kuota')
                     ->required()
                     ->numeric(),
                 TextInput::make('harga')
+                    ->label('Harga')
                     ->required()
                     ->numeric(),
                 Select::make('status')
+                    ->label('Status')
                     ->options([
                         'tersedia' => 'Tersedia',
                         'penuh' => 'Penuh',
@@ -55,6 +61,7 @@ class JadwalForm
                     ->dehydrated(false)
                     ->helperText('Status otomatis mengikuti sisa kursi atau pembatalan.'),
                 Textarea::make('catatan')
+                    ->label('Catatan')
                     ->columnSpanFull(),
             ]);
     }

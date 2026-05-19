@@ -15,26 +15,34 @@ class DestinasiForm
         return $schema
             ->components([
                 TextInput::make('nama')
+                    ->label('Nama Destinasi')
                     ->required(),
                 Textarea::make('deskripsi')
+                    ->label('Deskripsi')
                     ->columnSpanFull(),
                 TextInput::make('lokasi')
+                    ->label('Lokasi')
                     ->required(),
                 TextInput::make('negara')
+                    ->label('Negara')
                     ->required()
                     ->default('Indonesia'),
                 TextInput::make('harga_dasar')
+                    ->label('Harga Dasar')
                     ->required()
                     ->numeric(),
                 FileUpload::make('gambar')
+                    ->label('Gambar')
                     ->image()
                     ->disk('public')
                     ->directory('destinasi')
                     ->visibility('public'),
                 TextInput::make('kategori')
+                    ->label('Kategori')
                     ->required()
                     ->default('domestik'),
                 Toggle::make('is_aktif')
+                    ->label('Aktif')
                     ->required(),
             ]);
     }

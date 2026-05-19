@@ -14,33 +14,43 @@ class SiteSettingForm
         return $schema
             ->components([
                 TextInput::make('site_name')
+                    ->label('Nama Website')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('hero_badge')
+                    ->label('Badge Hero')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('hero_title')
+                    ->label('Judul Hero')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('hero_highlight')
+                    ->label('Highlight Hero')
                     ->required()
                     ->maxLength(255),
                 Textarea::make('hero_description')
+                    ->label('Deskripsi Hero')
                     ->rows(3)
                     ->columnSpanFull(),
                 TextInput::make('cta_primary_text')
+                    ->label('Teks Tombol Utama')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('cta_secondary_text')
+                    ->label('Teks Tombol Sekunder')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('feature_title')
+                    ->label('Judul Fitur')
                     ->required()
                     ->maxLength(255),
                 Textarea::make('feature_description')
+                    ->label('Deskripsi Fitur')
                     ->rows(3)
                     ->columnSpanFull(),
                 Toggle::make('is_active')
+                    ->label('Aktif')
                     ->required()
                     ->default(true),
             ]);

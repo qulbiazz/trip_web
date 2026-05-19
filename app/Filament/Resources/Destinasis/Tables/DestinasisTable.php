@@ -17,24 +17,33 @@ class DestinasisTable
         return $table
             ->columns([
                 TextColumn::make('nama')
+                    ->label('Nama Destinasi')
                     ->searchable(),
                 TextColumn::make('lokasi')
+                    ->label('Lokasi')
                     ->searchable(),
                 TextColumn::make('negara')
+                    ->label('Negara')
                     ->searchable(),
                 TextColumn::make('harga_dasar')
+                    ->label('Harga Dasar')
                     ->numeric()
                     ->sortable(),
-                ImageColumn::make('gambar'),
+                ImageColumn::make('gambar')
+                    ->label('Gambar'),
                 TextColumn::make('kategori')
+                    ->label('Kategori')
                     ->searchable(),
                 IconColumn::make('is_aktif')
+                    ->label('Aktif')
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diubah Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

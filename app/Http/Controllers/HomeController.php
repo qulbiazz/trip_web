@@ -12,11 +12,12 @@ class HomeController extends Controller
     {
         $destinasis = Destinasi::where('is_aktif', true)->take(6)->get();
         $promos = Promo::where('is_aktif', true)->take(3)->get();
+        $siteSetting = \App\Models\SiteSetting::where('is_active', true)->first();
 
-        return view('welcome', compact('destinasis', 'promos'));
+        return view('welcome', compact('destinasis', 'promos', 'siteSetting'));
     }
 
-    public function showDestinasi($id)
+    public function showDestinasi(string $id)
     {
         $destinasi = Destinasi::with(['jadwals' => function($query) {
             $query->whereIn('status', ['tersedia', 'penuh'])->orderBy('tanggal_berangkat');

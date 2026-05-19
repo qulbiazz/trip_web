@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lokachara - Jelajahi Keindahan Dunia</title>
+    <title>{{ $siteSetting->site_name ?? 'Lokachara' }} - Jelajahi Keindahan Dunia</title>
     <meta name="description" content="Platform pemesanan travel terbaik untuk liburan impianmu.">
     
     <!-- Fonts -->
@@ -62,6 +62,35 @@
                         Pesan Sekarang
                     </a>
                 </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-blue focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full transition-all duration-300 origin-top">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="#destinasi" class="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-blue-50 transition-colors mobile-link">Destinasi</a>
+                <a href="#promo" class="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-blue-50 transition-colors mobile-link">Promo</a>
+                <a href="#lokasi" class="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-blue-50 transition-colors mobile-link">Lokasi</a>
+                @auth
+                    <a href="{{ url('/admin') }}" class="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-blue-50 transition-colors mobile-link">Dashboard Admin</a>
+                @else
+                    <a href="{{ url('/admin/login') }}" class="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-blue-50 transition-colors mobile-link">Login Admin</a>
+                @endauth
+                <div class="pt-4 mt-2 border-t border-gray-100">
+                    <a href="#destinasi" class="block w-full text-center bg-brand-blue hover:bg-brand-blue-dark text-white px-6 py-3 rounded-full font-medium transition-colors shadow-md mobile-link">
+                        Pesan Sekarang
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
@@ -77,23 +106,27 @@
         <div class="container relative mx-auto px-4 z-10 text-center">
             <div class="max-w-3xl mx-auto mt-16">
                 <span class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm">
-                    ✨ TEMUKAN KEINDAHAN DUNIA
+                    {{ $siteSetting->hero_badge ?? '✨ TEMUKAN KEINDAHAN DUNIA' }}
                 </span>
                 <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg">
-                    Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
+                    @if(isset($siteSetting) && ($siteSetting->hero_title || $siteSetting->hero_highlight))
+                        {{ $siteSetting->hero_title }} <span class="text-brand-green">{{ $siteSetting->hero_highlight }}</span>
+                    @else
+                        Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
+                    @endif
                 </h1>
                 <p class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light">
-                    Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi eksotis bersama kami.
+                    {{ $siteSetting->hero_description ?? 'Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi eksotis bersama kami.' }}
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <a href="#destinasi" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
-                        Mulai Eksplorasi
+                        {{ $siteSetting->cta_primary_text ?? 'Mulai Eksplorasi' }}
                     </a>
                     <a href="#promo" class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
                         <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                         </svg>
-                        Lihat Promo
+                        {{ $siteSetting->cta_secondary_text ?? 'Lihat Promo' }}
                     </a>
                 </div>
             </div>
@@ -106,6 +139,56 @@
             </svg>
         </div>
     </div>
+
+    <!-- Keunggulan Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-base text-brand-blue font-semibold tracking-wide uppercase">Mengapa Memilih Kami</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Keunggulan Lokachara
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Kami berkomitmen memberikan pengalaman liburan terbaik dengan layanan yang tak tertandingi.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-gray-50 rounded-2xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
+                    <div class="w-16 h-16 mx-auto bg-blue-100 text-brand-blue rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Harga Terbaik</h3>
+                    <p class="text-gray-600 text-sm">Penawaran harga transparan tanpa biaya tersembunyi untuk setiap destinasi.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-gray-50 rounded-2xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
+                    <div class="w-16 h-16 mx-auto bg-green-100 text-brand-green rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Layanan 24/7</h3>
+                    <p class="text-gray-600 text-sm">Tim support kami selalu siap membantu Anda kapanpun dan dimanapun berada.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-gray-50 rounded-2xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
+                    <div class="w-16 h-16 mx-auto bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Destinasi Eksklusif</h3>
+                    <p class="text-gray-600 text-sm">Pilihan destinasi liburan yang dikurasi khusus untuk memberikan pengalaman unik.</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-gray-50 rounded-2xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
+                    <div class="w-16 h-16 mx-auto bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Pembayaran Aman</h3>
+                    <p class="text-gray-600 text-sm">Sistem pembayaran terenkripsi yang menjamin keamanan setiap transaksi Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Destinasi Section -->
     <section id="destinasi" class="py-20 bg-gray-50">
@@ -149,7 +232,7 @@
                         <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
                             <div>
                                 <p class="text-xs text-gray-500 mb-1">Mulai dari</p>
-                                <p class="text-lg font-bold text-gray-900">Rp {{ number_format($destinasi->harga_dasar, 0, ',', '.') }}</p>
+                                <p class="text-lg font-bold text-gray-900">Rp {{ number_format($destinasi->harga_dasar ?? 0, 0, ',', '.') }}</p>
                             </div>
                             <a href="{{ route('destinasi.show', $destinasi->id) }}" class="bg-brand-blue/10 text-brand-blue border border-brand-blue hover:bg-brand-blue hover:text-white px-5 py-2 rounded-lg font-medium transition-colors text-center inline-block">
                                 Detail
@@ -210,6 +293,90 @@
                         </div>
                         @endforelse
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimoni Section -->
+    <section class="py-20 bg-gray-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <!-- Decorative Elements -->
+            <div class="absolute top-0 left-0 -mt-20 -ml-20 w-40 h-40 bg-brand-blue/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 -mb-20 -mr-20 w-40 h-40 bg-brand-yellow/20 rounded-full blur-3xl"></div>
+
+            <div class="text-center mb-16 relative z-10">
+                <h2 class="text-base text-brand-blue font-semibold tracking-wide uppercase">Testimoni</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Apa Kata Mereka?
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Cerita dan pengalaman liburan tak terlupakan dari pelanggan setia Lokachara.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                <!-- Testimonial 1 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative border border-gray-100">
+                    <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                        <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                    </svg>
+                    <div class="flex items-center mb-6">
+                        <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-brand-blue font-bold text-xl mr-4">
+                            A
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-gray-900">Ahmad Budi</h4>
+                            <div class="flex text-brand-yellow text-sm">
+                                ★★★★★
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed italic">
+                        "Pengalaman liburan ke Bali bersama Lokachara sangat luar biasa. Tour guide-nya ramah, itinerary sangat rapi, dan fasilitas hotelnya di luar ekspektasi. Sangat direkomendasikan!"
+                    </p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative border border-gray-100 transform md:-translate-y-4">
+                    <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                        <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                    </svg>
+                    <div class="flex items-center mb-6">
+                        <div class="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center text-brand-green font-bold text-xl mr-4">
+                            S
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-gray-900">Siti Rahmawati</h4>
+                            <div class="flex text-brand-yellow text-sm">
+                                ★★★★★
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed italic">
+                        "Pertama kali pakai Lokachara buat honeymoon ke Lombok. Harga paketnya transparan, gak ada hidden fee. Pelayanannya benar-benar VIP. Makasih Lokachara!"
+                    </p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative border border-gray-100">
+                    <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                        <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                    </svg>
+                    <div class="flex items-center mb-6">
+                        <div class="h-12 w-12 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 font-bold text-xl mr-4">
+                            D
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-gray-900">Dimas Pratama</h4>
+                            <div class="flex text-brand-yellow text-sm">
+                                ★★★★★
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed italic">
+                        "Customer service responsif banget. Sempet ada kendala pas mau reschedule tiket, tapi tim Lokachara ngebantu urusin semuanya dengan cepat dan gampang."
+                    </p>
                 </div>
             </div>
         </div>
@@ -318,7 +485,7 @@
             </div>
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-500 text-sm">
-                    &copy; {{ date('Y') }} Lokachara Travel. All rights reserved.
+                    &copy; {{ date('Y') }} Lokachara Travel. Hak cipta dilindungi.
                 </p>
                 <div class="flex space-x-6 mt-4 md:mt-0">
                     <a href="#" class="text-gray-500 hover:text-white">
@@ -348,6 +515,28 @@
                 nav.classList.remove('bg-white/95');
                 nav.classList.add('glass-nav');
             }
+        });
+
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            iconOpen.classList.toggle('hidden');
+            iconClose.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                iconOpen.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            });
         });
     </script>
 </body>

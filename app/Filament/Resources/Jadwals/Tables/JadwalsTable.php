@@ -15,29 +15,38 @@ class JadwalsTable
         return $table
             ->columns([
                 TextColumn::make('destinasi.nama')
+                    ->label('Destinasi')
                     ->searchable(),
                 TextColumn::make('tanggal_berangkat')
+                    ->label('Tanggal Berangkat')
                     ->date()
                     ->sortable(),
                 TextColumn::make('tanggal_pulang')
+                    ->label('Tanggal Pulang')
                     ->date()
                     ->sortable(),
                 TextColumn::make('kuota')
+                    ->label('Kuota')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('sisa_kursi')
+                    ->label('Sisa Kursi')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('harga')
+                    ->label('Harga')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('status')
+                    ->label('Status')
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diubah Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

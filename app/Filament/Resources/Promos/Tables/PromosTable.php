@@ -25,7 +25,7 @@ class PromosTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('expired_at')
-                    ->label('Expired')
+                    ->label('Berlaku Hingga')
                     ->date()
                     ->sortable(),
 

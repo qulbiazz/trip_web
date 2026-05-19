@@ -26,8 +26,8 @@ class StatsOverview extends BaseWidget
                 ->description('Promo berjalan')
                 ->icon('heroicon-o-tag'),
 
-            Stat::make('Total Booking', Booking::count())
-                ->description('Semua transaksi booking')
+            Stat::make('Total Pemesanan', Booking::count())
+                ->description('Semua transaksi pemesanan')
                 ->icon('heroicon-o-shopping-cart'),
         ];
     }

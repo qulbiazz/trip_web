@@ -29,11 +29,13 @@ class BookingsTable
                     ->label('Promo')
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('nama_pelanggan')
+                    ->label('Nama Pelanggan')
                     ->searchable(),
                 TextColumn::make('email_pelanggan')
                     ->label('Email')
                     ->searchable(),
                 TextColumn::make('jumlah_peserta')
+                    ->label('Jumlah Peserta')
                     ->numeric()
                     ->sortable(),
 
@@ -42,13 +44,16 @@ class BookingsTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('status')
+                    ->label('Status')
                     ->searchable(),
 
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diubah Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

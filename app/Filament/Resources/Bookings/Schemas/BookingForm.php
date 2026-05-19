@@ -18,7 +18,7 @@ class BookingForm
         return $schema
             ->components([
                 TextInput::make('kode_booking')
-                    ->label('Kode Booking')
+                    ->label('Kode Pemesanan')
                     ->disabled()
                     ->dehydrated(false)
                     ->placeholder('auto'),
@@ -28,6 +28,7 @@ class BookingForm
                     ->dehydrated(false)
                     ->placeholder('auto'),
                 Select::make('jadwal_id')
+                    ->label('Jadwal')
                     ->relationship('jadwal', 'id', function ($query) {
                         $query->whereHas('destinasi', function ($q) {
                             $q->where('is_aktif', true);
@@ -72,6 +73,7 @@ class BookingForm
                     }),
 
                 TextInput::make('nama_pelanggan')
+                    ->label('Nama Pelanggan')
                     ->required(),
                 TextInput::make('email_pelanggan')
                     ->label('Email Pelanggan')
@@ -127,6 +129,7 @@ class BookingForm
                     ->afterStateUpdated(fn (Get $get, Set $set) => self::hitungTotal($get, $set)),
 
                 TextInput::make('jumlah_peserta')
+                    ->label('Jumlah Peserta')
                     ->required(function (Get $get) {
                         $j = $get('jadwal_id') ? Jadwal::find($get('jadwal_id')) : null;
 
@@ -143,12 +146,14 @@ class BookingForm
                     ->afterStateUpdated(fn (Get $get, Set $set) => self::hitungTotal($get, $set)),
 
                 TextInput::make('total_bayar')
+                    ->label('Total Bayar')
                     ->required()
                     ->numeric()
                     ->readOnly()
                     ->prefix('Rp')
                     ->default(0),
                 Select::make('status')
+                    ->label('Status')
                     ->options([
                         'pending' => 'Pending',
                         'dikonfirmasi' => 'Dikonfirmasi',
