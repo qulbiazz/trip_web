@@ -106,7 +106,7 @@
         <div class="container relative mx-auto px-4 z-10 text-center">
             <div class="max-w-3xl mx-auto mt-16">
                 <span class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm">
-                    {{ $siteSetting->hero_badge ?? 'TEMUKAN KEINDAHAN DUNIA' }}
+                    {{ $siteSetting->hero_badge ?? '✨ TEMUKAN KEINDAHAN DUNIA' }}
                 </span>
                 <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg">
                     @if(isset($siteSetting) && ($siteSetting->hero_title || $siteSetting->hero_highlight))
@@ -123,6 +123,9 @@
                         {{ $siteSetting->cta_primary_text ?? 'Mulai Eksplorasi' }}
                     </a>
                     <a href="#promo" class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
                         {{ $siteSetting->cta_secondary_text ?? 'Lihat Promo' }}
                     </a>
                 </div>
@@ -161,7 +164,7 @@
                 </div>
                 <!-- Card 2 -->
                 <div class="bg-gray-50 rounded-2xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
-                    <div class="w-16 h-16 mx-auto bg-blue-100 text-brand-blue rounded-full flex items-center justify-center mb-6">
+                    <div class="w-16 h-16 mx-auto bg-green-100 text-brand-green rounded-full flex items-center justify-center mb-6">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Layanan 24/7</h3>
@@ -169,7 +172,7 @@
                 </div>
                 <!-- Card 3 -->
                 <div class="bg-gray-50 rounded-2xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
-                    <div class="w-16 h-16 mx-auto bg-blue-100 text-brand-blue rounded-full flex items-center justify-center mb-6">
+                    <div class="w-16 h-16 mx-auto bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mb-6">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Destinasi Eksklusif</h3>
@@ -177,7 +180,7 @@
                 </div>
                 <!-- Card 4 -->
                 <div class="bg-gray-50 rounded-2xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
-                    <div class="w-16 h-16 mx-auto bg-blue-100 text-brand-blue rounded-full flex items-center justify-center mb-6">
+                    <div class="w-16 h-16 mx-auto bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mb-6">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Pembayaran Aman</h3>
@@ -313,65 +316,49 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-                <!-- Testimonial 1 -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative border border-gray-100">
+                @forelse($testimonis as $index => $testimoni)
+                @php
+                    // Dynamic avatar classes
+                    $bgClasses = ['bg-blue-100 text-brand-blue', 'bg-green-100 text-brand-green', 'bg-yellow-100 text-yellow-600'];
+                    $avatarClass = $bgClasses[$index % count($bgClasses)];
+                    
+                    // Dynamic premium translation for middle cards (2nd card, 5th card, etc.)
+                    $transformClass = ($index % 3 === 1) ? 'transform md:-translate-y-4' : '';
+                    
+                    // Extract initial
+                    $initial = strtoupper(substr($testimoni->nama, 0, 1));
+                @endphp
+                <!-- Testimonial Card -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative border border-gray-100 {{ $transformClass }}">
                     <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
                         <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
                     </svg>
-                    <div class="flex items-center mb-2">
+                    <div class="flex items-center mb-6">
+                        <div class="h-12 w-12 rounded-full {{ $avatarClass }} flex items-center justify-center font-bold text-xl mr-4">
+                            {{ $initial }}
+                        </div>
                         <div>
-                            <h4 class="text-lg font-bold text-gray-900 mt-16">Ahmad Budi</h4>
+                            <h4 class="text-lg font-bold text-gray-900">{{ $testimoni->nama }}</h4>
                             <div class="flex text-brand-yellow text-sm">
-                                ★★★★★
+                                {{ str_repeat('★', $testimoni->rating) }}
                             </div>
                         </div>
                     </div>
                     <p class="text-gray-600 leading-relaxed italic">
-                        "Pengalaman liburan ke Bali bersama Lokachara sangat luar biasa. Tour guide-nya ramah, itinerary sangat rapi, dan fasilitas hotelnya di luar ekspektasi. Sangat direkomendasikan!"
+                        "{{ $testimoni->konten }}"
                     </p>
                 </div>
-
-                <!-- Testimonial 2 -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative border border-gray-100">
-                    <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
-                        <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
-                    </svg>
-                    <div class="flex items-center mb-2">
-                        <div>
-                            <h4 class="text-lg font-bold text-gray-900 mt-16">Siti Rahmawati</h4>
-                            <div class="flex text-brand-yellow text-sm">
-                                ★★★★★
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 leading-relaxed italic">
-                        "Pertama kali pakai Lokachara buat honeymoon ke Lombok. Harga paketnya transparan, gak ada hidden fee. Pelayanannya benar-benar VIP. Makasih Lokachara!"
-                    </p>
+                @empty
+                <div class="col-span-3 text-center py-12">
+                    <p class="text-gray-500 text-lg">Belum ada testimoni aktif saat ini.</p>
                 </div>
-
-                <!-- Testimonial 3 -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative border border-gray-100">
-                    <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
-                        <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
-                    </svg>
-                    <div class="flex items-center mb-2">
-                        <div>
-                            <h4 class="text-lg font-bold text-gray-900 mt-16">Dimas Pratama</h4>
-                            <div class="flex text-brand-yellow text-sm">
-                                ★★★★★
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 leading-relaxed italic">
-                        "Customer service responsif banget. Sempet ada kendala pas mau reschedule tiket, tapi tim Lokachara ngebantu urusin semuanya dengan cepat dan gampang."
-                    </p>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
 
     <!-- Map Section -->
-    <section id="lokasi" class="py-20 bg-white">
+    <section id="lokasi" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-base text-brand-blue font-semibold tracking-wide uppercase">Lokasi Kami</h2>
@@ -393,32 +380,32 @@
                     
                     <div class="space-y-8">
                         <div class="flex items-start group">
-                            <div class="flex-shrink-0 w-14 h-14 bg-blue-50 text-brand-blue rounded-2xl flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors shadow-sm mr-2">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-50 text-brand-blue rounded-2xl flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors shadow-sm">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </div>
                             <div class="ml-5">
                                 <h4 class="text-lg font-bold text-gray-900">Alamat Kantor</h4>
-                                <p class="mb-2 text-gray-500 leading-relaxed">Jl. Sudirman No. 123, Jakarta Selatan<br>DKI Jakarta, Indonesia 12190</p>
+                                <p class="mt-1 text-gray-500 leading-relaxed">Jl. Sudirman No. 123, Jakarta Selatan<br>DKI Jakarta, Indonesia 12190</p>
                             </div>
                         </div>
 
                         <div class="flex items-start group">
-                            <div class="flex-shrink-0 w-14 h-14 bg-green-50 text-brand-green rounded-2xl flex items-center justify-center group-hover:bg-brand-green group-hover:text-white transition-colors shadow-sm mr-2">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-50 text-brand-green rounded-2xl flex items-center justify-center group-hover:bg-brand-green group-hover:text-white transition-colors shadow-sm">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                             </div>
                             <div class="ml-5">
                                 <h4 class="text-lg font-bold text-gray-900">Kontak</h4>
-                                <p class="mb-2 text-gray-500 leading-relaxed"><span class="block hover:text-brand-blue cursor-pointer transition-colors">+62 21 5555 1234</span><span class="block hover:text-brand-blue cursor-pointer transition-colors">halo@lokachara.com</span></p>
+                                <p class="mt-1 text-gray-500 leading-relaxed"><span class="block hover:text-brand-blue cursor-pointer transition-colors">+62 21 5555 1234</span><span class="block hover:text-brand-blue cursor-pointer transition-colors">halo@lokachara.com</span></p>
                             </div>
                         </div>
 
                         <div class="flex items-start group">
-                            <div class="flex-shrink-0 w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center group-hover:bg-brand-yellow group-hover:text-white transition-colors shadow-sm mr-2">
+                            <div class="flex-shrink-0 w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center group-hover:bg-brand-yellow group-hover:text-white transition-colors shadow-sm">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
                             <div class="ml-5">
                                 <h4 class="text-lg font-bold text-gray-900">Jam Operasional</h4>
-                                <p class="text-gray-500 leading-relaxed">Senin - Jumat: 09:00 - 18:00<br>Sabtu: 09:00 - 14:00</p>
+                                <p class="mt-1 text-gray-500 leading-relaxed">Senin - Jumat: 09:00 - 18:00<br>Sabtu: 09:00 - 14:00</p>
                             </div>
                         </div>
                     </div>
@@ -445,7 +432,7 @@
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center mb-6">
                         <div class="relative w-12 h-12 mr-2 flex items-center justify-center">        
-                        <img src="{{ asset('images/logo.png') }}" alt="Lokachara" class="h-20">
+                        <img src="{{ asset('images/logo.png') }}" alt="Lokachara" class="h-10">
                     </div>
                     </div>
                     <p class="text-gray-400 text-sm leading-relaxed max-w-sm">

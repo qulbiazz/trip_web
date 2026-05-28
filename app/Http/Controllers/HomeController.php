@@ -13,8 +13,9 @@ class HomeController extends Controller
         $destinasis = Destinasi::where('is_aktif', true)->take(6)->get();
         $promos = Promo::where('is_aktif', true)->take(3)->get();
         $siteSetting = \App\Models\SiteSetting::where('is_active', true)->first();
+        $testimonis = \App\Models\Testimoni::where('is_aktif', true)->get();
 
-        return view('welcome', compact('destinasis', 'promos', 'siteSetting'));
+        return view('welcome', compact('destinasis', 'promos', 'siteSetting', 'testimonis'));
     }
 
     public function showDestinasi(string $id)
