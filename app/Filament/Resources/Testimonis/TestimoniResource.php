@@ -24,6 +24,16 @@ class TestimoniResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-bottom-center-text';
     protected static ?int $navigationSort = 5;
 
+    public static function getNavigationGroup(): string
+    {
+        return 'Marketing';
+    }
+
+    public static function getBreadcrumb(): string
+    {
+        return 'Marketing';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return TestimoniForm::configure($schema);

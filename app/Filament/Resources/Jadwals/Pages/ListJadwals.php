@@ -17,4 +17,9 @@ class ListJadwals extends ListRecords
             ->label('Tambah Jadwal'),
         ];
     }
+
+    public function getBreadcrumb(): string
+    {
+        return 'Jadwal';
+    }
 }

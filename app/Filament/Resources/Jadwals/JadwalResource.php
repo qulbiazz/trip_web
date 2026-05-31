@@ -24,6 +24,16 @@ class JadwalResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
     protected static ?int $navigationSort = 2;
 
+    public static function getNavigationGroup(): string
+    {
+        return 'Operasional';
+    }
+
+    public static function getBreadcrumb(): string
+    {
+        return 'Operasional';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return JadwalForm::configure($schema);

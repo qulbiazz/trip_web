@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $siteSetting->site_name ?? 'Lokachara' }} - Jelajahi Keindahan Dunia</title>
     <meta name="description" content="Platform pemesanan travel terbaik untuk liburan impianmu.">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -38,7 +39,7 @@
 <body class="font-sans antialiased text-gray-800 bg-gray-50 selection:bg-brand-blue selection:text-white">
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 glass-nav border-b border-gray-100 transition-all duration-300">
+    <nav class="fixed w-full z-50 bg-white border-b border-gray-100 transition-all duration-300 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
@@ -64,14 +65,14 @@
                 </div>
 
                 <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
+                {{-- <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-blue focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                             <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </button>
-                </div>
+                </div> --}}
             </div>
         </div>
 

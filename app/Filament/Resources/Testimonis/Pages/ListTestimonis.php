@@ -17,4 +17,9 @@ class ListTestimonis extends ListRecords
                 ->label('Tambah Testimoni'),
         ];
     }
+
+    public function getBreadcrumb(): string
+    {
+        return 'Testimoni';
+    }
 }

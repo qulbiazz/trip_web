@@ -30,7 +30,8 @@ class PromoForm
                     ->numeric(),
                 DatePicker::make('expired_at')
                     ->label('Berlaku Hingga')
-                    ->native(false),
+                    ->native(false)
+                    ->minDate(today()),
 
                 Toggle::make('is_aktif')
                     ->required(),

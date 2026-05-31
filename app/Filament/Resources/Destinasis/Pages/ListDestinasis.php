@@ -17,4 +17,9 @@ class ListDestinasis extends ListRecords
             ->label('Tambah Destinasi'),
         ];
     }
+
+    public function getBreadcrumb(): string
+    {
+        return 'Destinasi';
+    }
 }

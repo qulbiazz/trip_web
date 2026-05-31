@@ -17,4 +17,9 @@ class ListSiteSettings extends ListRecords
                 ->label('Tambah CMS Landing'),
         ];
     }
+
+    public function getBreadcrumb(): string
+    {
+        return 'CMS Landing';
+    }
 }

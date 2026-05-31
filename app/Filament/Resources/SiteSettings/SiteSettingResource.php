@@ -23,6 +23,16 @@ class SiteSettingResource extends Resource
     protected static ?string $pluralModelLabel = 'CMS Landing';
     protected static ?int $navigationSort = 99;
 
+    public static function getNavigationGroup(): string
+    {
+        return 'Website Management';
+    }
+
+    public static function getBreadcrumb(): string
+    {
+        return 'Website Management';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return SiteSettingForm::configure($schema);

@@ -36,10 +36,12 @@ class JadwalForm
                     ->required(),
                 DatePicker::make('tanggal_berangkat')
                     ->label('Tanggal Berangkat')
-                    ->required(),
+                    ->required()
+                    ->minDate(today()),
                 DatePicker::make('tanggal_pulang')
                     ->label('Tanggal Pulang')
-                    ->required(),
+                    ->required()
+                    ->minDate(today()),
                 TextInput::make('kuota')
                     ->label('Kuota')
                     ->required()

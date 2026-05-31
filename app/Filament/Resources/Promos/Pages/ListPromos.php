@@ -17,4 +17,9 @@ class ListPromos extends ListRecords
             ->label('Tambah Promo'),
         ];
     }
+
+    public function getBreadcrumb(): string
+    {
+        return 'Promo';
+    }
 }

@@ -24,6 +24,16 @@ class DestinasiResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-map-pin';
     protected static ?int $navigationSort = 1;
 
+    public static function getNavigationGroup(): string
+    {
+        return 'Operasional';
+    }
+
+    public static function getBreadcrumb(): string
+    {
+        return 'Operasional';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return DestinasiForm::configure($schema);

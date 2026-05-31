@@ -15,4 +15,9 @@ class ListBookings extends ListRecords
         return [
         ];
     }
+
+    public function getBreadcrumb(): string
+    {
+        return 'Pemesanan';
+    }
 }
