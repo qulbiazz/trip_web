@@ -42,13 +42,21 @@
     <!-- Navbar Minimalis -->
     <nav class="bg-white border-b border-gray-100 py-4">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <a href="{{ url('/') }}" class="flex items-center">
-                <svg class="w-8 h-8 text-brand-green mr-2" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="relative w-12 h-12 mr-2 flex items-center justify-center">
+                    <img src="{{ asset('images/logo.png') }}" alt="Lokachara" class="h-10">
+                </div>
+            </div>
+            <a href="{{ route('destinasi.show', $jadwal->destinasi_id) }}"
+                class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
-                <span class="font-bold text-xl tracking-tight text-gray-900">Lokachara</span>
+                Kembali ke Destinasi
             </a>
-            <a href="{{ route('destinasi.show', $jadwal->destinasi_id) }}" class="text-sm font-medium text-gray-500 hover:text-gray-900">Kembali ke Destinasi</a>
         </div>
     </nav>
 
@@ -56,51 +64,64 @@
         <h1 class="text-3xl font-bold text-gray-900 mb-8">Selesaikan Pemesanan Anda</h1>
 
         @if ($errors->any())
-        <div class="bg-red-50 text-red-600 p-4 rounded-xl mb-8 border border-red-100">
-            <ul class="list-disc pl-5">
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="bg-red-50 text-red-600 p-4 rounded-xl mb-8 border border-red-100">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Form Kiri -->
             <div class="lg:col-span-2">
-                <form action="{{ route('booking.store', $jadwal->id) }}" method="POST" id="bookingForm" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <form action="{{ route('booking.store', $jadwal->id) }}" method="POST" id="bookingForm"
+                    class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                     @csrf
 
                     <h2 class="text-xl font-bold mb-6 border-b pb-4">Data Pemesan</h2>
 
                     <div class="mb-5">
-                        <label for="nama_pelanggan" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
-                        <input type="text" name="nama_pelanggan" id="nama_pelanggan" value="{{ old('nama_pelanggan') }}" required class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brand-blue focus:border-brand-blue">
+                        <label for="nama_pelanggan" class="block text-sm font-medium text-gray-700 mb-2">Nama
+                            Lengkap</label>
+                        <input type="text" name="nama_pelanggan" id="nama_pelanggan" value="{{ old('nama_pelanggan') }}" placeholder="Nama sesuai KTP"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue">
                     </div>
 
                     <div class="mb-5">
-                        <label for="email_pelanggan" class="block text-sm font-medium text-gray-700 mb-2">Alamat Email</label>
-                        <input type="email" name="email_pelanggan" id="email_pelanggan" value="{{ old('email_pelanggan') }}" required class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brand-blue focus:border-brand-blue">
+                        <label for="email_pelanggan" class="block text-sm font-medium text-gray-700 mb-2">Alamat
+                            Email</label>
+                        <input type="email" name="email_pelanggan" id="email_pelanggan"
+                            value="{{ old('email_pelanggan') }}" placeholder="Alamat email"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue">
                         <p class="text-xs text-gray-500 mt-1">Invoice akan dikirimkan ke email ini.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
                         <div>
-                            <label for="jumlah_peserta" class="block text-sm font-medium text-gray-700 mb-2">Jumlah Peserta</label>
-                            <input type="number" name="jumlah_peserta" id="jumlah_peserta" min="1" max="{{ $jadwal->sisa_kursi }}" value="{{ old('jumlah_peserta', 1) }}" required class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brand-blue focus:border-brand-blue" onchange="calculateTotal()">
+                            <label for="jumlah_peserta" class="block text-sm font-medium text-gray-700 mb-2">Jumlah
+                                Peserta</label>
+                            <input type="number" name="jumlah_peserta" id="jumlah_peserta" min="1"
+                                max="{{ $jadwal->sisa_kursi }}" value="{{ old('jumlah_peserta', 1) }}" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue"
+                                onchange="calculateTotal()">
                             <p class="text-xs text-gray-500 mt-1">Sisa kursi tersedia: {{ $jadwal->sisa_kursi }}</p>
                         </div>
                         <div>
-                            <label for="promo_id" class="block text-sm font-medium text-gray-700 mb-2">Kode Promo (Opsional)</label>
-                            <select name="promo_id" id="promo_id" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brand-blue focus:border-brand-blue" onchange="calculateTotal()">
+                            <label for="promo_id" class="block text-sm font-medium text-gray-700 mb-2">Kode Promo
+                                (Opsional)</label>
+                            <select name="promo_id" id="promo_id"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue"
+                                onchange="calculateTotal()">
                                 <option value="">Tidak pakai promo</option>
                                 @foreach($promos as $promo)
-                                <option value="{{ $promo->id }}"
-                                    data-tipe="{{ $promo->tipe_diskon }}"
-                                    data-nilai="{{ $promo->nilai_diskon }}"
-                                    {{ old('promo_id') == $promo->id ? 'selected' : '' }}>
-                                    {{ $promo->kode }} ({{ $promo->nama }})
-                                </option>
+                                    <option value="{{ $promo->id }}" data-tipe="{{ $promo->tipe_diskon }}"
+                                        data-nilai="{{ $promo->nilai_diskon }}" {{ old('promo_id') == $promo->id ? 'selected' : '' }}>
+                                        {{ $promo->kode }} ({{ $promo->nama }})
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -108,10 +129,12 @@
 
                     <hr class="mb-6">
 
-                    <button type="submit" class="w-full bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 rounded-xl shadow-md transition-colors text-lg">
+                    <button type="submit"
+                        class="w-full bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 rounded-xl shadow-md transition-colors text-lg">
                         Selesaikan Pemesanan
                     </button>
-                    <p class="text-center text-sm text-gray-500 mt-4">Pesanan akan berstatus pending hingga pembayaran dikonfirmasi admin.</p>
+                    <p class="text-center text-sm text-gray-500 mt-4">Pesanan akan berstatus pending hingga pembayaran
+                        dikonfirmasi admin.</p>
                 </form>
             </div>
 
@@ -122,7 +145,9 @@
 
                     <div class="flex items-center mb-6">
                         @if($jadwal->destinasi->gambar)
-                        <div class="w-16 h-16 rounded-lg bg-cover bg-center mr-4" style="background-image: url('<?php /** @var \App\Models\Jadwal $jadwal */ echo asset('storage/' . $jadwal->destinasi->gambar); ?>')"></div>
+                            <div class="w-16 h-16 rounded-lg bg-cover bg-center mr-4"
+                                style="background-image: url('<?php    /** @var \App\Models\Jadwal $jadwal */ echo asset('storage/' . $jadwal->destinasi->gambar); ?>')">
+                            </div>
                         @endif
                         <div>
                             <p class="font-bold">{{ $jadwal->destinasi->nama }}</p>
@@ -133,11 +158,14 @@
                     <div class="space-y-3 text-sm border-b border-gray-700 pb-4 mb-4">
                         <div class="flex justify-between">
                             <span class="text-gray-400">Jadwal</span>
-                            <span class="font-medium">{{ \Carbon\Carbon::parse($jadwal->tanggal_berangkat)->format('d M Y') }}</span>
+                            <span
+                                class="font-medium">{{ \Carbon\Carbon::parse($jadwal->tanggal_berangkat)->format('d M Y') }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-400">Harga per pax</span>
-                            <span class="font-medium" id="displayHargaDasar" data-harga="{{ $jadwal->destinasi->harga_dasar }}">Rp {{ number_format($jadwal->destinasi->harga_dasar, 0, ',', '.') }}</span>
+                            <span class="font-medium" id="displayHargaDasar"
+                                data-harga="{{ $jadwal->destinasi->harga_dasar }}">Rp
+                                {{ number_format($jadwal->destinasi->harga_dasar, 0, ',', '.') }}</span>
                         </div>
                     </div>
 
