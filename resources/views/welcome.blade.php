@@ -65,14 +65,14 @@
                 </div>
 
                 <!-- Mobile menu button -->
-                {{-- <div class="md:hidden flex items-center">
+                <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-blue focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                             <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </button>
-                </div> --}}
+                </div> 
             </div>
         </div>
 
@@ -107,7 +107,7 @@
         <div class="container relative mx-auto px-4 z-10 text-center">
             <div class="max-w-3xl mx-auto mt-16">
                 <span class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm">
-                    {{ $siteSetting->hero_badge ?? '✨ TEMUKAN KEINDAHAN DUNIA' }}
+                    {{ $siteSetting->hero_badge ?? 'TEMUKAN KEINDAHAN DUNIA' }}
                 </span>
                 <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg">
                     @if(isset($siteSetting) && ($siteSetting->hero_title || $siteSetting->hero_highlight))
@@ -142,7 +142,7 @@
     </div>
 
     <!-- Keunggulan Section -->
-    <section class="py-16 bg-white">
+    <section id="keunggulan" class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-base text-brand-blue font-semibold tracking-wide uppercase">Mengapa Memilih Kami</h2>
@@ -386,7 +386,7 @@
                             </div>
                             <div class="ml-5">
                                 <h4 class="text-lg font-bold text-gray-900">Alamat Kantor</h4>
-                                <p class="mt-1 text-gray-500 leading-relaxed">Jl. Sudirman No. 123, Jakarta Selatan<br>DKI Jakarta, Indonesia 12190</p>
+                                <p class="mt-1 text-gray-500 leading-relaxed">Jl. Bareng Tengah V No.816, Bareng, Kec. Klojen<br>Kota Malang, Jawa Timur 65116, Indonesia</p>
                             </div>
                         </div>
 
@@ -414,13 +414,7 @@
 
                 <!-- Map View -->
                 <div class="w-full lg:w-7/12 min-h-[400px] lg:min-h-full relative">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126907.03588265074!2d106.7594779!3d-6.229728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1714285141042!5m2!1sid!2sid" 
-                        class="absolute inset-0 w-full h-full border-0" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.4941292208273!2d112.61772747460076!3d-7.978816579549072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd6296d5bab0c33%3A0x38bf0d78e7dab133!2sSewa%20mobil%20malang%20%7C%20JackTrans%20tour%20%26%20travel!5e1!3m2!1sen!2sid!4v1780231398433!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
@@ -444,18 +438,18 @@
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase mb-4">Layanan</h3>
                     <ul class="space-y-3">
                         <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Pesan Tiket</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Destinasi Internasional</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Destinasi Domestik</a></li>
+                        <li><a href="#destinasi" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Destinasi Jawa Timur</a></li>
+                        <li><a href="#destinasi" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Destinasi Luar Jawa Timur</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Tour Guide</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase mb-4">Perusahaan</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Tentang Kami</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Kontak</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Kebijakan Privasi</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Syarat & Ketentuan</a></li>
+                        <li><a href="#keunggulan" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Tentang Kami</a></li>
+                        <li><a href="#lokasi" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Kontak</a></li>
+                        {{-- <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Kebijakan Privasi</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Syarat & Ketentuan</a></li> --}}
                     </ul>
                 </div>
             </div>
