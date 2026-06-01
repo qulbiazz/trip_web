@@ -74,9 +74,11 @@ class BookingForm
 
                 TextInput::make('nama_pelanggan')
                     ->label('Nama Pelanggan')
+                    ->disabled()
                     ->required(),
                 TextInput::make('email_pelanggan')
                     ->label('Email Pelanggan')
+                    ->disabled()
                     ->email()
                     ->maxLength(255),
 
@@ -124,6 +126,7 @@ class BookingForm
                         return 'Diskon: Rp' . number_format(max(0, $diskon), 0, ',', '.');
                     })
                     ->searchable()
+                    ->disabled()
                     ->preload()
                     ->live()
                     ->afterStateUpdated(fn (Get $get, Set $set) => self::hitungTotal($get, $set)),
@@ -149,6 +152,7 @@ class BookingForm
                     ->label('Total Bayar')
                     ->required()
                     ->numeric()
+                    ->disabled()
                     ->readOnly()
                     ->prefix('Rp')
                     ->default(0),
