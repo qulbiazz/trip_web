@@ -37,6 +37,11 @@ class PublicBookingController extends Controller
     {
         $jadwal = Jadwal::with('destinasi')->findOrFail($jadwal_id);
 
+        if ($jadwal->status !== 'tersedia' || $jadwal->sisa_kursi <= 0) {
+            return redirect()->route('destinasi.show', $jadwal->destinasi_id)
+                ->with('error', 'Maaf, jadwal ini sudah penuh atau tidak tersedia.');
+        }
+
         if (Carbon::parse($jadwal->tanggal_berangkat)->endOfDay()->isPast()) {
             return redirect()->route('destinasi.show', $jadwal->destinasi_id)
                 ->with('error', 'Maaf, waktu pemesanan untuk jadwal ini sudah ditutup karena tanggal keberangkatan sudah lewat.');

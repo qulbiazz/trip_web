@@ -63,12 +63,25 @@ class Booking extends Model
 
             $pakaiLama = ($booking->getOriginal('status') ?? '') !== 'dibatalkan' ? $qtyLama : 0;
             $pakaiBaru = $booking->status !== 'dibatalkan' ? $qtyBaru : 0;
-            $delta = $pakaiLama - $pakaiBaru;
 
-            if ($jLama !== 0 && $delta !== 0) {
-                static::applySeatChangesAtomic([
-                    $jLama => $delta,
-                ]);
+            if ($jLama !== $jBaru) {
+                $changes = [];
+                if ($jLama !== 0 && $pakaiLama !== 0) {
+                    $changes[$jLama] = $pakaiLama; // kembalikan kursi ke jadwal lama
+                }
+                if ($jBaru !== 0 && $pakaiBaru !== 0) {
+                    $changes[$jBaru] = -$pakaiBaru; // kurangi kursi di jadwal baru
+                }
+                if (!empty($changes)) {
+                    static::applySeatChangesAtomic($changes);
+                }
+            } else {
+                $delta = $pakaiLama - $pakaiBaru;
+                if ($jLama !== 0 && $delta !== 0) {
+                    static::applySeatChangesAtomic([
+                        $jLama => $delta,
+                    ]);
+                }
             }
         });
 

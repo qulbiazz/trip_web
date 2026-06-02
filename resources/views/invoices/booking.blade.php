@@ -187,8 +187,16 @@
                 <div class="row"><span class="key">Tanggal Pulang</span><span class="val">{{ optional($booking->jadwal?->tanggal_pulang)->format('d M Y') ?? '-' }}</span></div>
             </div>
 
+            @php
+                $subtotalAsli = ($booking->jadwal?->destinasi?->harga_dasar ?? 0) * $booking->jumlah_peserta;
+                $nominalDiskon = $subtotalAsli - $booking->total_bayar;
+            @endphp
+
             <div class="summary">
-                <div class="row"><span class="key">Subtotal</span><span class="val">Rp{{ number_format((float) $booking->total_bayar, 0, ',', '.') }}</span></div>
+                <div class="row"><span class="key">Subtotal</span><span class="val">Rp{{ number_format($subtotalAsli, 0, ',', '.') }}</span></div>
+                @if($nominalDiskon > 0)
+                    <div class="row" style="color: #f59e0b;"><span class="key">Potongan Promo ({{ $booking->promo?->kode }})</span><span class="val">- Rp{{ number_format($nominalDiskon, 0, ',', '.') }}</span></div>
+                @endif
                 <div class="row total"><span>Total Bayar</span><span>Rp{{ number_format((float) $booking->total_bayar, 0, ',', '.') }}</span></div>
             </div>
 
