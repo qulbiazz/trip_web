@@ -16,4 +16,9 @@ class EditSiteSetting extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return SiteSettingResource::getUrl('index');
+    }
 }

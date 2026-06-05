@@ -18,20 +18,25 @@ class JadwalForm
             ->components([
                 Select::make('destinasi_id')
                     ->label('Destinasi')
-                    ->relationship('destinasi', 'nama', fn ($query) => $query->where('is_aktif', true))
+                    ->relationship(
+                        'destinasi',
+                        'nama',
+                        fn($query) => $query->where('is_aktif', true)
+                    )
                     ->live()
                     ->afterStateUpdated(function ($state, Set $set): void {
-                        if (! $state) {
+                        if (!$state) {
+                            $set('harga', null);
                             return;
                         }
 
-                        /** @var \App\Models\Destinasi|null $destinasi */
                         $destinasi = Destinasi::find($state);
-                        if (! $destinasi) {
+
+                        if (!$destinasi) {
                             return;
                         }
 
-                        $set('harga', (float) $destinasi->harga_dasar);
+                        $set('harga', $destinasi->harga_dasar);
                     })
                     ->required(),
                 DatePicker::make('tanggal_berangkat')
@@ -49,7 +54,10 @@ class JadwalForm
                 TextInput::make('harga')
                     ->label('Harga')
                     ->required()
-                    ->numeric(),
+                    ->disabled()
+                    ->dehydrated()
+                    ->numeric()
+                    ->helperText('Harga dasar destinasi.'),
                 Select::make('status')
                     ->label('Status')
                     ->options([
