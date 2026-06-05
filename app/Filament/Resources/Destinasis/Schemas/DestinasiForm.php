@@ -6,6 +6,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
 
 class DestinasiForm
@@ -37,8 +38,12 @@ class DestinasiForm
                     ->disk('public')
                     ->directory('destinasi')
                     ->visibility('public'),
-                TextInput::make('kategori')
+                Select::make('kategori')
                     ->label('Kategori')
+                    ->options([
+                        'domestik' => 'Domestik',
+                        'internasional' => 'Internasional',
+                    ])
                     ->required()
                     ->default('domestik'),
                 Toggle::make('is_aktif')

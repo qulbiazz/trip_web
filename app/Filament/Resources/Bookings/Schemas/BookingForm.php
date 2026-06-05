@@ -7,6 +7,7 @@ use App\Models\Jadwal;
 use App\Models\Promo;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
@@ -85,6 +86,18 @@ class BookingForm
                     ->label('Nomor Handphone')
                     ->disabled()
                     ->maxLength(50),
+                Textarea::make('alamat_penjemputan')
+                    ->label('Alamat Penjemputan')
+                    ->visible(function (Get $get) {
+                        $jid = $get('jadwal_id');
+                        if (! $jid) {
+                            return false;
+                        }
+                        $j = Jadwal::find($jid);
+                        return $j && str_contains(strtolower($j->destinasi?->nama ?? ''), 'bromo');
+                    })
+                    ->disabled()
+                    ->columnSpanFull(),
 
                 Select::make('promo_id')
                     ->label('Promo')

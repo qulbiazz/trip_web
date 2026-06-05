@@ -103,11 +103,20 @@
                     <div class="mb-5">
                         <label for="nomor_handphone" class="block text-sm font-medium text-gray-700 mb-2">Nomor Handphone / WhatsApp</label>
                         <input type="text" name="nomor_handphone" id="nomor_handphone"
-                            value="{{ old('nomor_handphone') }}" placeholder="Nomor handphone aktif"
+                            value="{{ old('nomor_handphone') }}" placeholder="Nomor handphone aktif (contoh: 08123456789)"
                             required
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue">
                         <p class="text-xs text-gray-500 mt-1">Nomor telepon aktif untuk koordinasi keberangkatan.</p>
                     </div>
+
+                    @if(str_contains(strtolower($jadwal->destinasi->nama), 'bromo'))
+                    <div class="mb-5">
+                        <label for="alamat_penjemputan" class="block text-sm font-medium text-gray-700 mb-2">Alamat Penjemputan</label>
+                        <textarea name="alamat_penjemputan" id="alamat_penjemputan" rows="3" placeholder="Alamat lengkap lokasi penjemputan" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue">{{ old('alamat_penjemputan') }}</textarea>
+                        <p class="text-xs text-gray-500 mt-1">Khusus destinasi Bromo, harap isi alamat penjemputan Anda secara lengkap.</p>
+                    </div>
+                    @endif
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
                         <div>

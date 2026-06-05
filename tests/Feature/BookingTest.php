@@ -202,4 +202,47 @@ class BookingTest extends TestCase
         $response->assertSessionHasErrors('jumlah_peserta');
         $this->assertEquals(0, Booking::count());
     }
+
+    /**
+     * Test booking destinasi Bromo memerlukan alamat penjemputan.
+     */
+    public function test_booking_creation_with_bromo_requires_pickup_address(): void
+    {
+        // 1. Ubah destinasi menjadi ada nama Bromo
+        $this->destinasi->update(['nama' => 'Wisata Gunung Bromo']);
+
+        // 2. Kirim booking tanpa alamat_penjemputan
+        $response = $this->post(route('booking.store', $this->jadwal->id), [
+            'nama_pelanggan' => 'Budi Santoso',
+            'email_pelanggan' => 'budi@example.com',
+            'nomor_handphone' => '08123456789',
+            'jumlah_peserta' => 2,
+        ]);
+
+        $response->assertSessionHasErrors('alamat_penjemputan');
+        $this->assertEquals(0, Booking::count());
+    }
+
+    /**
+     * Test booking destinasi Bromo berhasil jika menyertakan alamat penjemputan.
+     */
+    public function test_booking_creation_with_bromo_succeeds_with_pickup_address(): void
+    {
+        // 1. Ubah destinasi menjadi ada nama Bromo
+        $this->destinasi->update(['nama' => 'Wisata Gunung Bromo']);
+
+        // 2. Kirim booking dengan alamat_penjemputan
+        $response = $this->post(route('booking.store', $this->jadwal->id), [
+            'nama_pelanggan' => 'Budi Santoso',
+            'email_pelanggan' => 'budi@example.com',
+            'nomor_handphone' => '08123456789',
+            'alamat_penjemputan' => 'Hotel Santika Malang, Kamar 405',
+            'jumlah_peserta' => 2,
+        ]);
+
+        $booking = Booking::first();
+        $this->assertNotNull($booking);
+        $this->assertEquals('Hotel Santika Malang, Kamar 405', $booking->alamat_penjemputan);
+        $response->assertRedirect(route('bookings.invoice.show', $booking->id));
+    }
 }

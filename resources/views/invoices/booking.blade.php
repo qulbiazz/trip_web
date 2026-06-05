@@ -177,6 +177,9 @@
                     <div class="row"><span class="key">Nama</span><span class="val">{{ $booking->nama_pelanggan }}</span></div>
                     <div class="row"><span class="key">Email</span><span class="val">{{ $booking->email_pelanggan ?? '-' }}</span></div>
                     <div class="row"><span class="key">No. Handphone</span><span class="val">{{ $booking->nomor_handphone ?? '-' }}</span></div>
+                    @if($booking->alamat_penjemputan)
+                    <div class="row"><span class="key">Alamat Penjemputan</span><span class="val">{{ $booking->alamat_penjemputan }}</span></div>
+                    @endif
                     <div class="row"><span class="key">Jumlah Peserta</span><span class="val">{{ $booking->jumlah_peserta }} orang</span></div>
                     <div class="row"><span class="key">Promo</span><span class="val">{{ $booking->promo?->kode ?? '-' }}</span></div>
                 </div>

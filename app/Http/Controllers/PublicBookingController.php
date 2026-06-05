@@ -47,13 +47,19 @@ class PublicBookingController extends Controller
                 ->with('error', 'Maaf, waktu pemesanan untuk jadwal ini sudah ditutup karena tanggal keberangkatan sudah lewat.');
         }
 
-        $validated = $request->validate([
+        $rules = [
             'nama_pelanggan' => 'required|string|max:255',
             'email_pelanggan' => 'required|email|max:255',
             'nomor_handphone' => 'required|string|max:50',
             'jumlah_peserta' => 'required|integer|min:1|max:' . $jadwal->sisa_kursi,
             'promo_id' => 'nullable|exists:promos,id',
-        ]);
+        ];
+
+        if (str_contains(strtolower($jadwal->destinasi->nama), 'bromo')) {
+            $rules['alamat_penjemputan'] = 'required|string|max:1000';
+        }
+
+        $validated = $request->validate($rules);
 
         try {
             DB::beginTransaction();
@@ -81,6 +87,9 @@ class PublicBookingController extends Controller
             $booking->nama_pelanggan = $validated['nama_pelanggan'];
             $booking->email_pelanggan = $validated['email_pelanggan'];
             $booking->nomor_handphone = $validated['nomor_handphone'];
+            if (isset($validated['alamat_penjemputan'])) {
+                $booking->alamat_penjemputan = $validated['alamat_penjemputan'];
+            }
             $booking->jumlah_peserta = $validated['jumlah_peserta'];
             $booking->total_bayar = $total_bayar;
             $booking->status = 'pending';

@@ -37,6 +37,10 @@ class BookingsTable
                 TextColumn::make('nomor_handphone')
                     ->label('No. Handphone')
                     ->searchable(),
+                TextColumn::make('alamat_penjemputan')
+                    ->label('Alamat Penjemputan')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('jumlah_peserta')
                     ->label('Jumlah Peserta')
                     ->numeric()
