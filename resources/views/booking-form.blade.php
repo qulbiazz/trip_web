@@ -11,38 +11,19 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        .text-brand-blue {
-            color: #1A6DFF;
-        }
-
-        .bg-brand-blue {
-            background-color: #1A6DFF;
-        }
-
-        .hover\:bg-brand-blue-dark:hover {
-            background-color: #1558CC;
-        }
-
-        .text-brand-green {
-            color: #03C988;
-        }
-
-        .bg-brand-green {
-            background-color: #03C988;
-        }
-
-        .text-brand-yellow {
-            color: #FFCE3F;
-        }
+        .text-brand-blue { color: #1A6DFF; }
+        .bg-brand-blue { background-color: #1A6DFF; }
+        .hover\:bg-brand-blue-dark:hover { background-color: #1558CC; }
+        .text-brand-green { color: #03C988; }
+        .bg-brand-green { background-color: #03C988; }
+        .text-brand-yellow { color: #FFCE3F; }
     </style>
 </head>
 
 <body class="font-sans antialiased text-gray-800 bg-gray-50">
 
-    <!-- Navbar Minimalis -->
     <nav class="bg-white border-b border-gray-100 py-4">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <!-- Logo -->
             <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
                 <div class="relative w-12 h-12 mr-2 flex items-center justify-center">
                     <img src="{{ asset('images/logo.png') }}" alt="Lokachara" class="h-10">
@@ -50,7 +31,6 @@
             </div>
             <a href="{{ route('destinasi.show', $jadwal->destinasi_id) }}"
                 class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900">
-
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -74,7 +54,6 @@
         @endif
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Form Kiri -->
             <div class="lg:col-span-2">
                 <form action="{{ route('booking.store', $jadwal->id) }}" method="POST" id="bookingForm"
                     class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
@@ -84,7 +63,7 @@
 
                     <div class="mb-5">
                         <label for="nama_pelanggan" class="block text-sm font-medium text-gray-700 mb-2">Nama
-                            Lengkap</label>
+                            Lengkap (Peserta 1)</label>
                         <input type="text" name="nama_pelanggan" id="nama_pelanggan" value="{{ old('nama_pelanggan') }}" placeholder="Nama sesuai KTP"
                             required
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue">
@@ -118,14 +97,14 @@
                     </div>
                     @endif
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                         <div>
                             <label for="jumlah_peserta" class="block text-sm font-medium text-gray-700 mb-2">Jumlah
                                 Peserta</label>
                             <input type="number" name="jumlah_peserta" id="jumlah_peserta" min="1"
                                 max="{{ $jadwal->sisa_kursi }}" value="{{ old('jumlah_peserta', 1) }}" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue"
-                                onchange="calculateTotal()">
+                                onchange="calculateTotal(); generateAnggotaInputs();" onkeyup="calculateTotal(); generateAnggotaInputs();">
                             <p class="text-xs text-gray-500 mt-1">Sisa kursi tersedia: {{ $jadwal->sisa_kursi }}</p>
                         </div>
                         <div>
@@ -145,6 +124,9 @@
                         </div>
                     </div>
 
+                    <div id="anggota_container" class="space-y-4 mb-8">
+                        </div>
+
                     <hr class="mb-6">
 
                     <button type="submit"
@@ -156,7 +138,6 @@
                 </form>
             </div>
 
-            <!-- Ringkasan Kanan -->
             <div class="lg:col-span-1">
                 <div class="bg-gray-900 rounded-2xl p-6 text-white sticky top-10">
                     <h3 class="text-lg font-bold mb-4 border-b border-gray-700 pb-3">Ringkasan Pesanan</h3>
@@ -244,8 +225,36 @@
             document.getElementById('displayTotal').innerText = formatRupiah(total);
         }
 
-        // Initialize calculation on load
-        document.addEventListener('DOMContentLoaded', calculateTotal);
+        function generateAnggotaInputs() {
+            const qty = parseInt(document.getElementById('jumlah_peserta').value) || 1;
+            const container = document.getElementById('anggota_container');
+            
+            // Bersihkan form anggota sebelumnya
+            container.innerHTML = '';
+
+            // Jika peserta lebih dari 1, buat input tambahan
+            if (qty > 1) {
+                let html = '<h3 class="text-md font-semibold text-gray-700 mb-3 border-t pt-4">Data Peserta Tambahan</h3>';
+                
+                // Looping dimulai dari 2, karena peserta 1 adalah data pemesan
+                for (let i = 2; i <= qty; i++) {
+                    html += `
+                        <div class="p-4 bg-gray-50 border border-gray-200 rounded-xl mb-3">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap (Peserta ${i})</label>
+                            <input type="text" name="nama_anggota[]" placeholder="Nama peserta ke-${i}" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue">
+                        </div>
+                    `;
+                }
+                container.innerHTML = html;
+            }
+        }
+
+        // Initialize calculation and inputs on load
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateTotal();
+            generateAnggotaInputs();
+        });
     </script>
 </body>
 
