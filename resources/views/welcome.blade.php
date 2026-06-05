@@ -54,11 +54,11 @@
                     <a href="#destinasi" class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Destinasi</a>
                     <a href="#promo" class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Promo</a>
                     <a href="#lokasi" class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Lokasi</a>
-                    @auth
+                    {{-- @auth
                         <a href="{{ url('/admin') }}" class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Dashboard Admin</a>
                     @else
                         <a href="{{ url('/admin/login') }}" class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Login Admin</a>
-                    @endauth
+                    @endauth --}}
                     <a href="#destinasi" class="bg-brand-blue hover:bg-brand-blue-dark text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         Pesan Sekarang
                     </a>
@@ -82,11 +82,11 @@
                 <a href="#destinasi" class="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-blue-50 transition-colors mobile-link">Destinasi</a>
                 <a href="#promo" class="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-blue-50 transition-colors mobile-link">Promo</a>
                 <a href="#lokasi" class="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-blue-50 transition-colors mobile-link">Lokasi</a>
-                @auth
+                {{-- @auth
                     <a href="{{ url('/admin') }}" class="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-blue-50 transition-colors mobile-link">Dashboard Admin</a>
                 @else
                     <a href="{{ url('/admin/login') }}" class="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-blue-50 transition-colors mobile-link">Login Admin</a>
-                @endauth
+                @endauth --}}
                 <div class="pt-4 mt-2 border-t border-gray-100">
                     <a href="#destinasi" class="block w-full text-center bg-brand-blue hover:bg-brand-blue-dark text-white px-6 py-3 rounded-full font-medium transition-colors shadow-md mobile-link">
                         Pesan Sekarang
