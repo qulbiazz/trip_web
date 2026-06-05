@@ -17,6 +17,7 @@ class Booking extends Model
         'promo_id',
         'nama_pelanggan',
         'email_pelanggan',
+        'nomor_handphone',
         'jumlah_peserta',
         'total_bayar',
         'status',

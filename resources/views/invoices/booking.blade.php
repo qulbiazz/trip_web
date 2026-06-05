@@ -175,6 +175,8 @@
                 <div class="card">
                     <h3>Informasi Pelanggan</h3>
                     <div class="row"><span class="key">Nama</span><span class="val">{{ $booking->nama_pelanggan }}</span></div>
+                    <div class="row"><span class="key">Email</span><span class="val">{{ $booking->email_pelanggan ?? '-' }}</span></div>
+                    <div class="row"><span class="key">No. Handphone</span><span class="val">{{ $booking->nomor_handphone ?? '-' }}</span></div>
                     <div class="row"><span class="key">Jumlah Peserta</span><span class="val">{{ $booking->jumlah_peserta }} orang</span></div>
                     <div class="row"><span class="key">Promo</span><span class="val">{{ $booking->promo?->kode ?? '-' }}</span></div>
                 </div>

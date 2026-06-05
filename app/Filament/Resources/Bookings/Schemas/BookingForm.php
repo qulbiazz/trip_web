@@ -81,6 +81,10 @@ class BookingForm
                     ->disabled()
                     ->email()
                     ->maxLength(255),
+                TextInput::make('nomor_handphone')
+                    ->label('Nomor Handphone')
+                    ->disabled()
+                    ->maxLength(50),
 
                 Select::make('promo_id')
                     ->label('Promo')

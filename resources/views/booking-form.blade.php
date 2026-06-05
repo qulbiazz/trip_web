@@ -100,6 +100,15 @@
                         <p class="text-xs text-gray-500 mt-1">Invoice akan dikirimkan ke email ini.</p>
                     </div>
 
+                    <div class="mb-5">
+                        <label for="nomor_handphone" class="block text-sm font-medium text-gray-700 mb-2">Nomor Handphone / WhatsApp</label>
+                        <input type="text" name="nomor_handphone" id="nomor_handphone"
+                            value="{{ old('nomor_handphone') }}" placeholder="Nomor handphone aktif"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue">
+                        <p class="text-xs text-gray-500 mt-1">Nomor telepon aktif untuk koordinasi keberangkatan.</p>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
                         <div>
                             <label for="jumlah_peserta" class="block text-sm font-medium text-gray-700 mb-2">Jumlah

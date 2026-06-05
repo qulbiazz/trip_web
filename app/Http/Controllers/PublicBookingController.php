@@ -50,6 +50,7 @@ class PublicBookingController extends Controller
         $validated = $request->validate([
             'nama_pelanggan' => 'required|string|max:255',
             'email_pelanggan' => 'required|email|max:255',
+            'nomor_handphone' => 'required|string|max:50',
             'jumlah_peserta' => 'required|integer|min:1|max:' . $jadwal->sisa_kursi,
             'promo_id' => 'nullable|exists:promos,id',
         ]);
@@ -79,6 +80,7 @@ class PublicBookingController extends Controller
             $booking->promo_id = $validated['promo_id'] ?? null;
             $booking->nama_pelanggan = $validated['nama_pelanggan'];
             $booking->email_pelanggan = $validated['email_pelanggan'];
+            $booking->nomor_handphone = $validated['nomor_handphone'];
             $booking->jumlah_peserta = $validated['jumlah_peserta'];
             $booking->total_bayar = $total_bayar;
             $booking->status = 'pending';

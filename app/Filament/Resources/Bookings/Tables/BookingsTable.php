@@ -34,6 +34,9 @@ class BookingsTable
                 TextColumn::make('email_pelanggan')
                     ->label('Email')
                     ->searchable(),
+                TextColumn::make('nomor_handphone')
+                    ->label('No. Handphone')
+                    ->searchable(),
                 TextColumn::make('jumlah_peserta')
                     ->label('Jumlah Peserta')
                     ->numeric()

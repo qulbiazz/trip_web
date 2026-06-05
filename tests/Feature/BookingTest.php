@@ -52,6 +52,7 @@ class BookingTest extends TestCase
         $response = $this->post(route('booking.store', $this->jadwal->id), [
             'nama_pelanggan' => 'Budi Santoso',
             'email_pelanggan' => 'budi@example.com',
+            'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 3,
         ]);
 
@@ -91,6 +92,7 @@ class BookingTest extends TestCase
         $this->post(route('booking.store', $this->jadwal->id), [
             'nama_pelanggan' => 'Budi Santoso',
             'email_pelanggan' => 'budi@example.com',
+            'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 2,
             'promo_id' => $promo->id,
         ]);
@@ -112,6 +114,7 @@ class BookingTest extends TestCase
             'jadwal_id' => $this->jadwal->id,
             'nama_pelanggan' => 'Budi Santoso',
             'email_pelanggan' => 'budi@example.com',
+            'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 2,
             'total_bayar' => 1000000.00,
             'status' => 'pending',
@@ -144,6 +147,7 @@ class BookingTest extends TestCase
             'jadwal_id' => $this->jadwal->id,
             'nama_pelanggan' => 'Budi Santoso',
             'email_pelanggan' => 'budi@example.com',
+            'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 2,
             'total_bayar' => 1000000.00,
             'status' => 'pending',
@@ -171,6 +175,7 @@ class BookingTest extends TestCase
         $response = $this->post(route('booking.store', $this->jadwal->id), [
             'nama_pelanggan' => 'Budi Santoso',
             'email_pelanggan' => 'budi@example.com',
+            'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 1,
         ]);
 
@@ -190,6 +195,7 @@ class BookingTest extends TestCase
         $response = $this->post(route('booking.store', $this->jadwal->id), [
             'nama_pelanggan' => 'Budi Santoso',
             'email_pelanggan' => 'budi@example.com',
+            'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 11,
         ]);
 
