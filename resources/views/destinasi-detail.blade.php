@@ -106,6 +106,42 @@
                     <div class="prose max-w-none text-gray-600 leading-relaxed">
                         {{ $destinasi->deskripsi ?? 'Belum ada deskripsi untuk destinasi ini.' }}
                     </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Yang Akan Anda Dapatkan</h3>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-600">Transportasi ber-AC selama tour</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-600">Tiket masuk wisata (sesuai itinerary)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-600">Guide lokal yang berpengalaman</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-600">Dokumentasi perjalanan eksklusif</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-600">Air mineral & perlengkapan P3K</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
