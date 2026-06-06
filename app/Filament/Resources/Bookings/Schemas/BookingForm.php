@@ -176,9 +176,9 @@ class BookingForm
                 Select::make('status')
                     ->label('Status')
                     ->options([
-                        'pending' => 'Pending',
+                        'pending' => 'Belum dibayar',
                         'dikonfirmasi' => 'Dikonfirmasi',
-                        'dibayar' => 'Dibayar',
+                        'dibayar' => 'Berhasil dibayar',
                         'dibatalkan' => 'Dibatalkan',
                     ])
                     ->required()
