@@ -48,6 +48,31 @@ class JadwalsTable
                     ->sortable(),
                 TextColumn::make('status')
                     ->label('Status')
+                    ->badge() // Mengubah tampilan menjadi badge
+                    ->formatStateUsing(function (string $state, $record) {
+                        // Cek apakah tanggal berangkat sudah melewati jam 00:00 hari ini
+                        $isPast = \Carbon\Carbon::parse($record->tanggal_berangkat)->startOfDay()->isPast();
+                        
+                        if ($isPast) {
+                            return 'Expired';
+                        }
+                        
+                        return ucfirst($state);
+                    })
+                    ->color(function (string $state, $record): string {
+                        $isPast = \Carbon\Carbon::parse($record->tanggal_berangkat)->startOfDay()->isPast();
+                        
+                        if ($isPast) {
+                            return 'danger'; // Warna merah/abu-abu untuk expired
+                        }
+                        
+                        return match ($state) {
+                            'tersedia' => 'success', // Warna hijau
+                            'penuh' => 'warning', // Warna kuning/oranye
+                            'dibatalkan' => 'danger', // Warna merah
+                            default => 'gray',
+                        };
+                    })
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->label('Dibuat Pada')
@@ -63,10 +88,10 @@ class JadwalsTable
             ->filters([
                 //
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
-            ->toolbarActions([
+            ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
