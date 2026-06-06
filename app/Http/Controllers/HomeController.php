@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Destinasi;
 use App\Models\Promo;
+use App\Models\Jadwal; // Tambahan model Jadwal
+use Carbon\Carbon;     // Tambahan Carbon untuk filter tanggal
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,7 +17,16 @@ class HomeController extends Controller
         $siteSetting = \App\Models\SiteSetting::where('is_active', true)->first();
         $testimonis = \App\Models\Testimoni::where('is_aktif', true)->get();
 
-        return view('welcome', compact('destinasis', 'promos', 'siteSetting', 'testimonis'));
+        // Query untuk data realtime Open Booking di Navbar
+        $jadwalOpen = Jadwal::with('destinasi')
+            ->where('status', 'tersedia') // Menggunakan status 'tersedia' sesuai sistem Anda
+            ->where('pendaftaran_tutup', '>=', Carbon::now()->format('Y-m-d'))
+            ->where('sisa_kursi', '>', 0)
+            ->orderBy('tanggal_berangkat', 'asc')
+            ->limit(3) // Dibatasi 3 agar banner tidak terlalu panjang di UI
+            ->get();
+
+        return view('welcome', compact('destinasis', 'promos', 'siteSetting', 'testimonis', 'jadwalOpen'));
     }
 
     public function showDestinasi(string $id)
