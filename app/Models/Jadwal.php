@@ -10,6 +10,8 @@ class Jadwal extends Model
 {
     protected $fillable = [
         'destinasi_id',
+        'pendaftaran_mulai',
+        'pendaftaran_tutup',
         'tanggal_berangkat',
         'tanggal_pulang',
         'kuota',
@@ -20,6 +22,8 @@ class Jadwal extends Model
     ];
 
     protected $casts = [
+        'pendaftaran_mulai' => 'date',
+        'pendaftaran_tutup' => 'date',
         'tanggal_berangkat' => 'date',
         'tanggal_pulang'    => 'date',
         'harga'             => 'decimal:2',

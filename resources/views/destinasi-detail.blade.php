@@ -51,11 +51,9 @@
 
 <body class="font-sans antialiased text-gray-800 bg-gray-50 selection:bg-brand-blue selection:text-white">
 
-    <!-- Navbar -->
     <nav class="fixed w-full z-50 shadow-sm bg-white/95 border-b border-gray-100 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
                     <div class="relative w-12 h-12 mr-2 flex items-center justify-center">        
                         <img src="{{ asset('images/logo.png') }}" alt="Lokachara" class="h-10">
@@ -77,7 +75,6 @@
         </div>
     </nav>
 
-    <!-- Header Image -->
     <div class="relative pt-20 h-96 flex items-center justify-center">
         @if($destinasi->gambar)
             <div class="absolute inset-0 w-full h-full bg-center bg-cover"
@@ -101,10 +98,8 @@
         </div>
     </div>
 
-    <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <!-- Left Column: Details -->
             <div class="lg:col-span-2 space-y-10">
                 <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
                     <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4">Tentang Destinasi</h2>
@@ -113,7 +108,6 @@
                     </div>
                 </div>
 
-                <!-- Jadwal Tersedia -->
                 <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
                     <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4">Jadwal Keberangkatan</h2>
 
@@ -121,7 +115,9 @@
                         <div class="space-y-4">
                             @foreach($destinasi->jadwals as $jadwal)
                                 @php
-                                    $isPast = \Carbon\Carbon::parse($jadwal->tanggal_berangkat)->endOfDay()->isPast();
+                                    // Pengecekan kadaluarsa: Diperpanjang hingga jam 00:00 (start of day) pada hari keberangkatan.
+                                    // Jika melewati jam 00:00 hari keberangkatan, otomatis status menjadi isPast (Sudah Lewat).
+                                    $isPast = \Carbon\Carbon::parse($jadwal->tanggal_berangkat)->startOfDay()->isPast();
                                 @endphp
                                 <div
                                     class="flex flex-col sm:flex-row justify-between items-center p-5 rounded-xl border {{ ($jadwal->status == 'tersedia' && !$isPast) ? 'border-green-100 bg-green-50/30' : 'border-gray-100 bg-gray-50' }}">
@@ -140,8 +136,14 @@
                                                 <span class="font-semibold text-red-500">Penuh</span>
                                             @endif
                                         </p>
+                                        {{-- Tambahan Informasi Perpanjangan Pendaftaran --}}
+                                        @if($jadwal->status == 'tersedia' && !$isPast)
+                                            <p class="text-xs text-yellow-600 mt-2 bg-yellow-50 inline-block px-3 py-1 rounded-md border border-yellow-100">
+                                                * Pendaftaran diperpanjang hingga jam 00.00 di hari keberangkatan selama kuota belum penuh.
+                                            </p>
+                                        @endif
                                     </div>
-                                    <div>
+                                    <div class="mt-4 sm:mt-0">
                                         @if($isPast)
                                             <span
                                                 class="inline-block bg-gray-200 text-gray-500 px-6 py-2.5 rounded-full font-medium cursor-not-allowed">
@@ -170,7 +172,6 @@
                 </div>
             </div>
 
-            <!-- Right Column: Summary Card -->
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-2xl shadow-xl p-6 border border-gray-100 sticky top-28">
                     <h3 class="text-lg font-bold text-gray-900 mb-4">Informasi Harga</h3>
@@ -193,7 +194,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 pt-12 pb-8 border-t border-gray-800 mt-20">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <p class="text-gray-500 text-sm">

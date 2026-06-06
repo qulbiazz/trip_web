@@ -17,6 +17,15 @@ class JadwalsTable
                 TextColumn::make('destinasi.nama')
                     ->label('Destinasi')
                     ->searchable(),
+                TextColumn::make('pendaftaran_mulai')
+                    ->label('Pendaftaran Dibuka')
+                    ->date('d/m/Y')
+                    ->sortable(),
+
+                TextColumn::make('pendaftaran_tutup')
+                    ->label('Pendaftaran Ditutup')
+                    ->date('d/m/Y')
+                    ->sortable(),
                 TextColumn::make('tanggal_berangkat')
                     ->label('Tanggal Berangkat')
                     ->date()

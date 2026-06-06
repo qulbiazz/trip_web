@@ -39,6 +39,17 @@ class JadwalForm
                         $set('harga', $destinasi->harga_dasar);
                     })
                     ->required(),
+                // Periode Pendaftaran
+                DatePicker::make('pendaftaran_mulai')
+                    ->label('Pendaftaran Dibuka')
+                    ->placeholder('MM/DD/YYYY')
+                    ->required()
+                    ->minDate(today()),
+                DatePicker::make('pendaftaran_tutup')
+                    ->label('Pendaftaran Ditutup')
+                    ->placeholder('MM/DD/YYYY')
+                    ->required()
+                    ->minDate(today()),
                 DatePicker::make('tanggal_berangkat')
                     ->label('Tanggal Berangkat')
                     ->required()
