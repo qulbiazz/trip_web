@@ -649,6 +649,115 @@
         </div>
     </footer>
 
+    <!-- Floating Guide Button (Bottom Right) -->
+    <button id="guide-fab" class="fixed bottom-6 right-6 z-40 bg-brand-blue hover:bg-brand-blue-dark text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center gap-2 group">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-out font-semibold text-sm whitespace-nowrap">
+            Panduan Pemesanan
+        </span>
+    </button>
+
+    <!-- Tutorial Modal Container (Hidden by Default) -->
+    <div id="tutorial-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <!-- Backdrop -->
+        <div id="tutorial-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0"></div>
+        
+        <!-- Modal Card -->
+        <div class="relative bg-white rounded-3xl w-full max-w-lg mx-4 overflow-hidden shadow-2xl border border-gray-100 transform transition-all scale-95 opacity-0 duration-300 z-10" id="tutorial-card">
+            <!-- Close button -->
+            <button id="close-tutorial" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none p-2 rounded-full hover:bg-gray-100 transition-colors z-20">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <div class="p-8">
+                <!-- Step Progress Indicator -->
+                <div class="flex justify-between items-center mb-8 border-b pb-4 border-gray-100">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-blue" id="tutorial-step-indicator">Langkah 1 dari 4</span>
+                    <div class="flex gap-1.5" id="tutorial-dots">
+                        <span class="h-2 w-6 rounded-full bg-brand-blue transition-all duration-300"></span>
+                        <span class="h-2 w-2 rounded-full bg-gray-200 transition-all duration-300"></span>
+                        <span class="h-2 w-2 rounded-full bg-gray-200 transition-all duration-300"></span>
+                        <span class="h-2 w-2 rounded-full bg-gray-200 transition-all duration-300"></span>
+                    </div>
+                </div>
+
+                <!-- Slide Content Area -->
+                <div class="min-h-[220px] flex flex-col justify-between" id="tutorial-slides">
+                    <!-- Slide 1 -->
+                    <div class="tutorial-slide" data-step="1">
+                        <div class="w-14 h-14 bg-blue-50 text-brand-blue rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">1. Pilih Destinasi Wisata</h3>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            Jelajahi halaman beranda untuk menemukan berbagai destinasi wisata menarik. Klik tombol <strong class="text-brand-blue">"Detail"</strong> pada destinasi yang Anda inginkan untuk info selengkapnya.
+                        </p>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="tutorial-slide hidden" data-step="2">
+                        <div class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">2. Tentukan Jadwal Keberangkatan</h3>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            Di halaman detail destinasi, Anda akan melihat daftar jadwal keberangkatan yang tersedia beserta sisa kuota kursi. Klik <strong class="text-brand-blue">"Pilih Jadwal"</strong> pada tanggal yang Anda kehendaki.
+                        </p>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="tutorial-slide hidden" data-step="3">
+                        <div class="w-14 h-14 bg-green-50 text-brand-green rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">3. Lengkapi Form Pemesanan</h3>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            Isi formulir pemesanan dengan nama, email, nomor HP/WhatsApp, dan jumlah tiket. <strong class="text-brand-green">Sangat praktis, Anda tidak perlu registrasi atau login akun!</strong>
+                        </p>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="tutorial-slide hidden" data-step="4">
+                        <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">4. Selesaikan & Bayar</h3>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            Masukkan kode promo jika ada, lalu klik <strong class="text-brand-blue">"Selesaikan Pemesanan"</strong>. Invoice resmi akan langsung dikirim ke email Anda untuk rincian pembayaran.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Footer Action Buttons -->
+                <div class="flex items-center justify-between mt-8 pt-5 border-t border-gray-100">
+                    <button id="tutorial-prev" class="text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors opacity-0 pointer-events-none px-4 py-2 rounded-lg hover:bg-gray-50">
+                        Kembali
+                    </button>
+                    <div class="flex gap-2">
+                        <button id="tutorial-skip" class="text-gray-400 hover:text-gray-600 font-semibold text-sm transition-colors px-4 py-2 rounded-lg hover:bg-gray-50">
+                            Lewati
+                        </button>
+                        <button id="tutorial-next" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold text-sm px-6 py-2.5 rounded-full transition-all shadow-md transform hover:-translate-y-0.5">
+                            Lanjut
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Navbar blur and shadow on scroll
         window.addEventListener('scroll', function () {
@@ -684,6 +793,117 @@
                 iconOpen.classList.remove('hidden');
                 iconClose.classList.add('hidden');
             });
+        });
+
+        // Tutorial Onboarding logic
+        document.addEventListener('DOMContentLoaded', function () {
+            const tutorialSeen = localStorage.getItem('booking_tutorial_seen');
+            const modal = document.getElementById('tutorial-modal');
+            const card = document.getElementById('tutorial-card');
+            const backdrop = document.getElementById('tutorial-backdrop');
+            const fab = document.getElementById('guide-fab');
+            const closeBtn = document.getElementById('close-tutorial');
+            const skipBtn = document.getElementById('tutorial-skip');
+            const nextBtn = document.getElementById('tutorial-next');
+            const prevBtn = document.getElementById('tutorial-prev');
+            const slides = document.querySelectorAll('.tutorial-slide');
+            const dotsContainer = document.getElementById('tutorial-dots');
+            const indicator = document.getElementById('tutorial-step-indicator');
+            
+            let currentStep = 1;
+            const totalSteps = slides.length;
+
+            function openTutorial() {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    backdrop.classList.remove('opacity-0');
+                    backdrop.classList.add('opacity-100');
+                    card.classList.remove('scale-95', 'opacity-0');
+                    card.classList.add('scale-100', 'opacity-100');
+                }, 50);
+                showStep(1);
+            }
+
+            function closeTutorial() {
+                card.classList.remove('scale-100', 'opacity-100');
+                card.classList.add('scale-95', 'opacity-0');
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+                localStorage.setItem('booking_tutorial_seen', 'true');
+            }
+
+            function showStep(step) {
+                currentStep = step;
+                
+                // Hide all slides
+                slides.forEach(slide => slide.classList.add('hidden'));
+                
+                // Show current slide
+                const activeSlide = document.querySelector(`.tutorial-slide[data-step="${step}"]`);
+                if (activeSlide) {
+                    activeSlide.classList.remove('hidden');
+                }
+
+                // Update indicator text
+                indicator.innerText = `Langkah ${step} dari ${totalSteps}`;
+
+                // Update Dots
+                dotsContainer.innerHTML = '';
+                for (let i = 1; i <= totalSteps; i++) {
+                    const dot = document.createElement('span');
+                    if (i === step) {
+                        dot.className = 'h-2 w-6 rounded-full bg-brand-blue transition-all duration-300';
+                    } else {
+                        dot.className = 'h-2 w-2 rounded-full bg-gray-200 transition-all duration-300';
+                    }
+                    dotsContainer.appendChild(dot);
+                }
+
+                // Update Buttons
+                if (step === 1) {
+                    prevBtn.classList.add('opacity-0', 'pointer-events-none');
+                } else {
+                    prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+                }
+
+                if (step === totalSteps) {
+                    nextBtn.innerText = 'Selesai';
+                } else {
+                    nextBtn.innerText = 'Lanjut';
+                }
+            }
+
+            // Next button click
+            nextBtn.addEventListener('click', () => {
+                if (currentStep < totalSteps) {
+                    showStep(currentStep + 1);
+                } else {
+                    closeTutorial();
+                }
+            });
+
+            // Prev button click
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 1) {
+                    showStep(currentStep - 1);
+                }
+            });
+
+            // Skip button click
+            skipBtn.addEventListener('click', closeTutorial);
+            closeBtn.addEventListener('click', closeTutorial);
+            backdrop.addEventListener('click', closeTutorial);
+
+            // FAB click
+            fab.addEventListener('click', openTutorial);
+
+            // Auto-trigger for first time visitor
+            if (!tutorialSeen) {
+                setTimeout(openTutorial, 1500);
+            }
         });
     </script>
 </body>
