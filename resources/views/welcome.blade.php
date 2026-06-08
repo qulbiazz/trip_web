@@ -169,8 +169,13 @@
                 </div>
             </div>
         @endif
+        @php
+            $heroBg = (isset($siteSetting) && $siteSetting->hero_image)
+                ? asset('storage/' . $siteSetting->hero_image)
+                : asset('images/hero-bg.png');
+        @endphp
         <div class="absolute top-0 w-full h-full bg-center bg-cover"
-            style="background-image: url('<?php echo asset('images/hero-bg.png'); ?>');">
+            style="background-image: url('{{ $heroBg }}');">
             <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
             <div class="absolute inset-0 bg-gradient-hero mix-blend-multiply"></div>
         </div>

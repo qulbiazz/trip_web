@@ -11,13 +11,17 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('jadwals', function (Blueprint $table) {
-            $table->date('pendaftaran_mulai')
-                ->nullable()
-                ->after('destinasi_id');
+            if (!Schema::hasColumn('jadwals', 'pendaftaran_mulai')) {
+                $table->date('pendaftaran_mulai')
+                    ->nullable()
+                    ->after('destinasi_id');
+            }
 
-            $table->date('pendaftaran_tutup')
-                ->nullable()
-                ->after('pendaftaran_mulai');
+            if (!Schema::hasColumn('jadwals', 'pendaftaran_tutup')) {
+                $table->date('pendaftaran_tutup')
+                    ->nullable()
+                    ->after('pendaftaran_mulai');
+            }
         });
     }
 
@@ -27,10 +31,16 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('jadwals', function (Blueprint $table) {
-            $table->dropColumn([
-                'pendaftaran_mulai',
-                'pendaftaran_tutup',
-            ]);
+            $columns = [];
+            if (Schema::hasColumn('jadwals', 'pendaftaran_mulai')) {
+                $columns[] = 'pendaftaran_mulai';
+            }
+            if (Schema::hasColumn('jadwals', 'pendaftaran_tutup')) {
+                $columns[] = 'pendaftaran_tutup';
+            }
+            if (!empty($columns)) {
+                $table->dropColumn($columns);
+            }
         });
     }
 };

@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->foreignId('destinasi_id')->constrained('destinasis')->cascadeOnDelete();
             $table->date('tanggal_berangkat');
             $table->date('tanggal_pulang');
-            $table->date('pendaftaran_mulai');
-            $table->date('pendaftaran_tutup');
+            $table->date('pendaftaran_mulai')->nullable();
+            $table->date('pendaftaran_tutup')->nullable();
             $table->integer('kuota');
             $table->integer('sisa_kursi');
             $table->decimal('harga', 12, 2);
