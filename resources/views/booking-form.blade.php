@@ -108,24 +108,18 @@
                             <p class="text-xs text-gray-500 mt-1">Sisa kursi tersedia: {{ $jadwal->sisa_kursi }}</p>
                         </div>
                         <div>
-                            <label for="promo_id" class="block text-sm font-medium text-gray-700 mb-2">Kode Promo
+                            <label for="kode_promo" class="block text-sm font-medium text-gray-700 mb-2">Kode Promo
                                 (Opsional)</label>
-                            <select name="promo_id" id="promo_id"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue"
-                                onchange="calculateTotal()">
-                                <option value="">Tidak pakai promo</option>
-                                @foreach($promos as $promo)
-                                    <option value="{{ $promo->id }}" data-tipe="{{ $promo->tipe_diskon }}"
-                                        data-nilai="{{ $promo->nilai_diskon }}" {{ old('promo_id') == $promo->id ? 'selected' : '' }}>
-                                        {{ $promo->kode }} ({{ $promo->nama }})
-                                    </option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="kode_promo" id="kode_promo"
+                                value="{{ old('kode_promo') }}" placeholder="Masukkan kode promo"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-brand-blue focus:border-brand-blue normal-case"
+                                oninput="calculateTotal()">
+                            <p id="promo_message" class="text-xs text-gray-500 mt-1">Masukkan kode promo jika ada.</p>
                         </div>
                     </div>
 
                     <div id="anggota_container" class="space-y-4 mb-8">
-                        </div>
+                    </div>
 
                     <hr class="mb-6">
 
@@ -189,6 +183,9 @@
     </div>
 
     <script>
+        // Menyimpan data promos dari backend ke frontend JS
+        const availablePromos = @json($promos);
+
         function formatRupiah(angka) {
             return new Intl.NumberFormat('id-ID', {
                 style: 'currency',
@@ -200,21 +197,31 @@
         function calculateTotal() {
             const hargaDasar = parseInt(document.getElementById('displayHargaDasar').getAttribute('data-harga'));
             const qty = parseInt(document.getElementById('jumlah_peserta').value) || 1;
-            const promoSelect = document.getElementById('promo_id');
+            const promoInput = document.getElementById('kode_promo').value.trim();
+            const promoMessage = document.getElementById('promo_message');
 
             let subtotal = hargaDasar * qty;
             let diskon = 0;
 
-            if (promoSelect.selectedIndex > 0) {
-                const option = promoSelect.options[promoSelect.selectedIndex];
-                const tipe = option.getAttribute('data-tipe');
-                const nilai = parseInt(option.getAttribute('data-nilai'));
+            if (promoInput !== '') {
+                // Mencari promo yang sesuai dengan kode yang diketik (mengabaikan huruf besar/kecil)
+                const matchedPromo = availablePromos.find(p => p.kode.toLowerCase() === promoInput.toLowerCase());
 
-                if (tipe === 'persentase') {
-                    diskon = subtotal * (nilai / 100);
+                if (matchedPromo) {
+                    const tipe = matchedPromo.tipe_diskon;
+                    const nilai = parseInt(matchedPromo.nilai_diskon);
+
+                    if (tipe === 'persentase') {
+                        diskon = subtotal * (nilai / 100);
+                    } else {
+                        diskon = nilai;
+                    }
+                    promoMessage.innerHTML = `<span class="text-green-600 font-medium">Promo ${matchedPromo.nama} berhasil diterapkan!</span>`;
                 } else {
-                    diskon = nilai;
+                    promoMessage.innerHTML = `<span class="text-red-500">Kode promo tidak valid.</span>`;
                 }
+            } else {
+                promoMessage.innerHTML = 'Masukkan kode promo jika ada.';
             }
 
             let total = subtotal - diskon;
