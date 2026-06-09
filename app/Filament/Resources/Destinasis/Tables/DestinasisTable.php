@@ -28,7 +28,8 @@ class DestinasisTable
                 TextColumn::make('harga_dasar')
                     ->label('Harga Dasar')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->money('IDR'),
                 ImageColumn::make('gambar')
                     ->label('Gambar')
                     ->disk('public'),

@@ -31,11 +31,9 @@ class DestinasiForm
                     ->default('Indonesia'),
                 TextInput::make('harga_dasar')
                     ->label('Harga Dasar')
-                    ->required()
                     ->numeric()
-                    ->prefix('Rp') 
-                    ->mask(RawJs::make('$money($input, \',\', \'.\', 0)')) 
-                    ->stripCharacters('.'),
+                    ->prefix('Rp')
+                    ->required(),
                 FileUpload::make('gambar')
                     ->label('Gambar')
                     ->image()
