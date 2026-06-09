@@ -67,16 +67,7 @@ class PublicBookingController extends Controller
         try {
             DB::beginTransaction();
 
-            $namaAnggota = $validated['nama_anggota'] ?? [];
-            $jumlahPeserta = 1 + count($namaAnggota);
-
-            if ($jumlahPeserta > $jadwal->sisa_kursi) {
-                throw \Illuminate\Validation\ValidationException::withMessages([
-                    'jumlah_peserta' => 'Jumlah peserta melebihi sisa kursi yang tersedia.',
-                ]);
-            }
-
-            $total_bayar = $jadwal->destinasi->harga_dasar * $jumlahPeserta;
+            $total_bayar = $jadwal->destinasi->harga_dasar * $validated['jumlah_peserta'];
             
             $promoId = $validated['promo_id'] ?? null;
             if (empty($promoId) && !empty($validated['kode_promo'])) {
@@ -111,7 +102,7 @@ class PublicBookingController extends Controller
                 $booking->alamat_penjemputan = $validated['alamat_penjemputan'];
             }
             $booking->nama_anggota = $validated['nama_anggota'] ?? null;
-            $booking->jumlah_peserta = $jumlahPeserta;
+            $booking->jumlah_peserta = $validated['jumlah_peserta'];
             $booking->total_bayar = $total_bayar;
             $booking->status = 'pending';
             

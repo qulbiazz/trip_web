@@ -54,7 +54,6 @@ class BookingTest extends TestCase
             'email_pelanggan' => 'budi@example.com',
             'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 3,
-            'nama_anggota' => ['Peserta 2', 'Peserta 3'],
         ]);
 
         // Cek redirect ke invoice
@@ -95,7 +94,6 @@ class BookingTest extends TestCase
             'email_pelanggan' => 'budi@example.com',
             'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 2,
-            'nama_anggota' => ['Peserta 2'],
             'promo_id' => $promo->id,
         ]);
 
@@ -199,7 +197,6 @@ class BookingTest extends TestCase
             'email_pelanggan' => 'budi@example.com',
             'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 11,
-            'nama_anggota' => ['Peserta 2', 'Peserta 3', 'Peserta 4', 'Peserta 5', 'Peserta 6', 'Peserta 7', 'Peserta 8', 'Peserta 9', 'Peserta 10', 'Peserta 11'],
         ]);
 
         $response->assertSessionHasErrors('jumlah_peserta');
@@ -220,7 +217,6 @@ class BookingTest extends TestCase
             'email_pelanggan' => 'budi@example.com',
             'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 2,
-            'nama_anggota' => ['Peserta 2'],
         ]);
 
         $response->assertSessionHasErrors('alamat_penjemputan');
@@ -242,7 +238,6 @@ class BookingTest extends TestCase
             'nomor_handphone' => '08123456789',
             'alamat_penjemputan' => 'Hotel Santika Malang, Kamar 405',
             'jumlah_peserta' => 2,
-            'nama_anggota' => ['Peserta 2'],
         ]);
 
         $booking = Booking::first();
