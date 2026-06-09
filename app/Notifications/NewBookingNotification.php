@@ -6,7 +6,7 @@ use App\Models\Booking;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Filament\Notifications\Notification as FilamentNotification;
-use Filament\Notifications\Actions\Action;
+use Filament\Actions\Action;
 
 class NewBookingNotification extends Notification
 {
