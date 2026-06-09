@@ -672,16 +672,16 @@
                 <div>
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase mb-4">Layanan</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Pesan
-                                Tiket</a></li>
+                        {{-- <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Pesan
+                                Tiket</a></li> --}}
                         <li><a href="#destinasi"
                                 class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Destinasi Jawa
                                 Timur</a></li>
                         <li><a href="#destinasi"
                                 class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Destinasi Luar
                                 Jawa Timur</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Tour
-                                Guide</a></li>
+                        {{-- <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Tour
+                                Guide</a></li> --}}
                     </ul>
                 </div>
                 <div>
