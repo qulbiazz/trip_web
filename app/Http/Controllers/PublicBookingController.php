@@ -53,6 +53,9 @@ class PublicBookingController extends Controller
             'nomor_handphone' => 'required|string|max:50',
             'jumlah_peserta' => 'required|integer|min:1|max:' . $jadwal->sisa_kursi,
             'promo_id' => 'nullable|exists:promos,id',
+            'kode_promo' => 'nullable|string|exists:promos,kode',
+            'nama_anggota' => 'nullable|array',
+            'nama_anggota.*' => 'required|string|max:255',
         ];
 
         if (str_contains(strtolower($jadwal->destinasi->nama), 'bromo')) {
@@ -64,10 +67,27 @@ class PublicBookingController extends Controller
         try {
             DB::beginTransaction();
 
-            $total_bayar = $jadwal->destinasi->harga_dasar * $validated['jumlah_peserta'];
+            $namaAnggota = $validated['nama_anggota'] ?? [];
+            $jumlahPeserta = 1 + count($namaAnggota);
+
+            if ($jumlahPeserta > $jadwal->sisa_kursi) {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'jumlah_peserta' => 'Jumlah peserta melebihi sisa kursi yang tersedia.',
+                ]);
+            }
+
+            $total_bayar = $jadwal->destinasi->harga_dasar * $jumlahPeserta;
             
-            if (!empty($validated['promo_id'])) {
-                $promo = Promo::find($validated['promo_id']);
+            $promoId = $validated['promo_id'] ?? null;
+            if (empty($promoId) && !empty($validated['kode_promo'])) {
+                $promo = Promo::where('kode', $validated['kode_promo'])->first();
+                if ($promo) {
+                    $promoId = $promo->id;
+                }
+            }
+
+            if (!empty($promoId)) {
+                $promo = Promo::find($promoId);
                 if ($promo && $promo->is_aktif && ($promo->expired_at == null || !Carbon::parse($promo->expired_at)->endOfDay()->isPast())) {
                     if ($promo->tipe_diskon === 'persentase') {
                         $diskon = $total_bayar * ($promo->nilai_diskon / 100);
@@ -77,20 +97,21 @@ class PublicBookingController extends Controller
                     }
                     $total_bayar = max(0, $total_bayar);
                 } else {
-                    $validated['promo_id'] = null;
+                    $promoId = null;
                 }
             }
 
             $booking = new Booking();
             $booking->jadwal_id = $jadwal->id;
-            $booking->promo_id = $validated['promo_id'] ?? null;
+            $booking->promo_id = $promoId;
             $booking->nama_pelanggan = $validated['nama_pelanggan'];
             $booking->email_pelanggan = $validated['email_pelanggan'];
             $booking->nomor_handphone = $validated['nomor_handphone'];
             if (isset($validated['alamat_penjemputan'])) {
                 $booking->alamat_penjemputan = $validated['alamat_penjemputan'];
             }
-            $booking->jumlah_peserta = $validated['jumlah_peserta'];
+            $booking->nama_anggota = $validated['nama_anggota'] ?? null;
+            $booking->jumlah_peserta = $jumlahPeserta;
             $booking->total_bayar = $total_bayar;
             $booking->status = 'pending';
             

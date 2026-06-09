@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreignId('promo_id')->nullable()->constrained('promos')->nullOnDelete();
             $table->string('nama_pelanggan');
             $table->string('email_pelanggan')->nullable();
+            $table->string('nomor_handphone', 50)->nullable();
+            $table->text('alamat_penjemputan')->nullable();
+            $table->json('nama_anggota')->nullable();
             $table->integer('jumlah_peserta');
             $table->decimal('total_bayar', 12, 2);
             $table->enum('status', ['pending', 'dikonfirmasi', 'dibayar', 'dibatalkan'])->default('pending');

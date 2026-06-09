@@ -19,6 +19,7 @@ class Booking extends Model
         'email_pelanggan',
         'nomor_handphone',
         'alamat_penjemputan',
+        'nama_anggota',
         'jumlah_peserta',
         'total_bayar',
         'status',
@@ -26,6 +27,7 @@ class Booking extends Model
 
     protected $casts = [
         'total_bayar' => 'decimal:2',
+        'nama_anggota' => 'array',
     ];
 
     protected static function boot(): void

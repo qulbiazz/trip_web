@@ -54,6 +54,7 @@ class BookingTest extends TestCase
             'email_pelanggan' => 'budi@example.com',
             'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 3,
+            'nama_anggota' => ['Peserta 2', 'Peserta 3'],
         ]);
 
         // Cek redirect ke invoice
@@ -94,6 +95,7 @@ class BookingTest extends TestCase
             'email_pelanggan' => 'budi@example.com',
             'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 2,
+            'nama_anggota' => ['Peserta 2'],
             'promo_id' => $promo->id,
         ]);
 
@@ -197,6 +199,7 @@ class BookingTest extends TestCase
             'email_pelanggan' => 'budi@example.com',
             'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 11,
+            'nama_anggota' => ['Peserta 2', 'Peserta 3', 'Peserta 4', 'Peserta 5', 'Peserta 6', 'Peserta 7', 'Peserta 8', 'Peserta 9', 'Peserta 10', 'Peserta 11'],
         ]);
 
         $response->assertSessionHasErrors('jumlah_peserta');
@@ -217,6 +220,7 @@ class BookingTest extends TestCase
             'email_pelanggan' => 'budi@example.com',
             'nomor_handphone' => '08123456789',
             'jumlah_peserta' => 2,
+            'nama_anggota' => ['Peserta 2'],
         ]);
 
         $response->assertSessionHasErrors('alamat_penjemputan');
@@ -238,11 +242,33 @@ class BookingTest extends TestCase
             'nomor_handphone' => '08123456789',
             'alamat_penjemputan' => 'Hotel Santika Malang, Kamar 405',
             'jumlah_peserta' => 2,
+            'nama_anggota' => ['Peserta 2'],
         ]);
 
         $booking = Booking::first();
         $this->assertNotNull($booking);
         $this->assertEquals('Hotel Santika Malang, Kamar 405', $booking->alamat_penjemputan);
+        $response->assertRedirect(route('bookings.invoice.show', $booking->id));
+    }
+
+    /**
+     * Test booking dengan peserta tambahan berhasil menyimpan nama_anggota.
+     */
+    public function test_booking_creation_with_additional_members(): void
+    {
+        $response = $this->post(route('booking.store', $this->jadwal->id), [
+            'nama_pelanggan' => 'Budi Santoso',
+            'email_pelanggan' => 'budi@example.com',
+            'nomor_handphone' => '08123456789',
+            'jumlah_peserta' => 3,
+            'nama_anggota' => ['Alice', 'Bob'],
+        ]);
+
+        $booking = Booking::first();
+        $this->assertNotNull($booking);
+        $this->assertEquals(3, $booking->jumlah_peserta);
+        $this->assertIsArray($booking->nama_anggota);
+        $this->assertEquals(['Alice', 'Bob'], $booking->nama_anggota);
         $response->assertRedirect(route('bookings.invoice.show', $booking->id));
     }
 }

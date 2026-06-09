@@ -181,6 +181,9 @@
                     <div class="row"><span class="key">Alamat Penjemputan</span><span class="val">{{ $booking->alamat_penjemputan }}</span></div>
                     @endif
                     <div class="row"><span class="key">Jumlah Peserta</span><span class="val">{{ $booking->jumlah_peserta }} orang</span></div>
+                    @if($booking->nama_anggota && is_array($booking->nama_anggota) && count($booking->nama_anggota) > 0)
+                    <div class="row"><span class="key">Peserta Tambahan</span><span class="val">{{ implode(', ', $booking->nama_anggota) }}</span></div>
+                    @endif
                     <div class="row"><span class="key">Promo</span><span class="val">{{ $booking->promo?->kode ?? '-' }}</span></div>
                 </div>
             </div>
