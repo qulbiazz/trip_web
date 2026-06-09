@@ -93,10 +93,6 @@ class BookingsTable
                     ->label('Invoice')
                     ->icon('heroicon-o-document-text')
                     ->url(fn ($record): string => route('bookings.invoice.show', $record) . '?admin=1', shouldOpenInNewTab: true),
-                Action::make('unduhInvoice')
-                    ->label('Unduh Invoice')
-                    ->icon('heroicon-o-arrow-down-tray')
-                    ->url(fn ($record): string => route('bookings.invoice.download', $record), shouldOpenInNewTab: true),
                 EditAction::make(),
             ])
             ->toolbarActions([
