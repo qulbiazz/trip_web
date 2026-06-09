@@ -24,7 +24,10 @@ class DestinasiForm
                     ->columnSpanFull(),
                 TextInput::make('lokasi')
                     ->label('Lokasi')
-                    ->required(),
+                    ->required()
+                    ->maxLength(30)
+                    ->live(debounce: 1) // Memberikan jeda 100ms saat mengetik agar server tidak terbebani
+                    ->hint(fn(?string $state, $component) => mb_strlen($state ?? '') . '/' . $component->getMaxLength() . ' Karakter'),
                 TextInput::make('negara')
                     ->label('Negara')
                     ->required()
