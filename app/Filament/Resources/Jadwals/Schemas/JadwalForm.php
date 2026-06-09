@@ -70,7 +70,6 @@ class JadwalForm
                     ->dehydrated()
                     ->rules(['numeric'])
                     ->prefix('Rp') 
-                    ->prefix('Rp')
                     ->helperText('Harga dasar destinasi.'),
                 Select::make('status')
                     ->label('Status')
