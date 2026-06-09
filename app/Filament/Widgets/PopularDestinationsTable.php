@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class PopularDestinationsTable extends BaseWidget
 {
-    protected static ?string $heading = '5 Destinasi Perjalanan Terpopuler';
+    protected static ?string $heading = 'Destinasi Perjalanan Terpopuler';
 
     protected int | string | array $columnSpan = 'full';
 
@@ -30,7 +30,6 @@ class PopularDestinationsTable extends BaseWidget
                     ->whereIn('bookings.status', ['dibayar', 'dikonfirmasi'])
                     ->groupBy('destinasis.id', 'destinasis.nama')
                     ->orderByDesc('total_bookings')
-                    ->limit(5)
             )
             ->columns([
                 Tables\Columns\TextColumn::make('nama')

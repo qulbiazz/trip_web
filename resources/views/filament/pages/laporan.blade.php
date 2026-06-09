@@ -71,7 +71,7 @@
         </table>
 
         <!-- Bagian II: Destinasi Terpopuler -->
-        <div class="section-title" style="margin-top: 30px;">II. DESTINASI PERJALANAN TERPOPULER (TOP 5)</div>
+        <div class="section-title" style="margin-top: 30px;">II. DESTINASI PERJALANAN TERPOPULER</div>
         <table class="data-table popular-table">
             <thead>
                 <tr>

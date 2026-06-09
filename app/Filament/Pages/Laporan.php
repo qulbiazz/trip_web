@@ -54,7 +54,6 @@ class Laporan extends Page
             ->whereIn('bookings.status', ['dibayar', 'dikonfirmasi'])
             ->groupBy('destinasis.id', 'destinasis.nama')
             ->orderByDesc('total_bookings')
-            ->limit(5)
             ->get()
             ->map(fn($item) => (array) $item)
             ->toArray();
@@ -187,10 +186,9 @@ class Laporan extends Page
                             ->whereIn('bookings.status', ['dibayar', 'dikonfirmasi'])
                             ->groupBy('destinasis.id', 'destinasis.nama')
                             ->orderByDesc('total_bookings')
-                            ->limit(5)
                             ->get();
 
-                        $sheet->setCellValue('A23', 'IV. 5 DESTINASI TERPOPULER');
+                        $sheet->setCellValue('A23', 'IV. DESTINASI TERPOPULER');
                         $sheet->getStyle('A23')->applyFromArray($sectionStyle);
                         $sheet->setCellValue('A24', 'Nama Destinasi');
                         $sheet->setCellValue('B24', 'Jumlah Pemesanan');
@@ -206,7 +204,9 @@ class Laporan extends Page
                         }
                         
                         // Format Popular Destinations Revenue numbers
-                        $sheet->getStyle('C25:C29')->getNumberFormat()->setFormatCode('#,##0');
+                        if ($row > 25) {
+                            $sheet->getStyle('C25:C' . ($row - 1))->getNumberFormat()->setFormatCode('#,##0');
+                        }
 
                         // Auto-fit column width for A, B, C
                         foreach (range('A', 'C') as $col) {
