@@ -24,10 +24,12 @@ class PromoForm
                         'nominal' => 'Nominal (Rp)',
                     ])
                     ->required()
-                    ->default('persentase'),
+                    ->default('persentase')
+                    ->live(),
                 TextInput::make('nilai_diskon')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->maxValue(fn ($get) => $get('tipe_diskon') === 'persentase' ? 100 : null),
                 DatePicker::make('expired_at')
                     ->label('Berlaku Hingga')
                     ->native(false)
@@ -35,7 +37,6 @@ class PromoForm
 
                 Toggle::make('is_aktif')
                     ->required(),
-
             ]);
     }
 }
