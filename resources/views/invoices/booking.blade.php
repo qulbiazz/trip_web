@@ -253,7 +253,9 @@
                 booking_code: "{{ $booking->kode_booking }}",
                 destination: "{{ $booking->jadwal?->destinasi?->nama ?? '-' }}",
                 departure_date: "{{ optional($booking->jadwal?->tanggal_berangkat)->format('d M Y') ?? '-' }}",
-                total_amount: "Rp{{ number_format((float) $booking->total_bayar, 0, ',', '.') }}"
+                total_amount: "Rp{{ number_format((float) $booking->total_bayar, 0, ',', '.') }}",
+                jumlah_peserta: "{{ $booking->jumlah_peserta }} orang",
+                nama_anggota: "{{ $booking->nama_anggota && is_array($booking->nama_anggota) ? implode(', ', $booking->nama_anggota) : '-' }}"
             };
 
             emailjs.send('service_dtc7o08', 'template_jckdjnv', templateParams)
