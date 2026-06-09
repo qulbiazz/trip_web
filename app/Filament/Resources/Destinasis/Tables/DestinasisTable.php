@@ -30,7 +30,8 @@ class DestinasisTable
                     ->numeric()
                     ->sortable(),
                 ImageColumn::make('gambar')
-                    ->label('Gambar'),
+                    ->label('Gambar')
+                    ->disk('public'),
                 TextColumn::make('kategori')
                     ->label('Kategori')
                     ->searchable(),
