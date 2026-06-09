@@ -23,13 +23,20 @@ class NewBookingNotification extends Notification
 
     public function toDatabase(object $notifiable): array
     {
+        // Susun nama peserta tambahan jika ada
+        $namaTambahan = '';
+        if (!empty($this->booking->nama_anggota) && is_array($this->booking->nama_anggota)) {
+            $namaTambahan = "\nPeserta Tambahan: **" . implode(', ', $this->booking->nama_anggota) . "**";
+        }
+
         return FilamentNotification::make()
             ->title('Booking Baru Masuk!')
             ->icon('heroicon-o-ticket')
             ->iconColor('warning')
             ->body(
                 "**{$this->booking->nama_pelanggan}** memesan **{$this->booking->jadwal?->destinasi?->nama}** " .
-                "untuk **{$this->booking->jumlah_peserta} peserta**. Kode: `{$this->booking->kode_booking}`"
+                "untuk **{$this->booking->jumlah_peserta} peserta**. Kode: `{$this->booking->kode_booking}`" .
+                $namaTambahan
             )
             ->actions([
                 Action::make('lihat')
