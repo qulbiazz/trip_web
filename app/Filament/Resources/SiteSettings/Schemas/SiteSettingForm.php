@@ -36,6 +36,13 @@ class SiteSettingForm
                                      ->required()
                                      ->default(true),
                              ]),
+                         TextInput::make('whatsapp_number')
+                             ->label('Nomor WhatsApp Admin')
+                             ->placeholder('Contoh: 6285954413123')
+                             ->helperText('Nomor WhatsApp tanpa tanda + dan spasi (contoh: 6281234567890). Digunakan untuk tombol konfirmasi pembayaran di halaman invoice.')
+                             ->required()
+                             ->maxLength(20)
+                             ->columnSpanFull(),
                      ]),
 
                  Section::make('Bagian Hero (Banner Utama)')

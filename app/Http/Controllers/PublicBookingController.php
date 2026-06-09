@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Jadwal;
 use App\Models\Promo;
+use App\Models\User;
+use App\Notifications\NewBookingNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -108,10 +110,18 @@ class PublicBookingController extends Controller
             
             $booking->save();
 
+            // Kirim notifikasi ke semua admin
+            $booking->loadMissing(['jadwal.destinasi']);
+            $admins = User::all();
+            foreach ($admins as $admin) {
+                $admin->notify(new NewBookingNotification($booking));
+            }
+
             DB::commit();
 
             return redirect()->route('bookings.invoice.show', $booking->id)
-                ->with('success', 'Pemesanan berhasil dibuat! Silakan simpan invoice Anda.');
+                ->with('success', 'Pemesanan berhasil dibuat! Silakan simpan invoice Anda.')
+                ->with('auto_send_email', true);
                 
         } catch (\Illuminate\Validation\ValidationException $e) {
             DB::rollBack();

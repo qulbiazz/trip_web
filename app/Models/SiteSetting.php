@@ -18,6 +18,7 @@ class SiteSetting extends Model
         'feature_title',
         'feature_description',
         'is_active',
+        'whatsapp_number',
     ];
 
     protected $casts = [

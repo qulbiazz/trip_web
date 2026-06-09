@@ -208,10 +208,13 @@
         <div class="absolute inset-0 w-full h-full z-0">
             @if ($siteSettings->isEmpty())
                 <!-- Fallback Default Slide -->
+                @php
+                    $defaultBg = asset('images/hero-bg.png');
+                @endphp
                 <div
                     class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center opacity-100 z-10">
                     <div class="absolute inset-0 bg-center bg-cover"
-                        style="background-image: url('{{ asset('images/hero-bg.png') }}');">
+                        style="background-image: url('{{ $defaultBg }}');">
                         <span class="w-full h-full absolute opacity-50 bg-black"></span>
                         <div class="absolute inset-0 bg-gradient-hero mix-blend-multiply"></div>
                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\SiteSetting;
 use Illuminate\Http\Response;
 
 class BookingInvoiceController extends Controller
@@ -10,18 +11,22 @@ class BookingInvoiceController extends Controller
     public function show(Booking $booking): Response
     {
         $booking->loadMissing(['jadwal.destinasi', 'promo']);
+        $siteSetting = SiteSetting::first();
 
         return response()->view('invoices.booking', [
-            'booking' => $booking,
+            'booking'     => $booking,
+            'siteSetting' => $siteSetting,
         ]);
     }
 
     public function download(Booking $booking): Response
     {
         $booking->loadMissing(['jadwal.destinasi', 'promo']);
+        $siteSetting = SiteSetting::first();
 
         $html = view('invoices.booking', [
-            'booking' => $booking,
+            'booking'     => $booking,
+            'siteSetting' => $siteSetting,
         ])->render();
 
         $filename = ($booking->nomor_invoice ?: ('booking-' . $booking->id)) . '.html';

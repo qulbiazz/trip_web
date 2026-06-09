@@ -7,6 +7,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class BookingsTable
@@ -17,9 +18,6 @@ class BookingsTable
             ->columns([
                 TextColumn::make('kode_booking')
                     ->label('Kode Booking')
-                    ->searchable(),
-                TextColumn::make('nomor_invoice')
-                    ->label('Invoice')
                     ->searchable(),
                 TextColumn::make('jadwal.destinasi.nama')
                     ->label('Destinasi')
@@ -48,12 +46,26 @@ class BookingsTable
 
                 TextColumn::make('total_bayar')
                     ->label('Total Bayar')
-                    ->numeric()
+                    ->money('IDR')
                     ->sortable(),
                 TextColumn::make('status')
                     ->label('Status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'pending'      => 'warning',
+                        'dikonfirmasi' => 'info',
+                        'dibayar'      => 'success',
+                        'dibatalkan'   => 'danger',
+                        default        => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'pending'      => 'Belum dibayar',
+                        'dikonfirmasi' => 'Dikonfirmasi',
+                        'dibayar'      => 'Berhasil dibayar',
+                        'dibatalkan'   => 'Dibatalkan',
+                        default        => $state,
+                    })
                     ->searchable(),
-
                 TextColumn::make('created_at')
                     ->label('Dibuat Pada')
                     ->dateTime()
@@ -66,7 +78,15 @@ class BookingsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->label('Filter Status')
+                    ->options([
+                        'pending'      => '🟡 Belum dibayar',
+                        'dikonfirmasi' => '🔵 Dikonfirmasi',
+                        'dibayar'      => '🟢 Berhasil dibayar',
+                        'dibatalkan'   => '🔴 Dibatalkan',
+                    ])
+                    ->placeholder('Semua Status'),
             ])
             ->recordActions([
                 Action::make('lihatInvoice')
@@ -83,6 +103,7 @@ class BookingsTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 }

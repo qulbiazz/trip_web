@@ -89,6 +89,49 @@ class Booking extends Model
             }
         });
 
+        static::updated(function ($booking) {
+            // Jika status berubah menjadi 'dibayar', kirim email invoice otomatis dari server
+            if ($booking->wasChanged('status') && $booking->status === 'dibayar') {
+                try {
+                    $booking->loadMissing(['jadwal.destinasi', 'promo']);
+                    
+                    $payload = [
+                        'service_id' => 'service_dtc7o08',
+                        'template_id' => 'template_jckdjnv',
+                        'user_id' => 'tgHFKu2zVmBHp6h6t',
+                        'template_params' => [
+                            'to_email' => $booking->email_pelanggan,
+                            'to_name' => $booking->nama_pelanggan,
+                            'invoice_no' => $booking->nomor_invoice,
+                            'booking_code' => $booking->kode_booking,
+                            'destination' => $booking->jadwal?->destinasi?->nama ?? '-',
+                            'departure_date' => optional($booking->jadwal?->tanggal_berangkat)->format('d M Y') ?? '-',
+                            'total_amount' => 'Rp' . number_format((float) $booking->total_bayar, 0, ',', '.'),
+                            'jumlah_peserta' => $booking->jumlah_peserta . ' orang',
+                            'nama_anggota' => is_array($booking->nama_anggota) ? implode(', ', $booking->nama_anggota) : '-',
+                        ]
+                    ];
+
+                    $privateKey = env('EMAILJS_PRIVATE_KEY') ?? env('EMAILJS_ACCESS_TOKEN');
+                    if ($privateKey) {
+                        $payload['accessToken'] = $privateKey;
+                    }
+
+                    \Illuminate\Support\Facades\Log::info('Mencoba mengirim email invoice otomatis dari backend untuk Booking: ' . $booking->kode_booking);
+
+                    $response = \Illuminate\Support\Facades\Http::post('https://api.emailjs.com/api/v1.0/email/send', $payload);
+
+                    if ($response->successful()) {
+                        \Illuminate\Support\Facades\Log::info('Email invoice otomatis berhasil dikirim untuk Booking: ' . $booking->kode_booking);
+                    } else {
+                        \Illuminate\Support\Facades\Log::error('EmailJS API mengembalikan error: Status = ' . $response->status() . ', Body = ' . $response->body());
+                    }
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error('Gagal mengirim email invoice otomatis dari backend: ' . $e->getMessage());
+                }
+            }
+        });
+
         static::deleting(function ($booking) {
             if ($booking->status !== 'dibatalkan' && $booking->jadwal_id) {
                 static::applySeatChangesAtomic([
