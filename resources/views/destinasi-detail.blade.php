@@ -1,6 +1,7 @@
 <?php
 
-/** @var \App\Models\Destinasi $destinasi */ ?>
+/** @var \App\Models\Destinasi $destinasi */
+?>
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 
@@ -55,7 +56,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="relative w-12 h-12 mr-2 flex items-center justify-center">        
+                    <div class="relative w-12 h-12 mr-2 flex items-center justify-center">
                         <img src="{{ asset('images/logo.png') }}" alt="Lokachara" class="h-10">
                     </div>
                 </div>
@@ -76,9 +77,9 @@
     </nav>
 
     <div class="relative pt-20 h-96 flex items-center justify-center">
-        @if($destinasi->gambar)
+        @if ($destinasi->gambar)
             <div class="absolute inset-0 w-full h-full bg-center bg-cover"
-                style="background-image: url('<?php    echo asset('storage/' . $destinasi->gambar); ?>');">
+                style="background-image: url('<?php echo asset('storage/' . $destinasi->gambar); ?>');">
                 <div class="absolute inset-0 bg-black opacity-40"></div>
             </div>
         @else
@@ -108,38 +109,18 @@
                     </div>
 
                     <div class="mt-8 pt-6 border-t border-gray-100">
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Yang Akan Anda Dapatkan</h3>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Fasilitas yang Akan Didapatkan</h3>
                         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <li class="flex items-start">
-                                <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-600">Transportasi ber-AC selama tour</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-600">Tiket masuk wisata (sesuai itinerary)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-600">Guide lokal yang berpengalaman</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-600">Dokumentasi perjalanan eksklusif</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-600">Air mineral & perlengkapan P3K</span>
-                            </li>
+                            @foreach (explode("\n", $destinasi->fasilitas) as $item)
+                                <div class="flex items-start">
+                                    <svg class="w-5 h-5 text-brand-green mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>{{ $item }}</span>
+                                </div>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -147,28 +128,28 @@
                 <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
                     <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4">Jadwal Keberangkatan</h2>
 
-                    @if($destinasi->jadwals->count() > 0)
+                    @if ($destinasi->jadwals->count() > 0)
                         <div class="space-y-4">
-                            @foreach($destinasi->jadwals as $jadwal)
+                            @foreach ($destinasi->jadwals as $jadwal)
                                 @php
                                     // Pengecekan kadaluarsa: Diperpanjang hingga jam 00:00 (start of day) pada hari keberangkatan.
                                     // Jika melewati jam 00:00 hari keberangkatan, otomatis status menjadi isPast (Sudah Lewat).
                                     $isPast = \Carbon\Carbon::parse($jadwal->tanggal_berangkat)->startOfDay()->isPast();
                                 @endphp
                                 <div
-                                    class="flex flex-col sm:flex-row justify-between items-center p-5 rounded-xl border {{ ($jadwal->status == 'tersedia' && !$isPast) ? 'border-green-100 bg-green-50/30' : 'border-gray-100 bg-gray-50' }}">
+                                    class="flex flex-col sm:flex-row justify-between items-center p-5 rounded-xl border {{ $jadwal->status == 'tersedia' && !$isPast ? 'border-green-100 bg-green-50/30' : 'border-gray-100 bg-gray-50' }}">
                                     <div class="mb-4 sm:mb-0">
                                         <p class="font-bold text-lg text-gray-900">
-                                            Jadwal Keberangkatan: 
+                                            Jadwal Keberangkatan:
                                             <span class="text-brand-blue">
                                                 {{ \Carbon\Carbon::parse($jadwal->tanggal_berangkat)->translatedFormat('d F Y') }}
                                                 -
                                                 {{ \Carbon\Carbon::parse($jadwal->tanggal_pulang)->translatedFormat('d F Y') }}
                                             </span>
                                         </p>
-                                        @if($jadwal->pendaftaran_mulai && $jadwal->pendaftaran_tutup)
+                                        @if ($jadwal->pendaftaran_mulai && $jadwal->pendaftaran_tutup)
                                             <p class="text-sm text-gray-700 mt-1 font-medium">
-                                                Jadwal Pendaftaran: 
+                                                Jadwal Pendaftaran:
                                                 <span class="text-gray-900 font-bold">
                                                     {{ \Carbon\Carbon::parse($jadwal->pendaftaran_mulai)->translatedFormat('d F Y') }}
                                                     -
@@ -176,11 +157,13 @@
                                                 </span>
                                             </p>
                                         @endif
-                                        @if(!$isPast)
+                                        @if (!$isPast)
                                             <p class="text-sm text-gray-500 mt-1">
                                                 Sisa Kursi:
-                                                @if($jadwal->status == 'tersedia')
-                                                    <span class="font-semibold text-brand-green">{{ $jadwal->sisa_kursi }}</span> /
+                                                @if ($jadwal->status == 'tersedia')
+                                                    <span
+                                                        class="font-semibold text-brand-green">{{ $jadwal->sisa_kursi }}</span>
+                                                    /
                                                     {{ $jadwal->kuota }}
                                                 @else
                                                     <span class="font-semibold text-red-500">Penuh</span>
@@ -188,14 +171,16 @@
                                             </p>
                                         @endif
                                         {{-- Tambahan Informasi Perpanjangan Pendaftaran --}}
-                                        @if($jadwal->status == 'tersedia' && !$isPast)
-                                            <p class="text-xs text-yellow-600 mt-2 bg-yellow-50 inline-block px-3 py-1 rounded-md border border-yellow-100">
-                                                * Pendaftaran diperpanjang hingga jam 00.00 di hari keberangkatan selama kuota belum penuh.
+                                        @if ($jadwal->status == 'tersedia' && !$isPast)
+                                            <p
+                                                class="text-xs text-yellow-600 mt-2 bg-yellow-50 inline-block px-3 py-1 rounded-md border border-yellow-100">
+                                                * Pendaftaran diperpanjang hingga jam 00.00 di hari keberangkatan selama
+                                                kuota belum penuh.
                                             </p>
                                         @endif
                                     </div>
                                     <div class="mt-4 sm:mt-0">
-                                        @if($isPast)
+                                        @if ($isPast)
                                             <span
                                                 class="inline-block bg-gray-200 text-gray-500 px-6 py-2.5 rounded-full font-medium cursor-not-allowed">
                                                 Sudah Lewat

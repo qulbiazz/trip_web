@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('harga_dasar', 12, 2);
             $table->string('gambar')->nullable();
             $table->enum('kategori', ['domestik', 'internasional'])->default('domestik');
+            $table->longText('fasilitas')->nullable();
             $table->boolean('is_aktif')->default(true);
             $table->timestamps();
         });

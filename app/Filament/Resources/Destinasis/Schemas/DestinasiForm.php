@@ -33,9 +33,11 @@ class DestinasiForm
                     ->label('Harga Dasar')
                     ->required()
                     ->rules(['numeric'])
-                    ->prefix('Rp') 
-                    ->mask(RawJs::make('$money($input, \',\', \'.\', 0)')) 
-                    ->formatStateUsing(fn ($state) => is_numeric($state) ? number_format((float) $state, 0, ',', '') : null)
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, \',\', \'.\', 0)'))
+                    ->dehydrateStateUsing(function ($state) {
+                        return str_replace('.', '', $state);
+                    })
                     ->stripCharacters('.'),
                 FileUpload::make('gambar')
                     ->label('Gambar')
@@ -51,6 +53,9 @@ class DestinasiForm
                     ])
                     ->required()
                     ->default('domestik'),
+                Textarea::make('fasilitas')
+                    ->label('Fasilitas')
+                    ->helperText('Pisahkan dengan enter'),
                 Toggle::make('is_aktif')
                     ->label('Aktif')
                     ->required(),

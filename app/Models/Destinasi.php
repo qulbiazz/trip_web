@@ -15,6 +15,7 @@ class Destinasi extends Model
         'harga_dasar',
         'gambar',
         'kategori',
+        'fasilitas',
         'is_aktif',
     ];
 

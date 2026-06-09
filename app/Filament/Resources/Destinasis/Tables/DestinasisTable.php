@@ -36,6 +36,11 @@ class DestinasisTable
                 TextColumn::make('kategori')
                     ->label('Kategori')
                     ->searchable(),
+                TextColumn::make('fasilitas')
+                    ->label('Fasilitas')
+                    ->wrap()
+                    ->limit(15)
+                    ->separator("\n"),
                 IconColumn::make('is_aktif')
                     ->label('Aktif')
                     ->boolean(),
