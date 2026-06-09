@@ -55,6 +55,37 @@
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
         }
+
+        /* Hero Slider Custom Styles */
+        .hero-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 30;
+            background-color: rgba(0, 0, 0, 0.25);
+            color: #ffffff;
+            padding: 0.75rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .hero-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+            transform: translateY(-50%) scale(1.05);
+        }
+        
+        .hero-arrow-prev {
+            left: 1.5rem;
+        }
+        
+        .hero-arrow-next {
+            right: 1.5rem;
+        }
     </style>
 </head>
 
@@ -131,7 +162,7 @@
     </nav>
 
 
-    <div class="relative pt-20 pb-32 flex content-center items-center justify-center min-h-screen">
+    <div id="hero-slider" class="relative pt-20 pb-32 flex content-center items-center justify-center min-h-screen overflow-hidden">
 
         @if($jadwalOpen->isNotEmpty())
             <div
@@ -169,53 +200,100 @@
                 </div>
             </div>
         @endif
-        @php
-            $heroBg = (isset($siteSetting) && $siteSetting->hero_image)
-                ? asset('storage/' . $siteSetting->hero_image)
-                : asset('images/hero-bg.png');
-        @endphp
-        <div class="absolute top-0 w-full h-full bg-center bg-cover"
-            style="background-image: url('{{ $heroBg }}');">
-            <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
-            <div class="absolute inset-0 bg-gradient-hero mix-blend-multiply"></div>
-        </div>
 
-        <div class="container relative mx-auto px-4 z-10 text-center">
-            <div class="max-w-3xl mx-auto mt-16">
-                <span
-                    class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm">
-                    {{ $siteSetting->hero_badge ?? 'TEMUKAN KEINDAHAN DUNIA' }}
-                </span>
-                <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg">
-                    @if(isset($siteSetting) && ($siteSetting->hero_title || $siteSetting->hero_highlight))
-                        {{ $siteSetting->hero_title }} <span
-                            class="text-brand-green">{{ $siteSetting->hero_highlight }}</span>
-                    @else
-                        Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
-                    @endif
-                </h1>
-                <p class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light">
-                    {{ $siteSetting->hero_description ?? 'Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi eksotis bersama kami.' }}
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#destinasi"
-                        class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
-                        {{ $siteSetting->cta_primary_text ?? 'Mulai Eksplorasi' }}
-                    </a>
-                    <a href="#promo"
-                        class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                            </path>
-                        </svg>
-                        {{ $siteSetting->cta_secondary_text ?? 'Lihat Promo' }}
-                    </a>
+        <div class="absolute inset-0 w-full h-full z-0">
+            @if($siteSettings->isEmpty())
+                <!-- Fallback Default Slide -->
+                <div class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center opacity-100 z-10">
+                    <div class="absolute inset-0 bg-center bg-cover" style="background-image: url('{{ asset('images/hero-bg.png') }}');">
+                        <span class="w-full h-full absolute opacity-50 bg-black"></span>
+                        <div class="absolute inset-0 bg-gradient-hero mix-blend-multiply"></div>
+                    </div>
+                    <div class="container relative mx-auto px-4 z-20 text-center pt-20 pb-32">
+                        <div class="max-w-3xl mx-auto mt-16">
+                            <span class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm">
+                                TEMUKAN KEINDAHAN DUNIA
+                            </span>
+                            <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg">
+                                Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
+                            </h1>
+                            <p class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light">
+                                Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi eksotis bersama kami.
+                            </p>
+                            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                <a href="#destinasi" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
+                                    Mulai Eksplorasi
+                                </a>
+                                <a href="#promo" class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                    Lihat Promo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @else
+                @foreach($siteSettings as $index => $slideSetting)
+                    @php
+                        $slideBg = $slideSetting->hero_image
+                            ? asset('storage/' . $slideSetting->hero_image)
+                            : asset('images/hero-bg.png');
+                    @endphp
+                    <div class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center transition-all duration-1000 ease-in-out {{ $index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none' }}" data-slide-index="{{ $index }}">
+                        <div class="absolute inset-0 bg-center bg-cover bg-no-repeat" style="background-image: url('{{ $slideBg }}');">
+                            <span class="w-full h-full absolute opacity-50 bg-black"></span>
+                            <div class="absolute inset-0 bg-gradient-hero mix-blend-multiply"></div>
+                        </div>
+                        <div class="container relative mx-auto px-4 z-20 text-center pt-20 pb-32">
+                            <div class="max-w-3xl mx-auto mt-16">
+                                <span class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm slide-item transition-all duration-700 delay-150 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
+                                    {{ $slideSetting->hero_badge ?? 'TEMUKAN KEINDAHAN DUNIA' }}
+                                </span>
+                                <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg slide-item transition-all duration-700 delay-300 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
+                                    @if($slideSetting->hero_title || $slideSetting->hero_highlight)
+                                        {{ $slideSetting->hero_title }} <span class="text-brand-green">{{ $slideSetting->hero_highlight }}</span>
+                                    @else
+                                        Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
+                                    @endif
+                                </h1>
+                                <p class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light slide-item transition-all duration-700 delay-500 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
+                                    {{ $slideSetting->hero_description ?? 'Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi eksotis bersama kami.' }}
+                                </p>
+                                <div class="flex flex-col sm:flex-row justify-center gap-4 slide-item transition-all duration-700 delay-700 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
+                                    <a href="#destinasi" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
+                                        {{ $slideSetting->cta_primary_text ?? 'Mulai Eksplorasi' }}
+                                    </a>
+                                    <a href="#promo" class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
+                                        <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                        </svg>
+                                        {{ $slideSetting->cta_secondary_text ?? 'Lihat Promo' }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
 
-        <div class="absolute bottom-0 left-0 right-0">
+        @if(!$siteSettings->isEmpty() && $siteSettings->count() > 1)
+            <!-- Navigation Arrows -->
+            <button class="hero-arrow hero-arrow-prev" id="hero-prev" aria-label="Previous slide">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            <button class="hero-arrow hero-arrow-next" id="hero-next" aria-label="Next slide">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        @endif
+
+        <div class="absolute bottom-0 left-0 right-0 z-20 pointer-events-none">
             <svg class="w-full h-16 md:h-24 fill-current text-gray-50" viewBox="0 0 1440 120"
                 preserveAspectRatio="none">
                 <path
@@ -909,6 +987,88 @@
             if (!tutorialSeen) {
                 setTimeout(openTutorial, 1500);
             }
+        });
+
+        // Hero Slider Carousel Logic
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelectorAll('.hero-slide');
+            const nextBtn = document.getElementById('hero-next');
+            const prevBtn = document.getElementById('hero-prev');
+            
+            if (slides.length <= 1) return;
+            
+            let currentSlide = 0;
+            let slideInterval;
+            const intervalTime = 6000; // 6 seconds per slide
+            
+            function showSlide(index) {
+                if (index >= slides.length) {
+                    currentSlide = 0;
+                } else if (index < 0) {
+                    currentSlide = slides.length - 1;
+                } else {
+                    currentSlide = index;
+                }
+                
+                slides.forEach((slide, i) => {
+                    const slideItems = slide.querySelectorAll('.slide-item');
+                    if (i === currentSlide) {
+                        // Make active slide visible
+                        slide.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+                        slide.classList.add('opacity-100', 'z-10');
+                        
+                        // Trigger inner slide animations
+                        slideItems.forEach(item => {
+                            item.classList.remove('translate-y-4', 'opacity-0');
+                            item.classList.add('translate-y-0', 'opacity-100');
+                        });
+                    } else {
+                        // Hide inactive slide
+                        slide.classList.remove('opacity-100', 'z-10');
+                        slide.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+                        
+                        // Reset inner animations
+                        slideItems.forEach(item => {
+                            item.classList.remove('translate-y-0', 'opacity-100');
+                            item.classList.add('translate-y-4', 'opacity-0');
+                        });
+                    }
+                });
+            }
+            
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+            
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+            
+            function startSlideShow() {
+                if (slideInterval) {
+                    clearInterval(slideInterval);
+                }
+                slideInterval = setInterval(nextSlide, intervalTime);
+            }
+            
+            // Event listeners for next/prev buttons
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    nextSlide();
+                    startSlideShow();
+                });
+            }
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    prevSlide();
+                    startSlideShow();
+                });
+            }
+            
+            // Initialize slider
+            showSlide(0);
+            startSlideShow();
         });
     </script>
 </body>
