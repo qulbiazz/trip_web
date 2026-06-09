@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingInvoiceController;
 use App\Http\Controllers\PublicBookingController;
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/destinasi/{id}', [HomeController::class, 'showDestinasi'])->name('destinasi.show');
