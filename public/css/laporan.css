@@ -1,0 +1,388 @@
+/* Custom Laporan Styles to ensure correct layout rendering without relying entirely on custom compiled utility classes */
+.laporan-space-y-6 > * + * {
+    margin-top: 1.5rem !important;
+}
+
+.laporan-flex-between {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.laporan-header-flex {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+}
+
+/* Stats grids */
+.laporan-grid-3 {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+}
+@media (min-width: 768px) {
+    .laporan-grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+
+/* Button style */
+.laporan-btn-primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem 1.25rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    background-color: #1b6dff !important;
+    border-radius: 0.5rem !important;
+    border: none !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1) !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+.laporan-btn-primary:hover {
+    background-color: #0056e0 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1) !important;
+}
+.laporan-btn-icon {
+    width: 16px !important;
+    height: 16px !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
+/* Card components styling */
+.laporan-card {
+    background-color: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 1rem !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+:is(.dark) .laporan-card {
+    background-color: #111827 !important; /* dark:bg-gray-900 */
+    border-color: #1f2937 !important; /* dark:border-gray-800 */
+}
+.laporan-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Decorative circles */
+.laporan-bg-circle {
+    position: absolute !important;
+    width: 96px !important;
+    height: 96px !important;
+    border-radius: 9999px !important;
+    right: -24px !important;
+    bottom: -24px !important;
+    transition: transform 0.3s ease !important;
+}
+.laporan-bg-circle.blue {
+    background-color: #eff6ff !important;
+}
+:is(.dark) .laporan-bg-circle.blue {
+    background-color: rgba(30, 58, 138, 0.15) !important;
+}
+.laporan-bg-circle.emerald {
+    background-color: #ecfdf5 !important;
+}
+:is(.dark) .laporan-bg-circle.emerald {
+    background-color: rgba(6, 78, 59, 0.15) !important;
+}
+.laporan-bg-circle.indigo {
+    background-color: #eef2ff !important;
+}
+:is(.dark) .laporan-bg-circle.indigo {
+    background-color: rgba(30, 27, 75, 0.15) !important;
+}
+
+/* Icon Wrapper styling */
+.laporan-icon-wrapper {
+    padding: 0.75rem !important;
+    border-radius: 0.75rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    height: 48px !important;
+}
+.laporan-icon-wrapper.blue {
+    background-color: #dbeafe !important;
+    color: #2563eb !important;
+}
+:is(.dark) .laporan-icon-wrapper.blue {
+    background-color: #172554 !important;
+    color: #60a5fa !important;
+}
+.laporan-icon-wrapper.emerald {
+    background-color: #d1fae5 !important;
+    color: #059669 !important;
+}
+:is(.dark) .laporan-icon-wrapper.emerald {
+    background-color: #064e3b !important;
+    color: #34d399 !important;
+}
+.laporan-icon-wrapper.indigo {
+    background-color: #e0e7ff !important;
+    color: #4f46e5 !important;
+}
+:is(.dark) .laporan-icon-wrapper.indigo {
+    background-color: #1e1b4b !important;
+    color: #818cf8 !important;
+}
+
+.laporan-icon-svg {
+    width: 24px !important;
+    height: 24px !important;
+    display: block !important;
+}
+
+/* Typography */
+.laporan-text-xs-muted {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: #9ca3af !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin: 0 !important;
+}
+.laporan-text-2xl-bold {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #1f2937 !important;
+    margin: 0 !important;
+}
+:is(.dark) .laporan-text-2xl-bold {
+    color: #ffffff !important;
+}
+.laporan-text-xs-normal {
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+    color: #9ca3af !important;
+}
+.laporan-text-sm {
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+}
+.laporan-font-medium {
+    font-weight: 500 !important;
+}
+.laporan-font-semibold {
+    font-weight: 600 !important;
+}
+.laporan-text-gray-500 {
+    color: #6b7280 !important;
+}
+:is(.dark) .laporan-text-gray-500 {
+    color: #9ca3af !important;
+}
+.laporan-text-gray-800 {
+    color: #374151 !important;
+}
+:is(.dark) .laporan-text-gray-800 {
+    color: #e5e7eb !important;
+}
+
+/* Details list */
+.laporan-card-details {
+    margin-top: 1rem !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid #f3f4f6 !important;
+    position: relative !important;
+    z-index: 10 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    color: #6b7280 !important;
+}
+:is(.dark) .laporan-card-details {
+    border-top-color: #374151 !important;
+    color: #9ca3af !important;
+}
+
+.laporan-row-flex {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+/* Color classes */
+.laporan-text-bold-emerald {
+    font-weight: 700 !important;
+    color: #059669 !important;
+}
+:is(.dark) .laporan-text-bold-emerald {
+    color: #34d399 !important;
+}
+.laporan-text-bold-amber {
+    font-weight: 700 !important;
+    color: #d97706 !important;
+}
+.laporan-text-bold-rose {
+    font-weight: 700 !important;
+    color: #e11d48 !important;
+}
+.laporan-text-bold-gray {
+    font-weight: 700 !important;
+    color: #1f2937 !important;
+}
+:is(.dark) .laporan-text-bold-gray {
+    color: #ffffff !important;
+}
+.laporan-text-bold-indigo {
+    font-weight: 700 !important;
+    color: #4f46e5 !important;
+}
+:is(.dark) .laporan-text-bold-indigo {
+    color: #818cf8 !important;
+}
+
+/* Table styles */
+.laporan-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    text-align: left !important;
+}
+.laporan-table thead tr {
+    background-color: #f9fafb !important;
+    border-radius: 0.5rem !important;
+}
+:is(.dark) .laporan-table thead tr {
+    background-color: rgba(31, 41, 55, 0.4) !important;
+}
+.laporan-table th {
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+    color: #374151 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+}
+:is(.dark) .laporan-table th {
+    color: #d1d5db !important;
+}
+.laporan-table td {
+    padding: 16px 24px !important;
+    font-size: 0.875rem !important;
+    color: #4b5563 !important;
+}
+:is(.dark) .laporan-table td {
+    color: #9ca3af !important;
+}
+.laporan-table tbody tr {
+    border-bottom: 1px solid #f3f4f6 !important;
+}
+:is(.dark) .laporan-table tbody tr {
+    border-bottom-color: #1f2937 !important;
+}
+.laporan-table tbody tr:hover {
+    background-color: rgba(249, 250, 251, 0.8) !important;
+}
+:is(.dark) .laporan-table tbody tr:hover {
+    background-color: rgba(31, 41, 55, 0.2) !important;
+}
+.laporan-table .text-center {
+    text-align: center !important;
+}
+.laporan-table .text-right {
+    text-align: right !important;
+}
+
+@media print {
+    /* Hide non-essential layout items */
+    header,
+    aside,
+    nav,
+    .fi-sidebar,
+    .fi-topbar,
+    .fi-actions,
+    button,
+    .print\:hidden {
+        display: none !important;
+    }
+
+    /* Reset layout constraints and force full-width display */
+    .fi-main,
+    .fi-main-ctn,
+    .fi-content,
+    .fi-page,
+    .fi-page-content,
+    main {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        position: relative !important;
+    }
+
+    /* Force standard black-on-white text for printing */
+    body, html {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    /* Force print color adjustment */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    /* Override card elements for print */
+    .laporan-card {
+        background-color: #ffffff !important;
+        border: 1px solid #d1d5db !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .laporan-text-2xl-bold,
+    .laporan-text-bold-gray,
+    .laporan-text-bold-indigo,
+    .laporan-text-bold-emerald,
+    .laporan-text-bold-amber,
+    .laporan-text-bold-rose {
+        color: #000000 !important;
+    }
+
+    .laporan-text-xs-muted,
+    .laporan-text-xs-normal,
+    .laporan-text-gray-500,
+    .laporan-text-gray-800 {
+        color: #374151 !important;
+    }
+
+    .laporan-card-details {
+        border-top-color: #d1d5db !important;
+        color: #374151 !important;
+    }
+
+    /* Tables for print */
+    .laporan-table thead tr {
+        background-color: #f3f4f6 !important;
+    }
+    .laporan-table tbody tr {
+        border-bottom-color: #e5e7eb !important;
+    }
+    .laporan-table th, 
+    .laporan-table td {
+        color: #000000 !important;
+    }
+
+    /* Decorative circles are useless in print, hide them */
+    .laporan-bg-circle {
+        display: none !important;
+    }
+}

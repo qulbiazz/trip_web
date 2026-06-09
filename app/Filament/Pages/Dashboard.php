@@ -9,4 +9,11 @@ class Dashboard extends BaseDashboard
     protected static ?string $navigationLabel = 'Dasbor';
 
     protected static ?string $title = 'Dasbor';
+
+    public function getWidgets(): array
+    {
+        return [
+            \App\Filament\Widgets\StatsOverview::class,
+        ];
+    }
 }

@@ -43,6 +43,8 @@ class AdminPanelProvider extends PanelProvider
                 // AccountWidget::class,
                 // FilamentInfoWidget::class,
                 \App\Filament\Widgets\StatsOverview::class,
+                \App\Filament\Widgets\LaporanStatsOverview::class,
+                \App\Filament\Widgets\PopularDestinationsTable::class,
                 // \App\Filament\Widgets\BookingChart::class,
             ])
             ->middleware([
