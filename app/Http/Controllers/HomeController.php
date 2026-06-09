@@ -12,7 +12,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $destinasis = Destinasi::where('is_aktif', true)->take(6)->get();
+        $destinasis = Destinasi::where('is_aktif', true)->paginate(6);
         $promos = Promo::where('is_aktif', true)->take(3)->get();
         $siteSettings = \App\Models\SiteSetting::where('is_active', true)->get();
         $siteSetting = $siteSettings->first();

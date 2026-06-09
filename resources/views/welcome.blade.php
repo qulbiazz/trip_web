@@ -477,6 +477,48 @@
                     </div>
                 @endforelse
             </div>
+            @if($destinasis->hasPages())
+                <div class="mt-12 flex justify-center">
+                    <div class="inline-flex items-center bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                        
+                        {{-- Tombol Previous (<) --}}
+                        @if ($destinasis->onFirstPage())
+                            <span class="px-5 py-3 text-gray-300 border-r border-gray-100 cursor-not-allowed">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </span>
+                        @else
+                            <a href="{{ $destinasis->previousPageUrl() }}#destinasi" class="px-5 py-3 text-[#1A6DFF] hover:bg-blue-50 border-r border-gray-100 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </a>
+                        @endif
+
+                        {{-- Info Halaman (X OF Y) --}}
+                        <span class="px-8 py-3 font-bold text-gray-900 text-sm tracking-widest uppercase">
+                            {{ $destinasis->currentPage() }} OF {{ $destinasis->lastPage() }}
+                        </span>
+
+                        {{-- Tombol Next (>) --}}
+                        @if ($destinasis->hasMorePages())
+                            <a href="{{ $destinasis->nextPageUrl() }}#destinasi" class="px-5 py-3 text-[#1A6DFF] hover:bg-blue-50 border-l border-gray-100 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        @else
+                            <span class="px-5 py-3 text-gray-300 border-l border-gray-100 cursor-not-allowed">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        @endif
+
+                    </div>
+                </div>
+            @endif
         </div>
     </section>
 
