@@ -159,10 +159,23 @@
                                     class="flex flex-col sm:flex-row justify-between items-center p-5 rounded-xl border {{ ($jadwal->status == 'tersedia' && !$isPast) ? 'border-green-100 bg-green-50/30' : 'border-gray-100 bg-gray-50' }}">
                                     <div class="mb-4 sm:mb-0">
                                         <p class="font-bold text-lg text-gray-900">
-                                            {{ \Carbon\Carbon::parse($jadwal->tanggal_berangkat)->translatedFormat('d F Y') }}
-                                            -
-                                            {{ \Carbon\Carbon::parse($jadwal->tanggal_pulang)->translatedFormat('d F Y') }}
+                                            Jadwal Keberangkatan: 
+                                            <span class="text-brand-blue">
+                                                {{ \Carbon\Carbon::parse($jadwal->tanggal_berangkat)->translatedFormat('d F Y') }}
+                                                -
+                                                {{ \Carbon\Carbon::parse($jadwal->tanggal_pulang)->translatedFormat('d F Y') }}
+                                            </span>
                                         </p>
+                                        @if($jadwal->pendaftaran_mulai && $jadwal->pendaftaran_tutup)
+                                            <p class="text-sm text-gray-700 mt-1 font-medium">
+                                                Jadwal Pendaftaran: 
+                                                <span class="text-gray-900 font-bold">
+                                                    {{ \Carbon\Carbon::parse($jadwal->pendaftaran_mulai)->translatedFormat('d F Y') }}
+                                                    -
+                                                    {{ \Carbon\Carbon::parse($jadwal->pendaftaran_tutup)->translatedFormat('d F Y') }}
+                                                </span>
+                                            </p>
+                                        @endif
                                         @if(!$isPast)
                                             <p class="text-sm text-gray-500 mt-1">
                                                 Sisa Kursi:

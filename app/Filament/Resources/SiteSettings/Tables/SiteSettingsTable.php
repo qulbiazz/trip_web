@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -21,6 +22,9 @@ class SiteSettingsTable
                 TextColumn::make('hero_title')
                     ->label('Judul Hero')
                     ->searchable(),
+                ImageColumn::make('hero_image')
+                    ->label('Gambar Hero')
+                    ->disk('public'),
                 IconColumn::make('is_active')
                     ->label('Aktif')
                     ->boolean(),
