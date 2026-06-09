@@ -14,7 +14,8 @@ class HomeController extends Controller
     {
         $destinasis = Destinasi::where('is_aktif', true)->take(6)->get();
         $promos = Promo::where('is_aktif', true)->take(3)->get();
-        $siteSetting = \App\Models\SiteSetting::where('is_active', true)->first();
+        $siteSettings = \App\Models\SiteSetting::where('is_active', true)->get();
+        $siteSetting = $siteSettings->first();
         $testimonis = \App\Models\Testimoni::where('is_aktif', true)->get();
 
         // Query untuk data realtime Open Booking di Navbar
@@ -26,7 +27,7 @@ class HomeController extends Controller
             ->limit(3) // Dibatasi 3 agar banner tidak terlalu panjang di UI
             ->get();
 
-        return view('welcome', compact('destinasis', 'promos', 'siteSetting', 'testimonis', 'jadwalOpen'));
+        return view('welcome', compact('destinasis', 'promos', 'siteSettings', 'siteSetting', 'testimonis', 'jadwalOpen'));
     }
 
     public function showDestinasi(string $id)
