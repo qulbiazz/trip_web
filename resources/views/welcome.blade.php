@@ -73,16 +73,16 @@
             border: none;
             cursor: pointer;
         }
-        
+
         .hero-arrow:hover {
             background-color: rgba(0, 0, 0, 0.5);
             transform: translateY(-50%) scale(1.05);
         }
-        
+
         .hero-arrow-prev {
             left: 1.5rem;
         }
-        
+
         .hero-arrow-next {
             right: 1.5rem;
         }
@@ -103,7 +103,8 @@
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#destinasi"
                         class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Destinasi</a>
-                    <a href="#promo" class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Promo</a>
+                    <a href="#promo"
+                        class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Promo</a>
                     <a href="#lokasi"
                         class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Lokasi</a>
                     {{-- @auth
@@ -162,9 +163,10 @@
     </nav>
 
 
-    <div id="hero-slider" class="relative pt-20 pb-32 flex content-center items-center justify-center min-h-screen overflow-hidden">
+    <div id="hero-slider"
+        class="relative pt-20 pb-32 flex content-center items-center justify-center min-h-screen overflow-hidden">
 
-        @if($jadwalOpen->isNotEmpty())
+        @if ($jadwalOpen->isNotEmpty())
             <div
                 class="absolute top-20 w-full z-30 bg-brand-yellow/95 backdrop-blur-sm border-b border-yellow-400 shadow-md">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
@@ -180,10 +182,12 @@
                                 <strong class="uppercase font-extrabold tracking-wide text-red-600">Kuota
                                     Terbatas!</strong> Siap-siap berangkat untuk trip terdekat:
 
-                                @foreach($jadwalOpen as $jadwal)
+                                @foreach ($jadwalOpen as $jadwal)
                                     <span class="font-bold">{{ $jadwal->destinasi->nama }}</span>
                                     ({{ $jadwal->tanggal_berangkat->translatedFormat('d M') }})
-                                    @if(!$loop->last) <span class="mx-1">&bull;</span> @endif
+                                    @if (!$loop->last)
+                                        <span class="mx-1">&bull;</span>
+                                    @endif
                                 @endforeach
                             </span>
                         </div>
@@ -202,31 +206,40 @@
         @endif
 
         <div class="absolute inset-0 w-full h-full z-0">
-            @if($siteSettings->isEmpty())
+            @if ($siteSettings->isEmpty())
                 <!-- Fallback Default Slide -->
-                <div class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center opacity-100 z-10">
-                    <div class="absolute inset-0 bg-center bg-cover" style="background-image: url('{{ asset('images/hero-bg.png') }}');">
+                <div
+                    class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center opacity-100 z-10">
+                    <div class="absolute inset-0 bg-center bg-cover"
+                        style="background-image: url('{{ asset('images/hero-bg.png') }}');">
                         <span class="w-full h-full absolute opacity-50 bg-black"></span>
                         <div class="absolute inset-0 bg-gradient-hero mix-blend-multiply"></div>
                     </div>
                     <div class="container relative mx-auto px-4 z-20 text-center pt-20 pb-32">
                         <div class="max-w-3xl mx-auto mt-16">
-                            <span class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm">
+                            <span
+                                class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm">
                                 TEMUKAN KEINDAHAN DUNIA
                             </span>
                             <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg">
                                 Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
                             </h1>
                             <p class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light">
-                                Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi eksotis bersama kami.
+                                Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi
+                                destinasi eksotis bersama kami.
                             </p>
                             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                                <a href="#destinasi" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
+                                <a href="#destinasi"
+                                    class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
                                     Mulai Eksplorasi
                                 </a>
-                                <a href="#promo" class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                <a href="#promo"
+                                    class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                        </path>
                                     </svg>
                                     Lihat Promo
                                 </a>
@@ -235,39 +248,51 @@
                     </div>
                 </div>
             @else
-                @foreach($siteSettings as $index => $slideSetting)
+                @foreach ($siteSettings as $index => $slideSetting)
                     @php
                         $slideBg = $slideSetting->hero_image
                             ? asset('storage/' . $slideSetting->hero_image)
                             : asset('images/hero-bg.png');
                     @endphp
-                    <div class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center transition-all duration-1000 ease-in-out {{ $index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none' }}" data-slide-index="{{ $index }}">
-                        <div class="absolute inset-0 bg-center bg-cover bg-no-repeat" style="background-image: url('{{ $slideBg }}');">
+                    <div class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center transition-all duration-1000 ease-in-out {{ $index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none' }}"
+                        data-slide-index="{{ $index }}">
+                        <div class="absolute inset-0 bg-center bg-cover bg-no-repeat"
+                            style="background-image: url('{{ $slideBg }}');">
                             <span class="w-full h-full absolute opacity-50 bg-black"></span>
                             <div class="absolute inset-0 bg-gradient-hero mix-blend-multiply"></div>
                         </div>
                         <div class="container relative mx-auto px-4 z-20 text-center pt-20 pb-32">
                             <div class="max-w-3xl mx-auto mt-16">
-                                <span class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm slide-item transition-all duration-700 delay-150 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
+                                <span
+                                    class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm slide-item transition-all duration-700 delay-150 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
                                     {{ $slideSetting->hero_badge ?? 'TEMUKAN KEINDAHAN DUNIA' }}
                                 </span>
-                                <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg slide-item transition-all duration-700 delay-300 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
-                                    @if($slideSetting->hero_title || $slideSetting->hero_highlight)
-                                        {{ $slideSetting->hero_title }} <span class="text-brand-green">{{ $slideSetting->hero_highlight }}</span>
+                                <h1
+                                    class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg slide-item transition-all duration-700 delay-300 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
+                                    @if ($slideSetting->hero_title || $slideSetting->hero_highlight)
+                                        {{ $slideSetting->hero_title }} <span
+                                            class="text-brand-green">{{ $slideSetting->hero_highlight }}</span>
                                     @else
                                         Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
                                     @endif
                                 </h1>
-                                <p class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light slide-item transition-all duration-700 delay-500 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
+                                <p
+                                    class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light slide-item transition-all duration-700 delay-500 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
                                     {{ $slideSetting->hero_description ?? 'Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi eksotis bersama kami.' }}
                                 </p>
-                                <div class="flex flex-col sm:flex-row justify-center gap-4 slide-item transition-all duration-700 delay-700 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
-                                    <a href="#destinasi" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
+                                <div
+                                    class="flex flex-col sm:flex-row justify-center gap-4 slide-item transition-all duration-700 delay-700 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
+                                    <a href="#destinasi"
+                                        class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
                                         {{ $slideSetting->cta_primary_text ?? 'Mulai Eksplorasi' }}
                                     </a>
-                                    <a href="#promo" class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
-                                        <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    <a href="#promo"
+                                        class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
+                                        <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
                                         </svg>
                                         {{ $slideSetting->cta_secondary_text ?? 'Lihat Promo' }}
                                     </a>
@@ -279,7 +304,7 @@
             @endif
         </div>
 
-        @if(!$siteSettings->isEmpty() && $siteSettings->count() > 1)
+        @if (!$siteSettings->isEmpty() && $siteSettings->count() > 1)
             <!-- Navigation Arrows -->
             <button class="hero-arrow hero-arrow-prev" id="hero-prev" aria-label="Previous slide">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -393,7 +418,7 @@
                     <div
                         class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden group cursor-pointer border border-gray-100">
                         <div class="relative h-64 overflow-hidden bg-gray-200">
-                            @if($destinasi->gambar)
+                            @if ($destinasi->gambar)
                                 <img src="{{ asset('storage/' . $destinasi->gambar) }}" alt="{{ $destinasi->nama }}"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             @else
@@ -481,22 +506,30 @@
                     </div>
 
                     <div class="lg:w-2/3 flex flex-col sm:flex-row gap-6 justify-end w-full">
-                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 text-white w-full text-center sm:text-left flex flex-col justify-between">
+                        <div
+                            class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 text-white w-full text-center sm:text-left flex flex-col justify-between">
                             <div>
-                                <h3 class="text-2xl font-bold mb-3 flex items-center justify-center sm:justify-start gap-2">
-                                    <svg class="w-6 h-6 text-brand-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <h3
+                                    class="text-2xl font-bold mb-3 flex items-center justify-center sm:justify-start gap-2">
+                                    <svg class="w-6 h-6 text-brand-yellow" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                     Cari Info Promo di Medsos Kami!
                                 </h3>
                                 <p class="text-blue-100 mb-6 text-sm sm:text-base leading-relaxed">
-                                    Kode promo dan penawaran spesial kini dibagikan secara eksklusif melalui media sosial resmi kami. Pastikan Anda mengikuti akun kami agar tidak ketinggalan informasi promo menarik berikutnya!
+                                    Kode promo dan penawaran spesial kini dibagikan secara eksklusif melalui media
+                                    sosial resmi kami. Pastikan Anda mengikuti akun kami agar tidak ketinggalan
+                                    informasi promo menarik berikutnya!
                                 </p>
                             </div>
                             <div class="flex flex-wrap gap-4 justify-center sm:justify-start">
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:brightness-110 text-white font-bold px-8 py-3.5 rounded-full transition-all shadow-lg hover:shadow-pink-500/30 transform hover:-translate-y-0.5 text-base tracking-wide">
+                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                                    class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:brightness-110 text-white font-bold px-8 py-3.5 rounded-full transition-all shadow-lg hover:shadow-pink-500/30 transform hover:-translate-y-0.5 text-base tracking-wide">
                                     <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                                        <path
+                                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
                                     </svg>
                                     Kunjungi Instagram Kami
                                 </a>
@@ -528,19 +561,23 @@
                 @forelse($testimonis as $index => $testimoni)
                     @php
                         // Dynamic avatar classes
-                        $bgClasses = ['bg-blue-100 text-brand-blue', 'bg-green-100 text-brand-green', 'bg-yellow-100 text-yellow-600'];
+                        $bgClasses = [
+                            'bg-blue-100 text-brand-blue',
+                            'bg-green-100 text-brand-green',
+                            'bg-yellow-100 text-yellow-600',
+                        ];
                         $avatarClass = $bgClasses[$index % count($bgClasses)];
 
                         // Dynamic premium translation for middle cards (2nd card, 5th card, etc.)
-                        $transformClass = ($index % 3 === 1) ? 'transform md:-translate-y-4' : '';
+                        $transformClass = $index % 3 === 1 ? 'transform md:-translate-y-4' : '';
 
                         // Extract initial
                         $initial = strtoupper(substr($testimoni->nama, 0, 1));
                     @endphp
                     <div
                         class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative border border-gray-100 {{ $transformClass }}">
-                        <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor" viewBox="0 0 32 32"
-                            aria-hidden="true">
+                        <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor"
+                            viewBox="0 0 32 32" aria-hidden="true">
                             <path
                                 d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z">
                             </path>
@@ -604,14 +641,14 @@
                             </div>
                             <div class="ml-5">
                                 <h4 class="text-lg font-bold text-gray-900">Alamat Kantor</h4>
-                                <p class="mt-1 text-gray-500 leading-relaxed">Jl. Bareng Tengah V No.816, Bareng, Kec.
-                                    Klojen<br>Kota Malang, Jawa Timur 65116, Indonesia</p>
+                                <p class="mt-1 text-gray-500 leading-relaxed">Jl. Bareng Tengah VF No.816, Bareng, Kec.
+                                    Klojen, Kota Malang, Jawa Timur 65116, Indonesia</p>
                             </div>
                         </div>
 
                         <div class="flex items-start group">
                             <div
-                                class="flex-shrink-0 w-14 h-14 bg-green-50 text-brand-green rounded-2xl flex items-center justify-center group-hover:bg-brand-green group-hover:text-white transition-colors shadow-sm">
+                                class="flex-shrink-0 w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center group-hover:bg-brand-green group-hover:text-white transition-colors shadow-sm">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
@@ -620,10 +657,13 @@
                             </div>
                             <div class="ml-5">
                                 <h4 class="text-lg font-bold text-gray-900">Kontak</h4>
-                                <p class="mt-1 text-gray-500 leading-relaxed"><span
-                                        class="block hover:text-brand-blue cursor-pointer transition-colors">+62 21 5555
-                                        1234</span><span
-                                        class="block hover:text-brand-blue cursor-pointer transition-colors">halo@lokachara.com</span>
+                                <p class="mt-1 text-gray-500 leading-relaxed">
+                                    <span class="block hover:text-brand-blue cursor-pointer transition-colors">+62 859
+                                        5441 3123
+                                    </span>
+                                    <span
+                                        class="block hover:text-brand-blue cursor-pointer transition-colors">@lokachara.trip
+                                    </span>
                                 </p>
                             </div>
                         </div>
@@ -638,8 +678,7 @@
                             </div>
                             <div class="ml-5">
                                 <h4 class="text-lg font-bold text-gray-900">Jam Operasional</h4>
-                                <p class="mt-1 text-gray-500 leading-relaxed">Senin - Jumat: 09:00 - 18:00<br>Sabtu:
-                                    09:00 - 14:00</p>
+                                <p class="mt-1 text-gray-500 leading-relaxed">Buka 24 Jam</p>
                             </div>
                         </div>
                     </div>
@@ -688,7 +727,8 @@
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase mb-4">Perusahaan</h3>
                     <ul class="space-y-3">
                         <li><a href="#keunggulan"
-                                class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Tentang Kami</a>
+                                class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Tentang
+                                Kami</a>
                         </li>
                         <li><a href="#lokasi"
                                 class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Kontak</a></li>
@@ -709,11 +749,15 @@
     </footer>
 
     <!-- Floating Guide Button (Bottom Right) -->
-    <button id="guide-fab" class="fixed bottom-6 right-6 z-40 bg-brand-blue hover:bg-brand-blue-dark text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center gap-2 group">
+    <button id="guide-fab"
+        class="fixed bottom-6 right-6 z-40 bg-brand-blue hover:bg-brand-blue-dark text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center gap-2 group">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+            </path>
         </svg>
-        <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-out font-semibold text-sm whitespace-nowrap">
+        <span
+            class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-out font-semibold text-sm whitespace-nowrap">
             Panduan Pemesanan
         </span>
     </button>
@@ -721,21 +765,26 @@
     <!-- Tutorial Modal Container (Hidden by Default) -->
     <div id="tutorial-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
         <!-- Backdrop -->
-        <div id="tutorial-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0"></div>
-        
+        <div id="tutorial-backdrop"
+            class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0"></div>
+
         <!-- Modal Card -->
-        <div class="relative bg-white rounded-3xl w-full max-w-lg mx-4 overflow-hidden shadow-2xl border border-gray-100 transform transition-all scale-95 opacity-0 duration-300 z-10" id="tutorial-card">
+        <div class="relative bg-white rounded-3xl w-full max-w-lg mx-4 overflow-hidden shadow-2xl border border-gray-100 transform transition-all scale-95 opacity-0 duration-300 z-10"
+            id="tutorial-card">
             <!-- Close button -->
-            <button id="close-tutorial" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none p-2 rounded-full hover:bg-gray-100 transition-colors z-20">
+            <button id="close-tutorial"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none p-2 rounded-full hover:bg-gray-100 transition-colors z-20">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
                 </svg>
             </button>
 
             <div class="p-8">
                 <!-- Step Progress Indicator -->
                 <div class="flex justify-between items-center mb-8 border-b pb-4 border-gray-100">
-                    <span class="text-xs font-bold uppercase tracking-wider text-brand-blue" id="tutorial-step-indicator">Langkah 1 dari 4</span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-blue"
+                        id="tutorial-step-indicator">Langkah 1 dari 4</span>
                     <div class="flex gap-1.5" id="tutorial-dots">
                         <span class="h-2 w-6 rounded-full bg-brand-blue transition-all duration-300"></span>
                         <span class="h-2 w-2 rounded-full bg-gray-200 transition-all duration-300"></span>
@@ -748,67 +797,89 @@
                 <div class="min-h-[220px] flex flex-col justify-between" id="tutorial-slides">
                     <!-- Slide 1 -->
                     <div class="tutorial-slide" data-step="1">
-                        <div class="w-14 h-14 bg-blue-50 text-brand-blue rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+                        <div
+                            class="w-14 h-14 bg-blue-50 text-brand-blue rounded-2xl flex items-center justify-center mb-5 shadow-sm">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7">
+                                </path>
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">1. Pilih Destinasi Wisata</h3>
                         <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
-                            Jelajahi halaman beranda untuk menemukan berbagai destinasi wisata menarik. Klik tombol <strong class="text-brand-blue">"Detail"</strong> pada destinasi yang Anda inginkan untuk info selengkapnya.
+                            Jelajahi halaman beranda untuk menemukan berbagai destinasi wisata menarik. Klik tombol
+                            <strong class="text-brand-blue">"Detail"</strong> pada destinasi yang Anda inginkan untuk
+                            info selengkapnya.
                         </p>
                     </div>
 
                     <!-- Slide 2 -->
                     <div class="tutorial-slide hidden" data-step="2">
-                        <div class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+                        <div
+                            class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mb-5 shadow-sm">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                </path>
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">2. Tentukan Jadwal Keberangkatan</h3>
                         <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
-                            Di halaman detail destinasi, Anda akan melihat daftar jadwal keberangkatan yang tersedia beserta sisa kuota kursi. Klik <strong class="text-brand-blue">"Pilih Jadwal"</strong> pada tanggal yang Anda kehendaki.
+                            Di halaman detail destinasi, Anda akan melihat daftar jadwal keberangkatan yang tersedia
+                            beserta sisa kuota kursi. Klik <strong class="text-brand-blue">"Pilih Jadwal"</strong> pada
+                            tanggal yang Anda kehendaki.
                         </p>
                     </div>
 
                     <!-- Slide 3 -->
                     <div class="tutorial-slide hidden" data-step="3">
-                        <div class="w-14 h-14 bg-green-50 text-brand-green rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+                        <div
+                            class="w-14 h-14 bg-green-50 text-brand-green rounded-2xl flex items-center justify-center mb-5 shadow-sm">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">3. Lengkapi Form Pemesanan</h3>
                         <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
-                            Isi formulir pemesanan dengan nama, email, nomor HP/WhatsApp, dan jumlah tiket. <strong class="text-brand-green">Sangat praktis, Anda tidak perlu registrasi atau login akun!</strong>
+                            Isi formulir pemesanan dengan nama, email, nomor HP/WhatsApp, dan jumlah tiket. <strong
+                                class="text-brand-green">Sangat praktis, Anda tidak perlu registrasi atau login
+                                akun!</strong>
                         </p>
                     </div>
 
                     <!-- Slide 4 -->
                     <div class="tutorial-slide hidden" data-step="4">
-                        <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+                        <div
+                            class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-5 shadow-sm">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">4. Selesaikan & Bayar</h3>
                         <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
-                            Masukkan kode promo jika ada, lalu klik <strong class="text-brand-blue">"Selesaikan Pemesanan"</strong>. Invoice resmi akan langsung dikirim ke email Anda untuk rincian pembayaran.
+                            Masukkan kode promo jika ada, lalu klik <strong class="text-brand-blue">"Selesaikan
+                                Pemesanan"</strong>. Invoice resmi akan langsung dikirim ke email Anda untuk rincian
+                            pembayaran.
                         </p>
                     </div>
                 </div>
 
                 <!-- Footer Action Buttons -->
                 <div class="flex items-center justify-between mt-8 pt-5 border-t border-gray-100">
-                    <button id="tutorial-prev" class="text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors opacity-0 pointer-events-none px-4 py-2 rounded-lg hover:bg-gray-50">
+                    <button id="tutorial-prev"
+                        class="text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors opacity-0 pointer-events-none px-4 py-2 rounded-lg hover:bg-gray-50">
                         Kembali
                     </button>
                     <div class="flex gap-2">
-                        <button id="tutorial-skip" class="text-gray-400 hover:text-gray-600 font-semibold text-sm transition-colors px-4 py-2 rounded-lg hover:bg-gray-50">
+                        <button id="tutorial-skip"
+                            class="text-gray-400 hover:text-gray-600 font-semibold text-sm transition-colors px-4 py-2 rounded-lg hover:bg-gray-50">
                             Lewati
                         </button>
-                        <button id="tutorial-next" class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold text-sm px-6 py-2.5 rounded-full transition-all shadow-md transform hover:-translate-y-0.5">
+                        <button id="tutorial-next"
+                            class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold text-sm px-6 py-2.5 rounded-full transition-all shadow-md transform hover:-translate-y-0.5">
                             Lanjut
                         </button>
                     </div>
@@ -819,7 +890,7 @@
 
     <script>
         // Navbar blur and shadow on scroll
-        window.addEventListener('scroll', function () {
+        window.addEventListener('scroll', function() {
             const nav = document.querySelector('nav');
             if (window.scrollY > 10) {
                 nav.classList.add('shadow-sm');
@@ -855,7 +926,7 @@
         });
 
         // Tutorial Onboarding logic
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const tutorialSeen = localStorage.getItem('booking_tutorial_seen');
             const modal = document.getElementById('tutorial-modal');
             const card = document.getElementById('tutorial-card');
@@ -868,7 +939,7 @@
             const slides = document.querySelectorAll('.tutorial-slide');
             const dotsContainer = document.getElementById('tutorial-dots');
             const indicator = document.getElementById('tutorial-step-indicator');
-            
+
             let currentStep = 1;
             const totalSteps = slides.length;
 
@@ -896,10 +967,10 @@
 
             function showStep(step) {
                 currentStep = step;
-                
+
                 // Hide all slides
                 slides.forEach(slide => slide.classList.add('hidden'));
-                
+
                 // Show current slide
                 const activeSlide = document.querySelector(`.tutorial-slide[data-step="${step}"]`);
                 if (activeSlide) {
@@ -966,17 +1037,17 @@
         });
 
         // Hero Slider Carousel Logic
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const slides = document.querySelectorAll('.hero-slide');
             const nextBtn = document.getElementById('hero-next');
             const prevBtn = document.getElementById('hero-prev');
-            
+
             if (slides.length <= 1) return;
-            
+
             let currentSlide = 0;
             let slideInterval;
             const intervalTime = 6000; // 6 seconds per slide
-            
+
             function showSlide(index) {
                 if (index >= slides.length) {
                     currentSlide = 0;
@@ -985,14 +1056,14 @@
                 } else {
                     currentSlide = index;
                 }
-                
+
                 slides.forEach((slide, i) => {
                     const slideItems = slide.querySelectorAll('.slide-item');
                     if (i === currentSlide) {
                         // Make active slide visible
                         slide.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
                         slide.classList.add('opacity-100', 'z-10');
-                        
+
                         // Trigger inner slide animations
                         slideItems.forEach(item => {
                             item.classList.remove('translate-y-4', 'opacity-0');
@@ -1002,7 +1073,7 @@
                         // Hide inactive slide
                         slide.classList.remove('opacity-100', 'z-10');
                         slide.classList.add('opacity-0', 'pointer-events-none', 'z-0');
-                        
+
                         // Reset inner animations
                         slideItems.forEach(item => {
                             item.classList.remove('translate-y-0', 'opacity-100');
@@ -1011,22 +1082,22 @@
                     }
                 });
             }
-            
+
             function nextSlide() {
                 showSlide(currentSlide + 1);
             }
-            
+
             function prevSlide() {
                 showSlide(currentSlide - 1);
             }
-            
+
             function startSlideShow() {
                 if (slideInterval) {
                     clearInterval(slideInterval);
                 }
                 slideInterval = setInterval(nextSlide, intervalTime);
             }
-            
+
             // Event listeners for next/prev buttons
             if (nextBtn) {
                 nextBtn.addEventListener('click', () => {
@@ -1034,14 +1105,14 @@
                     startSlideShow();
                 });
             }
-            
+
             if (prevBtn) {
                 prevBtn.addEventListener('click', () => {
                     prevSlide();
                     startSlideShow();
                 });
             }
-            
+
             // Initialize slider
             showSlide(0);
             startSlideShow();
