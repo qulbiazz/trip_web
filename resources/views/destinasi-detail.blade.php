@@ -221,7 +221,7 @@
                     <h4 class="font-semibold mb-3">Butuh Bantuan?</h4>
                     <p class="text-sm text-gray-600 mb-6">Hubungi travel consultant kami untuk informasi lebih lanjut.
                     </p>
-                    <a href="#"
+                    <a href="https://wa.me/6285954413123" target="_blank" rel="noopener noreferrer"
                         class="w-full block text-center bg-brand-green text-white hover:bg-brand-green  font-semibold py-3 rounded-xl transition-colors shadow-md">
                         Hubungi WhatsApp
                     </a>

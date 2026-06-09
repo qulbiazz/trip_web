@@ -525,7 +525,7 @@
                                 </p>
                             </div>
                             <div class="flex flex-wrap gap-4 justify-center sm:justify-start">
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                                <a href="https://instagram.com/lokachara.trip" target="_blank" rel="noopener noreferrer"
                                     class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:brightness-110 text-white font-bold px-8 py-3.5 rounded-full transition-all shadow-lg hover:shadow-pink-500/30 transform hover:-translate-y-0.5 text-base tracking-wide">
                                     <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -658,12 +658,14 @@
                             <div class="ml-5">
                                 <h4 class="text-lg font-bold text-gray-900">Kontak</h4>
                                 <p class="mt-1 text-gray-500 leading-relaxed">
-                                    <span class="block hover:text-brand-blue cursor-pointer transition-colors">+62 859
-                                        5441 3123
-                                    </span>
-                                    <span
-                                        class="block hover:text-brand-blue cursor-pointer transition-colors">@lokachara.trip
-                                    </span>
+                                    <a href="https://wa.me/6285954413123" target="_blank" rel="noopener noreferrer"
+                                        class="block hover:text-brand-blue cursor-pointer transition-colors">
+                                        +62 859 5441 3123
+                                    </a>
+                                    <a href="https://instagram.com/lokachara.trip" target="_blank" rel="noopener noreferrer"
+                                        class="block hover:text-brand-blue cursor-pointer transition-colors">
+                                        @lokachara.trip
+                                    </a>
                                 </p>
                             </div>
                         </div>
