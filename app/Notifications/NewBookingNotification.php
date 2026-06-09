@@ -23,21 +23,32 @@ class NewBookingNotification extends Notification
 
     public function toDatabase(object $notifiable): array
     {
-        // Susun nama peserta tambahan jika ada
-        $namaTambahan = '';
+        $destinasi  = $this->booking->jadwal?->destinasi?->nama ?? '-';
+        $tanggal    = $this->booking->jadwal?->tanggal_berangkat
+                        ? \Carbon\Carbon::parse($this->booking->jadwal->tanggal_berangkat)->translatedFormat('d M Y')
+                        : '-';
+        $peserta    = $this->booking->jumlah_peserta;
+        $kode       = $this->booking->kode_booking;
+        $nama       = $this->booking->nama_pelanggan;
+        $hp         = $this->booking->nomor_handphone ?? '-';
+        $total      = 'Rp' . number_format($this->booking->total_bayar, 0, ',', '.');
+
+        $body  = "👤 **{$nama}** | 📞 {$hp}\n";
+        $body .= "🏖️ **{$destinasi}** — 📅 {$tanggal}\n";
+        $body .= "👥 Peserta: **{$peserta} orang**\n";
+
         if (!empty($this->booking->nama_anggota) && is_array($this->booking->nama_anggota)) {
-            $namaTambahan = "\nPeserta Tambahan: **" . implode(', ', $this->booking->nama_anggota) . "**";
+            $body .= "🧑‍🤝‍🧑 Tambahan: " . implode(', ', $this->booking->nama_anggota) . "\n";
         }
 
+        $body .= "💰 Total: **{$total}**\n";
+        $body .= "🔖 Kode: `{$kode}`";
+
         return FilamentNotification::make()
-            ->title('Booking Baru Masuk!')
+            ->title('🎉 Booking Baru Masuk!')
             ->icon('heroicon-o-ticket')
             ->iconColor('warning')
-            ->body(
-                "**{$this->booking->nama_pelanggan}** memesan **{$this->booking->jadwal?->destinasi?->nama}** " .
-                "untuk **{$this->booking->jumlah_peserta} peserta**. Kode: `{$this->booking->kode_booking}`" .
-                $namaTambahan
-            )
+            ->body($body)
             ->actions([
                 Action::make('lihat')
                     ->label('Lihat Pemesanan')
