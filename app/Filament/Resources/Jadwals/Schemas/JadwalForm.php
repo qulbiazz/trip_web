@@ -70,9 +70,7 @@ class JadwalForm
                     ->dehydrated()
                     ->rules(['numeric'])
                     ->prefix('Rp') 
-                    ->mask(RawJs::make('$money($input, \',\', \'.\', 0)')) 
-                    ->formatStateUsing(fn ($state) => is_numeric($state) ? number_format((float) $state, 0, ',', '') : null)
-                    ->stripCharacters('.')
+                    ->prefix('Rp')
                     ->helperText('Harga dasar destinasi.'),
                 Select::make('status')
                     ->label('Status')
