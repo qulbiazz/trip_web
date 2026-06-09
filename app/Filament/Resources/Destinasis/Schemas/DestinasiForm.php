@@ -8,6 +8,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
+use Filament\Support\RawJs;
 
 class DestinasiForm
 {
@@ -31,7 +32,10 @@ class DestinasiForm
                 TextInput::make('harga_dasar')
                     ->label('Harga Dasar')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->prefix('Rp') 
+                    ->mask(RawJs::make('$money($input, \',\', \'.\', 0)')) 
+                    ->stripCharacters('.'),
                 FileUpload::make('gambar')
                     ->label('Gambar')
                     ->image()
