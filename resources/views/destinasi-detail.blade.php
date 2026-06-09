@@ -163,15 +163,17 @@
                                             -
                                             {{ \Carbon\Carbon::parse($jadwal->tanggal_pulang)->translatedFormat('d F Y') }}
                                         </p>
-                                        <p class="text-sm text-gray-500 mt-1">
-                                            Sisa Kursi:
-                                            @if($jadwal->status == 'tersedia')
-                                                <span class="font-semibold text-brand-green">{{ $jadwal->sisa_kursi }}</span> /
-                                                {{ $jadwal->kuota }}
-                                            @else
-                                                <span class="font-semibold text-red-500">Penuh</span>
-                                            @endif
-                                        </p>
+                                        @if(!$isPast)
+                                            <p class="text-sm text-gray-500 mt-1">
+                                                Sisa Kursi:
+                                                @if($jadwal->status == 'tersedia')
+                                                    <span class="font-semibold text-brand-green">{{ $jadwal->sisa_kursi }}</span> /
+                                                    {{ $jadwal->kuota }}
+                                                @else
+                                                    <span class="font-semibold text-red-500">Penuh</span>
+                                                @endif
+                                            </p>
+                                        @endif
                                         {{-- Tambahan Informasi Perpanjangan Pendaftaran --}}
                                         @if($jadwal->status == 'tersedia' && !$isPast)
                                             <p class="text-xs text-yellow-600 mt-2 bg-yellow-50 inline-block px-3 py-1 rounded-md border border-yellow-100">

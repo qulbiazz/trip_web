@@ -12,6 +12,7 @@ class SiteSetting extends Model
         'hero_title',
         'hero_highlight',
         'hero_description',
+        'hero_image',
         'cta_primary_text',
         'cta_secondary_text',
         'feature_title',
