@@ -9,6 +9,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Support\RawJs;
 
 class JadwalForm
 {
@@ -68,6 +69,9 @@ class JadwalForm
                     ->disabled()
                     ->dehydrated()
                     ->numeric()
+                    ->prefix('Rp') 
+                    ->mask(RawJs::make('$money($input, \',\', \'.\', 0)')) 
+                    ->stripCharacters('.')
                     ->helperText('Harga dasar destinasi.'),
                 Select::make('status')
                     ->label('Status')
