@@ -33,12 +33,7 @@ class DestinasiForm
                     ->label('Harga Dasar')
                     ->required()
                     ->rules(['numeric'])
-                    ->prefix('Rp')
-                    ->mask(RawJs::make('$money($input, \',\', \'.\', 0)'))
-                    ->dehydrateStateUsing(function ($state) {
-                        return str_replace('.', '', $state);
-                    })
-                    ->stripCharacters('.'),
+                    ->prefix('Rp'),
                 FileUpload::make('gambar')
                     ->label('Gambar')
                     ->image()
