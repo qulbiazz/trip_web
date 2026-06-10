@@ -42,7 +42,11 @@ class DestinasiForm
                     ->image()
                     ->disk('public')
                     ->directory('destinasi')
-                    ->visibility('public'),
+                    ->visibility('public')
+                    ->imagePreviewHeight('200')
+                    ->maxSize(5120)
+                    ->downloadable()
+                    ->openable(),
                 Select::make('kategori')
                     ->label('Kategori')
                     ->options([
