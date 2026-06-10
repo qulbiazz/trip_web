@@ -1,7 +1,2 @@
 User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /admin/*
-
-# Sitemap
-Sitemap: http://localhost:8888/PWL2026/PBL/trip_web/public/sitemap.xml
+Disallow:
