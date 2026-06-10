@@ -46,7 +46,13 @@ class DestinasiForm
                     ->imagePreviewHeight('200')
                     ->maxSize(5120)
                     ->downloadable()
-                    ->openable(),
+                    ->openable()
+                    ->afterStateHydrated(function ($component, $state) {
+                        // Strip prefix 'destinasi/' jika masih tersimpan dengan prefix
+                        if ($state && str_starts_with($state, 'destinasi/')) {
+                            $component->state(str_replace('destinasi/', '', $state));
+                        }
+                    }),
                 Select::make('kategori')
                     ->label('Kategori')
                     ->options([
