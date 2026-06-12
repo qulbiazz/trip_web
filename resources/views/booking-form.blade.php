@@ -18,6 +18,7 @@
         .bg-brand-green { background-color: #03C988; }
         .text-brand-yellow { color: #FFCE3F; }
     </style>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body class="font-sans antialiased text-gray-800 bg-gray-50">
@@ -121,7 +122,15 @@
                     <div id="anggota_container" class="space-y-4 mb-8">
                     </div>
 
-                    <hr class="mb-6">
+                    <div class="mb-6 flex flex-col items-center justify-center">
+                        <div class="g-recaptcha shadow-sm rounded-lg overflow-hidden border border-gray-100" data-sitekey="{{ config('services.recaptcha.site_key') }}" data-callback="onRecaptchaSuccess" data-expired-callback="onRecaptchaExpired"></div>
+                        @error('g-recaptcha-response')
+                            <p class="mt-2 text-sm text-red-600 font-medium flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
 
                     <button type="submit"
                         class="w-full bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-4 rounded-xl shadow-md transition-colors text-lg">
@@ -261,7 +270,63 @@
         document.addEventListener('DOMContentLoaded', () => {
             calculateTotal();
             generateAnggotaInputs();
+
+            const bookingForm = document.getElementById('bookingForm');
+            if (bookingForm) {
+                // reCAPTCHA guard runs in CAPTURE phase (first, before other listeners)
+                bookingForm.addEventListener('submit', function(e) {
+                    if (!recaptchaCompleted) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        const recaptchaDiv = document.querySelector('.g-recaptcha');
+                        if (recaptchaDiv) {
+                            recaptchaDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            recaptchaDiv.style.outline = '2px solid #ef4444';
+                            recaptchaDiv.style.borderRadius = '8px';
+                            setTimeout(() => { recaptchaDiv.style.outline = ''; }, 2500);
+                        }
+                        alert('Harap selesaikan verifikasi reCAPTCHA terlebih dahulu.');
+                        return false;
+                    }
+                }, true); // capture phase — runs BEFORE bubble phase listeners
+
+                // Prevent double submission (runs after reCAPTCHA guard passes)
+                bookingForm.addEventListener('submit', function() {
+                    const submitButton = bookingForm.querySelector('button[type="submit"]');
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                        submitButton.classList.add('opacity-75', 'cursor-not-allowed');
+                        submitButton.innerHTML = `
+                            <svg class="animate-spin -ml-1 h-5 w-5 text-white inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" style="animation: spin 1s linear infinite;">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Memproses...
+                        `;
+                    }
+                });
+            }
         });
+
+        // Add standard CSS animation for spin keyframes in case it's not defined
+        const style = document.createElement('style');
+        style.innerHTML = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+        document.head.appendChild(style);
+
+        // reCAPTCHA callbacks (must be global functions)
+        let recaptchaCompleted = false;
+
+        function onRecaptchaSuccess(token) {
+            recaptchaCompleted = true;
+            const recaptchaDiv = document.querySelector('.g-recaptcha');
+            if (recaptchaDiv) {
+                recaptchaDiv.style.outline = '';
+            }
+        }
+
+        function onRecaptchaExpired() {
+            recaptchaCompleted = false;
+        }
     </script>
 </body>
 

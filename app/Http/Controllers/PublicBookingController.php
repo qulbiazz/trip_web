@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Notifications\NewBookingNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 
 class PublicBookingController extends Controller
@@ -58,6 +59,29 @@ class PublicBookingController extends Controller
             'kode_promo' => 'nullable|string|exists:promos,kode',
             'nama_anggota' => 'nullable|array',
             'nama_anggota.*' => 'required|string|max:255',
+            'g-recaptcha-response' => [
+                'required',
+                function (string $attribute, mixed $value, \Closure $fail) {
+                    try {
+                        $response = Http::timeout(10)->asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                            'secret' => config('services.recaptcha.secret_key'),
+                            'response' => $value,
+                            'remoteip' => request()->ip(),
+                        ]);
+
+                        $result = $response->json();
+
+                        if (!($result['success'] ?? false)) {
+                            $errorCodes = $result['error-codes'] ?? [];
+                            \Log::warning('reCAPTCHA verification failed', ['error_codes' => $errorCodes, 'result' => $result]);
+                            $fail('Verifikasi reCAPTCHA gagal. Silakan centang kotak reCAPTCHA dan coba lagi.');
+                        }
+                    } catch (\Exception $e) {
+                        \Log::error('reCAPTCHA request error: ' . $e->getMessage());
+                        $fail('Terjadi kesalahan saat memverifikasi reCAPTCHA. Silakan coba lagi.');
+                    }
+                },
+            ],
         ];
 
         if (str_contains(strtolower($jadwal->destinasi->nama), 'bromo')) {
@@ -105,7 +129,7 @@ class PublicBookingController extends Controller
             }
             $booking->nama_anggota = $validated['nama_anggota'] ?? null;
             $booking->jumlah_peserta = $validated['jumlah_peserta'];
-            $booking->total_bayar = $total_bayar;
+            $booking->total_bayar = (float) $total_bayar;
             $booking->status = 'pending';
             
             $booking->save();
