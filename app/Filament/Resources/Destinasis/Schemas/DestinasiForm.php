@@ -18,7 +18,8 @@ class DestinasiForm
             ->components([
                 TextInput::make('nama')
                     ->label('Nama Destinasi')
-                    ->required(),
+                    ->required()
+                    ->unique(),
                 Textarea::make('deskripsi')
                     ->label('Deskripsi')
                     ->columnSpanFull(),
