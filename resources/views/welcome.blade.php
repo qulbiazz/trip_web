@@ -591,8 +591,7 @@
     <section class="py-20 bg-gray-50 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="absolute top-0 left-0 -mt-20 -ml-20 w-40 h-40 bg-brand-blue/10 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-0 right-0 -mb-20 -mr-20 w-40 h-40 bg-brand-yellow/20 rounded-full blur-3xl">
-            </div>
+            <div class="absolute bottom-0 right-0 -mb-20 -mr-20 w-40 h-40 bg-brand-yellow/20 rounded-full blur-3xl"></div>
 
             <div class="text-center mb-16 relative z-10">
                 <h2 class="text-base text-brand-blue font-semibold tracking-wide uppercase">Testimoni</h2>
@@ -604,52 +603,56 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-                @forelse($testimonis as $index => $testimoni)
-                    @php
-                        // Dynamic avatar classes
-                        $bgClasses = [
-                            'bg-blue-100 text-brand-blue',
-                            'bg-green-100 text-brand-green',
-                            'bg-yellow-100 text-yellow-600',
-                        ];
-                        $avatarClass = $bgClasses[$index % count($bgClasses)];
+            @php
+                $testimoniCount = $testimonis->count();
+                $isSlider = $testimoniCount > 3;
+            @endphp
 
-                        // Dynamic premium translation for middle cards (2nd card, 5th card, etc.)
-                        $transformClass = $index % 3 === 1 ? 'transform md:-translate-y-4' : '';
+            <div class="relative z-10 {{ $isSlider ? 'overflow-hidden pb-4' : '' }}">
+                <div id="testimoni-track" class="{{ $isSlider ? 'flex transition-transform duration-700 ease-in-out' : 'grid grid-cols-1 md:grid-cols-3 gap-8' }}" style="{{ $isSlider ? 'gap: 2rem;' : '' }}">
+                    @forelse($testimonis as $index => $testimoni)
+                        @php
+                            // Warna Avatar
+                            $bgClasses = [
+                                'bg-blue-100 text-brand-blue',
+                                'bg-green-100 text-brand-green',
+                                'bg-yellow-100 text-yellow-600',
+                            ];
+                            $avatarClass = $bgClasses[$index % count($bgClasses)];
+                            $initial = strtoupper(substr($testimoni->nama, 0, 1));
 
-                        // Extract initial
-                        $initial = strtoupper(substr($testimoni->nama, 0, 1));
-                    @endphp
-                    <div
-                        class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative border border-gray-100 {{ $transformClass }}">
-                        <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor" viewBox="0 0 32 32"
-                            aria-hidden="true">
-                            <path
-                                d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z">
-                            </path>
-                        </svg>
-                        <div class="flex items-center mb-6">
-                            <div
-                                class="h-12 w-12 rounded-full {{ $avatarClass }} flex items-center justify-center font-bold text-xl mr-4">
-                                {{ $initial }}
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-bold text-gray-900">{{ $testimoni->nama }}</h4>
-                                <div class="flex text-brand-yellow text-sm">
-                                    {{ str_repeat('★', $testimoni->rating) }}
+                            // Class modifikasi jika BUKAN slider (kartu tengah agak naik)
+                            $transformClass = (!$isSlider && $index % 3 === 1) ? 'transform md:-translate-y-4' : '';
+                            
+                            // Class ukuran jika MENJADI slider
+                            $sliderClass = $isSlider ? 'w-full md:w-[calc(33.333%-1.333rem)] flex-shrink-0' : '';
+                        @endphp
+
+                        <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 relative border border-gray-100 {{ $transformClass }} {{ $sliderClass }}">
+                            <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                                <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                            </svg>
+                            <div class="flex items-center mb-6">
+                                <div class="h-12 w-12 rounded-full {{ $avatarClass }} flex items-center justify-center font-bold text-xl mr-4">
+                                    {{ $initial }}
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-gray-900">{{ $testimoni->nama }}</h4>
+                                    <div class="flex text-brand-yellow text-sm">
+                                        {{ str_repeat('★', $testimoni->rating) }}
+                                    </div>
                                 </div>
                             </div>
+                            <p class="text-gray-600 leading-relaxed italic">
+                                "{{ $testimoni->konten }}"
+                            </p>
                         </div>
-                        <p class="text-gray-600 leading-relaxed italic">
-                            "{{ $testimoni->konten }}"
-                        </p>
-                    </div>
-                @empty
-                    <div class="col-span-3 text-center py-12">
-                        <p class="text-gray-500 text-lg">Belum ada testimoni aktif saat ini.</p>
-                    </div>
-                @endforelse
+                    @empty
+                        <div class="col-span-3 text-center py-12 w-full">
+                            <p class="text-gray-500 text-lg">Belum ada testimoni aktif saat ini.</p>
+                        </div>
+                    @endforelse
+                </div>
             </div>
         </div>
     </section>
@@ -1168,6 +1171,50 @@
             // Initialize slider
             showSlide(0);
             startSlideShow();
+        });
+
+        // Testimoni Auto Slider Logic (Hanya berjalan jika data > 3)
+        document.addEventListener('DOMContentLoaded', function () {
+            const testimoniTrack = document.getElementById('testimoni-track');
+            
+            // Cek apakah track ada dan sedang menggunakan mode slider (punya class flex)
+            if (testimoniTrack && testimoniTrack.classList.contains('flex')) {
+                const cards = testimoniTrack.children;
+                let currentTestimoniIndex = 0;
+                let testimoniInterval;
+                
+                function moveTestimoniSlide() {
+                    const isDesktop = window.innerWidth >= 768;
+                    const visibleCards = isDesktop ? 3 : 1;
+                    const maxIndex = cards.length - visibleCards;
+                    
+                    if (maxIndex <= 0) return; // Mencegah error jika data tidak mencukupi untuk di-slide
+                    
+                    currentTestimoniIndex++;
+                    if (currentTestimoniIndex > maxIndex) {
+                        currentTestimoniIndex = 0; // Reset kembali ke awal jika sudah mentok
+                    }
+                    
+                    const cardWidth = cards[0].offsetWidth;
+                    const gap = 32; // Jarak antar kartu (sesuai gap: 2rem = 32px)
+                    const moveX = currentTestimoniIndex * (cardWidth + gap);
+                    
+                    testimoniTrack.style.transform = `translateX(-${moveX}px)`;
+                }
+
+                // Jalankan auto slide setiap 4 detik
+                testimoniInterval = setInterval(moveTestimoniSlide, 1000);
+
+                // Pause slider saat kursor diletakkan di atas testimoni agar mudah dibaca
+                testimoniTrack.addEventListener('mouseenter', () => clearInterval(testimoniInterval));
+                testimoniTrack.addEventListener('mouseleave', () => testimoniInterval = setInterval(moveTestimoniSlide, 1000));
+
+                // Reset posisi saat ukuran layar diubah untuk mencegah layout rusak
+                window.addEventListener('resize', () => {
+                    currentTestimoniIndex = 0;
+                    testimoniTrack.style.transform = `translateX(0px)`;
+                });
+            }
         });
     </script>
 </body>
