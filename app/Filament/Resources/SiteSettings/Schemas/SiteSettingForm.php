@@ -15,7 +15,7 @@ class SiteSettingForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
-             ->components([
+            ->components([
                 //  Section::make('Informasi Umum')
                 //      ->description('Pengaturan nama website dan status keaktifan halaman utama.')
                 //      ->collapsible()
@@ -45,64 +45,64 @@ class SiteSettingForm
                 //              ->columnSpanFull(),
                 //      ]),
 
-                 Section::make('Bagian Hero (Banner Utama)')
-                     ->description('Teks, tombol (CTA), dan gambar latar belakang yang tampil di bagian atas halaman.')
-                     ->collapsible()
-                     ->columnSpanFull()
-                     ->schema([
-                         Grid::make(2)
-                             ->columnSpanFull()
-                             ->schema([
-                                 TextInput::make('hero_badge')
-                                     ->label('Lencana Hero (Hero Badge)')
-                                     ->placeholder('Contoh: New Promo / Destinasi Impian')
-                                     ->helperText('Teks kecil di atas judul utama.')
-                                     ->required()
-                                     ->maxLength(255),
-                                 TextInput::make('hero_highlight')
-                                     ->label('Sorotan Judul (Hero Highlight)')
-                                     ->placeholder('Contoh: Petualangan Menanti!')
-                                     ->helperText('Kata kunci penting yang diberi sorotan warna khusus.')
-                                     ->required()
-                                     ->maxLength(255),
-                             ]),
-                         TextInput::make('hero_title')
-                             ->label('Judul Utama Hero')
-                             ->placeholder('Contoh: Jelajahi Keindahan Dunia Bersama Kami')
-                             ->helperText('Judul besar utama di bagian banner.')
-                             ->required()
-                             ->maxLength(255),
-                         Textarea::make('hero_description')
-                             ->label('Deskripsi Hero')
-                             ->placeholder('Tulis deskripsi singkat yang menarik pengunjung...')
-                             ->helperText('Teks penjelasan di bawah judul utama.')
-                             ->rows(3)
-                             ->columnSpanFull(),
-                         FileUpload::make('hero_image')
-                             ->label('Gambar Latar Belakang Hero')
-                             ->image()
-                             ->disk('public')
-                             ->directory('site-settings')
-                             ->visibility('public')
-                             ->columnSpanFull()
-                             ->helperText('Unggah gambar resolusi tinggi untuk banner (Rekomendasi: 1920x1080px).'),
-                         Grid::make(2)
-                             ->columnSpanFull()
-                             ->schema([
-                                 TextInput::make('cta_primary_text')
-                                     ->label('Teks Tombol Utama (CTA)')
-                                     ->placeholder('Contoh: Cari Destinasi')
-                                     ->helperText('Teks untuk tombol pencarian utama.')
-                                     ->required()
-                                     ->maxLength(255),
-                                 TextInput::make('cta_secondary_text')
-                                     ->label('Teks Tombol Sekunder (CTA)')
-                                     ->placeholder('Contoh: Hubungi Kami')
-                                     ->helperText('Teks untuk tombol penjelasan tambahan.')
-                                     ->required()
-                                     ->maxLength(255),
-                             ]),
-                     ]),
-             ]);
+                Section::make('Bagian Hero (Banner Utama)')
+                    ->description('Teks, tombol (CTA), dan gambar latar belakang yang tampil di bagian atas halaman.')
+                    ->collapsible()
+                    ->columnSpanFull()
+                    ->schema([
+                        Grid::make(2)
+                            ->columnSpanFull()
+                            ->schema([
+                                TextInput::make('hero_badge')
+                                    ->label('Lencana Hero (Hero Badge)')
+                                    ->placeholder('Contoh: New Promo / Destinasi Impian')
+                                    ->helperText('Teks kecil di atas judul utama.')
+                                    ->required()
+                                    ->maxLength(255),
+                                TextInput::make('hero_highlight')
+                                    ->label('Sorotan Judul (Hero Highlight)')
+                                    ->placeholder('Contoh: Petualangan Menanti!')
+                                    ->helperText('Kata kunci penting yang diberi sorotan warna khusus.')
+                                    ->required()
+                                    ->maxLength(255),
+                            ]),
+                        TextInput::make('hero_title')
+                            ->label('Judul Utama Hero')
+                            ->placeholder('Contoh: Jelajahi Keindahan Dunia Bersama Kami')
+                            ->helperText('Judul besar utama di bagian banner.')
+                            ->required()
+                            ->maxLength(255),
+                        Textarea::make('hero_description')
+                            ->label('Deskripsi Hero')
+                            ->placeholder('Tulis deskripsi singkat yang menarik pengunjung...')
+                            ->helperText('Teks penjelasan di bawah judul utama.')
+                            ->rows(3)
+                            ->columnSpanFull(),
+                        FileUpload::make('hero_image')
+                            ->label('Gambar Latar Belakang Hero')
+                            ->image()
+                            ->disk('public')
+                            ->directory('site-settings')
+                            ->visibility('public')
+                            ->columnSpanFull()
+                            ->helperText('Unggah gambar resolusi tinggi untuk banner (Rekomendasi: 1920x1080px).'),
+                        Grid::make(2)
+                            ->columnSpanFull()
+                            ->schema([
+                                TextInput::make('cta_primary_text')
+                                    ->label('Teks Tombol Utama (CTA)')
+                                    ->placeholder('Contoh: Cari Destinasi')
+                                    ->helperText('Teks untuk tombol pencarian utama.')
+                                    ->required()
+                                    ->maxLength(255),
+                                TextInput::make('cta_secondary_text')
+                                    ->label('Teks Tombol Sekunder (CTA)')
+                                    ->placeholder('Contoh: Hubungi Kami')
+                                    ->helperText('Teks untuk tombol penjelasan tambahan.')
+                                    ->required()
+                                    ->maxLength(255),
+                            ]),
+                    ]),
+            ]);
     }
 }
