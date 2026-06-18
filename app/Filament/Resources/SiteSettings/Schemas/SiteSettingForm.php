@@ -85,7 +85,14 @@ class SiteSettingForm
                             ->directory('site-settings')
                             ->visibility('public')
                             ->columnSpanFull()
-                            ->helperText('Unggah gambar resolusi tinggi untuk banner (Rekomendasi: 1920x1080px).'),
+                            ->helperText('Unggah gambar resolusi tinggi (Minimal: 1280x720px, Rekomendasi: 1920x1080px. Format: JPG/PNG/WEBP. Maks: 5MB).')
+                            ->rules([
+                                'mimes:jpg,jpeg,png,webp',
+                                'max:5120',
+                                'dimensions:min_width=1280,min_height=720' // <-- Ini validasi minimal panjang dan lebarnya
+                            ])
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->maxSize(5120),
                         Grid::make(2)
                             ->columnSpanFull()
                             ->schema([
