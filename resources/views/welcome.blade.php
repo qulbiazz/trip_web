@@ -103,8 +103,7 @@
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#destinasi"
                         class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Destinasi</a>
-                    <a href="#promo"
-                        class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Promo</a>
+                    <a href="#promo" class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Promo</a>
                     <a href="#lokasi"
                         class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Lokasi</a>
                     {{-- @auth
@@ -206,109 +205,106 @@
         @endif
 
         <div class="absolute inset-0 w-full h-full z-0">
-            @if ($siteSettings->isEmpty())
-                <!-- Fallback Default Slide -->
+
+            @php
+                $defaultBg = asset('images/hero-bg.png');
+            @endphp
+            <div class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center transition-all duration-1000 ease-in-out opacity-100 z-10"
+                data-slide-index="0">
+                <div class="absolute inset-0 bg-center bg-cover bg-no-repeat"
+                    style="background-image: url('{{ $defaultBg }}');">
+                    <span class="w-full h-full absolute opacity-50 bg-black"></span>
+                    <div class="absolute inset-0 bg-gradient-hero mix-blend-multiply"></div>
+                </div>
+                <div class="container relative mx-auto px-4 z-20 text-center pt-20 pb-32">
+                    <div class="max-w-3xl mx-auto mt-16">
+                        <span
+                            class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm slide-item transition-all duration-700 delay-150 transform translate-y-0 opacity-100">
+                            TEMUKAN KEINDAHAN DUNIA
+                        </span>
+                        <h1
+                            class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg slide-item transition-all duration-700 delay-300 transform translate-y-0 opacity-100">
+                            Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
+                        </h1>
+                        <p
+                            class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light slide-item transition-all duration-700 delay-500 transform translate-y-0 opacity-100">
+                            Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi
+                            eksotis bersama kami.
+                        </p>
+                        <div
+                            class="flex flex-col sm:flex-row justify-center gap-4 slide-item transition-all duration-700 delay-700 transform translate-y-0 opacity-100">
+                            <a href="#destinasi"
+                                class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
+                                Mulai Eksplorasi
+                            </a>
+                            <a href="#promo"
+                                class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                    </path>
+                                </svg>
+                                Lihat Promo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @foreach ($siteSettings as $index => $slideSetting)
                 @php
-                    $defaultBg = asset('images/hero-bg.png');
+                    $slideIndex = $index + 1; // Ditambah 1 karena Index 0 sudah dipakai Default Slide
+                    $slideBg = $slideSetting->hero_image ? asset('storage/' . $slideSetting->hero_image) : asset('images/hero-bg.png');
                 @endphp
-                <div
-                    class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center opacity-100 z-10">
-                    <div class="absolute inset-0 bg-center bg-cover"
-                        style="background-image: url('{{ $defaultBg }}');">
+                <div class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center transition-all duration-1000 ease-in-out opacity-0 z-0 pointer-events-none"
+                    data-slide-index="{{ $slideIndex }}">
+                    <div class="absolute inset-0 bg-center bg-cover bg-no-repeat"
+                        style="background-image: url('{{ $slideBg }}');">
                         <span class="w-full h-full absolute opacity-50 bg-black"></span>
                         <div class="absolute inset-0 bg-gradient-hero mix-blend-multiply"></div>
                     </div>
                     <div class="container relative mx-auto px-4 z-20 text-center pt-20 pb-32">
                         <div class="max-w-3xl mx-auto mt-16">
                             <span
-                                class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm">
-                                TEMUKAN KEINDAHAN DUNIA
+                                class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm slide-item transition-all duration-700 delay-150 transform translate-y-4 opacity-0">
+                                {{ $slideSetting->hero_badge ?? 'TEMUKAN KEINDAHAN DUNIA' }}
                             </span>
-                            <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg">
-                                Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
+                            <h1
+                                class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg slide-item transition-all duration-700 delay-300 transform translate-y-4 opacity-0">
+                                @if ($slideSetting->hero_title || $slideSetting->hero_highlight)
+                                    {{ $slideSetting->hero_title }} <span
+                                        class="text-brand-green">{{ $slideSetting->hero_highlight }}</span>
+                                @else
+                                    Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
+                                @endif
                             </h1>
-                            <p class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light">
-                                Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi
-                                destinasi eksotis bersama kami.
+                            <p
+                                class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light slide-item transition-all duration-700 delay-500 transform translate-y-4 opacity-0">
+                                {{ $slideSetting->hero_description ?? 'Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi eksotis bersama kami.' }}
                             </p>
-                            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <div
+                                class="flex flex-col sm:flex-row justify-center gap-4 slide-item transition-all duration-700 delay-700 transform translate-y-4 opacity-0">
                                 <a href="#destinasi"
                                     class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
-                                    Mulai Eksplorasi
+                                    {{ $slideSetting->cta_primary_text ?? 'Mulai Eksplorasi' }}
                                 </a>
                                 <a href="#promo"
                                     class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor"
-                                        viewBox="0 0 20 20">
+                                    <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor" viewBox="0 0 20 20">
                                         <path
                                             d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
                                         </path>
                                     </svg>
-                                    Lihat Promo
+                                    {{ $slideSetting->cta_secondary_text ?? 'Lihat Promo' }}
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            @else
-                @foreach ($siteSettings as $index => $slideSetting)
-                    @php
-                        $slideBg = $slideSetting->hero_image
-                            ? asset('storage/' . $slideSetting->hero_image)
-                            : asset('images/hero-bg.png');
-                    @endphp
-                    <div class="hero-slide absolute inset-0 w-full h-full flex content-center items-center justify-center transition-all duration-1000 ease-in-out {{ $index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none' }}"
-                        data-slide-index="{{ $index }}">
-                        <div class="absolute inset-0 bg-center bg-cover bg-no-repeat"
-                            style="background-image: url('{{ $slideBg }}');">
-                            <span class="w-full h-full absolute opacity-50 bg-black"></span>
-                            <div class="absolute inset-0 bg-gradient-hero mix-blend-multiply"></div>
-                        </div>
-                        <div class="container relative mx-auto px-4 z-20 text-center pt-20 pb-32">
-                            <div class="max-w-3xl mx-auto mt-16">
-                                <span
-                                    class="inline-block py-1 px-3 rounded-full bg-brand-yellow text-gray-900 text-sm font-bold tracking-wider mb-6 shadow-sm slide-item transition-all duration-700 delay-150 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
-                                    {{ $slideSetting->hero_badge ?? 'TEMUKAN KEINDAHAN DUNIA' }}
-                                </span>
-                                <h1
-                                    class="text-white font-bold text-5xl md:text-7xl leading-tight mb-6 drop-shadow-lg slide-item transition-all duration-700 delay-300 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
-                                    @if ($slideSetting->hero_title || $slideSetting->hero_highlight)
-                                        {{ $slideSetting->hero_title }} <span
-                                            class="text-brand-green">{{ $slideSetting->hero_highlight }}</span>
-                                    @else
-                                        Perjalanan <span class="text-brand-green">Impianmu</span> Dimulai disini
-                                    @endif
-                                </h1>
-                                <p
-                                    class="mt-4 text-xl md:text-2xl text-gray-200 mb-10 drop-shadow-md font-light slide-item transition-all duration-700 delay-500 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
-                                    {{ $slideSetting->hero_description ?? 'Lokachara menghadirkan pengalaman liburan premium dengan harga terbaik. Jelajahi destinasi eksotis bersama kami.' }}
-                                </p>
-                                <div
-                                    class="flex flex-col sm:flex-row justify-center gap-4 slide-item transition-all duration-700 delay-700 transform {{ $index === 0 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0' }}">
-                                    <a href="#destinasi"
-                                        class="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg">
-                                        {{ $slideSetting->cta_primary_text ?? 'Mulai Eksplorasi' }}
-                                    </a>
-                                    <a href="#promo"
-                                        class="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center">
-                                        <svg class="w-5 h-5 mr-2 text-brand-yellow" fill="currentColor"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                                            </path>
-                                        </svg>
-                                        {{ $slideSetting->cta_secondary_text ?? 'Lihat Promo' }}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @endif
+            @endforeach
         </div>
 
-        @if (!$siteSettings->isEmpty() && $siteSettings->count() > 1)
-            <!-- Navigation Arrows -->
+        @if ($siteSettings->count() > 0)
             <button class="hero-arrow hero-arrow-prev" id="hero-prev" aria-label="Previous slide">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -479,42 +475,48 @@
             </div>
             @if($destinasis->hasPages())
                 <div class="mt-12 flex justify-center">
-                    <div class="inline-flex items-center bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-                        
-                        {{-- Tombol Previous (<) --}}
-                        @if ($destinasis->onFirstPage())
-                            <span class="px-5 py-3 text-gray-300 border-r border-gray-100 cursor-not-allowed">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
-                                </svg>
+                    <div
+                        class="inline-flex items-center bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+
+                        {{-- Tombol Previous (<) --}} @if ($destinasis->onFirstPage()) <span
+                            class="px-5 py-3 text-gray-300 border-r border-gray-100 cursor-not-allowed">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7">
+                                </path>
+                            </svg>
                             </span>
                         @else
-                            <a href="{{ $destinasis->previousPageUrl() }}#destinasi" class="px-5 py-3 text-[#1A6DFF] hover:bg-blue-50 border-r border-gray-100 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
-                                </svg>
-                            </a>
-                        @endif
+                                <a href="{{ $destinasis->previousPageUrl() }}#destinasi"
+                                    class="px-5 py-3 text-[#1A6DFF] hover:bg-blue-50 border-r border-gray-100 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M15 19l-7-7 7-7"></path>
+                                    </svg>
+                                </a>
+                            @endif
 
-                        {{-- Info Halaman (X OF Y) --}}
-                        <span class="px-8 py-3 font-bold text-gray-900 text-sm tracking-widest uppercase">
-                            {{ $destinasis->currentPage() }} OF {{ $destinasis->lastPage() }}
-                        </span>
-
-                        {{-- Tombol Next (>) --}}
-                        @if ($destinasis->hasMorePages())
-                            <a href="{{ $destinasis->nextPageUrl() }}#destinasi" class="px-5 py-3 text-[#1A6DFF] hover:bg-blue-50 border-l border-gray-100 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        @else
-                            <span class="px-5 py-3 text-gray-300 border-l border-gray-100 cursor-not-allowed">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                                </svg>
+                            {{-- Info Halaman (X OF Y) --}}
+                            <span class="px-8 py-3 font-bold text-gray-900 text-sm tracking-widest uppercase">
+                                {{ $destinasis->currentPage() }} OF {{ $destinasis->lastPage() }}
                             </span>
-                        @endif
+
+                            {{-- Tombol Next (>) --}}
+                            @if ($destinasis->hasMorePages())
+                                <a href="{{ $destinasis->nextPageUrl() }}#destinasi"
+                                    class="px-5 py-3 text-[#1A6DFF] hover:bg-blue-50 border-l border-gray-100 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            @else
+                                <span class="px-5 py-3 text-gray-300 border-l border-gray-100 cursor-not-allowed">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </span>
+                            @endif
 
                     </div>
                 </div>
@@ -621,8 +623,8 @@
                     @endphp
                     <div
                         class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 relative border border-gray-100 {{ $transformClass }}">
-                        <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor"
-                            viewBox="0 0 32 32" aria-hidden="true">
+                        <svg class="absolute top-6 right-6 w-10 h-10 text-gray-200" fill="currentColor" viewBox="0 0 32 32"
+                            aria-hidden="true">
                             <path
                                 d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z">
                             </path>
@@ -707,7 +709,8 @@
                                         class="block hover:text-brand-blue cursor-pointer transition-colors">
                                         +62 859 5441 3123
                                     </a>
-                                    <a href="https://instagram.com/lokachara.trip" target="_blank" rel="noopener noreferrer"
+                                    <a href="https://instagram.com/lokachara.trip" target="_blank"
+                                        rel="noopener noreferrer"
                                         class="block hover:text-brand-blue cursor-pointer transition-colors">
                                         @lokachara.trip
                                     </a>
@@ -758,7 +761,8 @@
                 <div>
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase mb-4">Layanan</h3>
                     <ul class="space-y-3">
-                        {{-- <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Pesan
+                        {{-- <li><a href="#"
+                                class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Pesan
                                 Tiket</a></li> --}}
                         <li><a href="#destinasi"
                                 class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Destinasi Jawa
@@ -766,7 +770,8 @@
                         <li><a href="#destinasi"
                                 class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Destinasi Luar
                                 Jawa Timur</a></li>
-                        {{-- <li><a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Tour
+                        {{-- <li><a href="#"
+                                class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Tour
                                 Guide</a></li> --}}
                     </ul>
                 </div>
@@ -937,7 +942,7 @@
 
     <script>
         // Navbar blur and shadow on scroll
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const nav = document.querySelector('nav');
             if (window.scrollY > 10) {
                 nav.classList.add('shadow-sm');
@@ -973,7 +978,7 @@
         });
 
         // Tutorial Onboarding logic
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const tutorialSeen = localStorage.getItem('booking_tutorial_seen');
             const modal = document.getElementById('tutorial-modal');
             const card = document.getElementById('tutorial-card');
@@ -1084,7 +1089,7 @@
         });
 
         // Hero Slider Carousel Logic
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const slides = document.querySelectorAll('.hero-slide');
             const nextBtn = document.getElementById('hero-next');
             const prevBtn = document.getElementById('hero-prev');
